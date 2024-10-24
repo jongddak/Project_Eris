@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 19237666}
   - component: {fileID: 19237668}
   - component: {fileID: 19237667}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 287639230}
   - component: {fileID: 287639232}
   - component: {fileID: 287639231}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,9 +389,9 @@ GameObject:
   - component: {fileID: 1218073893}
   - component: {fileID: 1218073895}
   - component: {fileID: 1218073894}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -679,6 +679,9 @@ GameObject:
   - component: {fileID: 2109625205}
   - component: {fileID: 2109625208}
   - component: {fileID: 2109625207}
+  - component: {fileID: 2109625209}
+  - component: {fileID: 2109625210}
+  - component: {fileID: 2109625211}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -773,7 +776,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &2109625208
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -790,3 +793,63 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &2109625209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109625204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1cd5983b73e62d40b7883553e1ce734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curState: 0
+  coll: {fileID: 2109625211}
+  maxSpeed: 10
+  maxFallSpeed: 10
+  moveAccel: 30
+  jumpSpeed: 15
+  dashSpeed: 25
+  dashTime: 0.2
+  isDashing: 0
+  canDash: 1
+--- !u!114 &2109625210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109625204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a944e5ea7e8ae7240b9666834fdc31e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallMultiplier: 4
+  lowJumpMultiplier: 7
+--- !u!114 &2109625211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109625204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b47851866825a44ac3b067b05716b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionRadius: 0.25
+  bottomOffset: {x: 0, y: -0.7}
+  rightOffset: {x: 0.35, y: 0}
+  leftOffset: {x: -0.35, y: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  onGround: 0
+  onWall: 0
+  onRightWall: 0
+  onLeftWall: 0
+  wallSide: 0
