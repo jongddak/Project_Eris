@@ -21,8 +21,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maxFallSpeed = 10f;  // 최대 낙하 속도
     [SerializeField] float moveAccel = 30f;     // 이동 가속도
     [SerializeField] float jumpSpeed = 15f;     // 점프 속도
-
     [SerializeField] bool canMove = true;       // 이동 가능 여부(스턴용)
+
+    [Header("PlayerStat")]
+    [SerializeField] float attackPoint;
+    [SerializeField] float curHp;
+    [SerializeField] float maxHp;
 
     [Header("DashInfo")]
     [SerializeField] float dashSpeed = 25f;     // 대시 속도
@@ -48,7 +52,11 @@ public class PlayerController : MonoBehaviour
     private static int dieHash = Animator.StringToHash("Die");
 
     //자연스러운 회전을 위해 플레이어의 기준점을 바꾼 게임오브젝트
-    [SerializeField] private GameObject gameObject; 
+    [SerializeField] private GameObject gameObject;
+
+    [SerializeField] bool isAttack = false;
+    [SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
+    [SerializeField] private GameObject attackEffectPrefabs; //공격 이펙트
 
     private void Awake()
     {
@@ -82,10 +90,10 @@ public class PlayerController : MonoBehaviour
                 DashUpdate();
                 break;
             case PlayerState.Attack:
-                DashUpdate();
+                AttackUpdate();
                 break;
             case PlayerState.Die:
-                DashUpdate();
+                DieUpdate();
                 break;
         }
     }
@@ -107,6 +115,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             Jump();
+        }
+        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+        {
+            StartCoroutine(Attack());        // 공격 코루틴 호출
         }
     }
 
@@ -130,6 +142,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X) && canDash)
         {
             Dash();
+        }
+        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+        {
+            StartCoroutine(Attack());        // 공격 코루틴 호출
         }
     }
 
@@ -162,6 +178,10 @@ public class PlayerController : MonoBehaviour
         {
             Dash();
         }
+        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+        {
+            StartCoroutine(Attack());        // 공격 코루틴 호출
+        }
     }
 
     private void FallUpdate()
@@ -187,6 +207,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X) && canDash)
         {
             Dash();
+        }
+        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+        {
+            StartCoroutine(Attack());        // 공격 코루틴 호출
         }
     }
 
@@ -352,6 +376,26 @@ public class PlayerController : MonoBehaviour
         canDash = false;
     }
 
+    private IEnumerator Attack()
+    {
+        isAttack = true;
+        curState = PlayerState.Attack;  // 공격 상태로 전환
+
+        // 공격 이펙트 생성
+        GameObject attackEffect = Instantiate(attackEffectPrefabs, transform.position, Quaternion.identity);
+
+        // 1초 대기
+        yield return new WaitForSeconds(1f);
+
+        // 이펙트 및 콜라이더 삭제
+        Destroy(attackEffect);
+
+        // 공격 상태를 Idle로 전환
+        curState = PlayerState.Idle;
+
+        isAttack = false;
+    }
+
     public void StopMovement()
     {
         // 플레이어의 속도를 0으로 설정하여 움직임을 멈춤
@@ -397,6 +441,8 @@ public class PlayerController : MonoBehaviour
             playerAnimator.CrossFade(curAniHash, 0.1f, 0);
         }
     }
+
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
