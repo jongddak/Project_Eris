@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Collision coll;
 
-    private SpriteRenderer spriteRenderer;
+    //private SpriteRenderer spriteRenderer;
 
 
     [Header("PlayerInfo")]
@@ -27,22 +27,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool isDashing = false;    // 대시 중인지 여부
     [SerializeField] bool canDash = true;       // 대시 가능 여부
 
-    /*[SerializeField] Animator playerAnimator;
+    [SerializeField] Animator playerAnimator;
     private int curAniHash;
 
     private static int idleHash = Animator.StringToHash("Idle");
-    private static int walkHash = Animator.StringToHash("Run");
+    private static int runHash = Animator.StringToHash("Run");
     private static int jumpHash = Animator.StringToHash("Jump");
     private static int fallHash = Animator.StringToHash("Fall");
     private static int grabHash = Animator.StringToHash("Grab");
     private static int attackHash = Animator.StringToHash("Attack");
-    private static int dieHash = Animator.StringToHash("Die");*/
+    private static int dieHash = Animator.StringToHash("Die");
 
+    [SerializeField] private GameObject gameObject;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        //spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     private void Update()
@@ -77,10 +78,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*private void FixedUpdate()
+    private void FixedUpdate()
     {
         AnimatorPlay();
-    }*/
+    }
 
     private void IdleUpdate()
     {
@@ -231,6 +232,14 @@ public class PlayerController : MonoBehaviour
         {
             spriteRenderer.flipX = false; // 오른쪽 방향으로 이동 시 스프라이트를 정상으로
         }*/
+        if (xInput > 0)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (xInput < 0)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
 
         //float xSpeed = Mathf.Lerp(rb.velocity.x, xInput * maxSpeed, moveAccel);
         float xSpeed = Mathf.MoveTowards(rb.velocity.x, xInput * maxSpeed, Time.deltaTime * moveAccel);
@@ -312,34 +321,35 @@ public class PlayerController : MonoBehaviour
         curState = PlayerState.Idle;
     }
 
-    /*private void AnimatorPlay()
+    private void AnimatorPlay()
     {
         int temp = idleHash;
         if (curState == PlayerState.Idle)
         {
             temp = idleHash;
         }
-        if (curState == PlayerState.Walk)
+        if (curState == PlayerState.Run)
         {
-            temp = walkHash;
-        }
+            temp = runHash;
+        }    
         if (curState == PlayerState.Jump)
         {
             temp = jumpHash;
         }
-        if (curState == PlayerState.Fall)
+        /*if (curState == PlayerState.Fall)
         {
             temp = fallHash;
         }
         if (curState == PlayerState.Grab)
         {
             temp = grabHash;
-        }
+        }*/
 
         if (curAniHash != temp)
         {
             curAniHash = temp;
-            playerAnimator.Play(curAniHash);
+            //playerAnimator.Play(curAniHash);
+            playerAnimator.CrossFade(curAniHash, 0.1f, 0);
         }
-    }*/
+    }
 }
