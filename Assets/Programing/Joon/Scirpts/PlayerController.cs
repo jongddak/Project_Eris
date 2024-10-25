@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    enum PlayerState {Idle, Run, Jump, Fall, Grab, Dash, Attack, Die};
-    [SerializeField] PlayerState curState;
+    //플레이어가 가질 수 있는 상태
+    enum PlayerState {Idle, Run, Jump, Fall, Grab, Dash, Attack, Die}; 
+    [SerializeField] PlayerState curState;     // 플레이어의 현재 상태
 
     private Rigidbody2D rb;
 
@@ -29,12 +30,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool canDash = true;       // 대시 가능 여부
 
     [Header("GrapInfo")]
-    [SerializeField] float SlipSpeed = 1f;
+    [SerializeField] float SlipSpeed = 1f;      //벽을 붙잡고 있을 때 떨어지는 속도
 
 
-    [SerializeField] Animator playerAnimator;
-    private int curAniHash;
+    [SerializeField] Animator playerAnimator;  
+    private int curAniHash;                     //현재 진행할 애니메이션의 해쉬를 담는 변수
 
+    //플레이어 애니메이션의 파라미터 해시 생성
     private static int idleHash = Animator.StringToHash("Idle");
     private static int runHash = Animator.StringToHash("Run");
     private static int jumpHash = Animator.StringToHash("Jump");
@@ -43,7 +45,8 @@ public class PlayerController : MonoBehaviour
     private static int attackHash = Animator.StringToHash("Attack");
     private static int dieHash = Animator.StringToHash("Die");
 
-    [SerializeField] private GameObject gameObject;
+    //자연스러운 회전을 위해 플레이어의 기준점을 바꾼 게임오브젝트
+    [SerializeField] private GameObject gameObject; 
 
     private void Awake()
     {
@@ -92,6 +95,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
 
+        //좌우 입력값이 있을 때
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
             curState = PlayerState.Run;
@@ -106,6 +110,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
 
+        //플레이어의 속도가 거의 0일 때
         if (rb.velocity.sqrMagnitude < 0.01f)
         {
             curState = PlayerState.Idle;
@@ -128,6 +133,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
 
+        //땅에 붙어 있으며 y축 속도의 변화가 거의 없을 때
         if (coll.onGround && rb.velocity.y < 0.01f)
         {
             curState = PlayerState.Idle;
@@ -147,6 +153,7 @@ public class PlayerController : MonoBehaviour
         {
             GrabJump();
         }
+
         if (Input.GetKeyDown(KeyCode.X) && canDash)
         {
             Dash();
@@ -296,13 +303,19 @@ public class PlayerController : MonoBehaviour
     {
         curState = PlayerState.Jump;
         rb.gravityScale = 1f;
+        
         if (coll.onLeftWall)
         {
             rb.velocity = new Vector2(13f, 10f);
+            //붙잡은 벽이 왼쪽벽일 때 벽점프시 기본방향인 오른쪽을 보도록
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+        
         else if (coll.onRightWall)
         {
             rb.velocity = new Vector2(-13f, 10f);
+            //붙잡은 벽이 오른쪽벽일 때 벽점프시 반대방향인 왼쪽을 보도록
+            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
@@ -365,6 +378,8 @@ public class PlayerController : MonoBehaviour
         {
             curAniHash = temp;
             //playerAnimator.Play(curAniHash);
+
+            //애니메이션을 현재 해시값을 통해 플레이하며 전환시간을 0.1초로 두고 기본 레이어의 애니메이션을 전환한다.
             playerAnimator.CrossFade(curAniHash, 0.1f, 0);
         }
     }
