@@ -707,10 +707,12 @@ MonoBehaviour:
   maxFallSpeed: 10
   moveAccel: 30
   jumpSpeed: 15
+  canMove: 1
   dashSpeed: 25
   dashTime: 0.2
   isDashing: 0
   canDash: 1
+  SlipSpeed: 1
   playerAnimator: {fileID: 1285081680}
   gameObject: {fileID: 1355452215}
 --- !u!61 &1355452224
@@ -935,10 +937,12 @@ MonoBehaviour:
   maxFallSpeed: 10
   moveAccel: 30
   jumpSpeed: 15
+  canMove: 1
   dashSpeed: 25
   dashTime: 0.2
   isDashing: 0
   canDash: 1
+  SlipSpeed: 1
   playerAnimator: {fileID: 1373819552}
   gameObject: {fileID: 0}
 --- !u!1 &1675666559

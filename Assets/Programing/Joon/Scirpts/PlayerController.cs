@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveAccel = 30f;     // 이동 가속도
     [SerializeField] float jumpSpeed = 15f;     // 점프 속도
 
+    [SerializeField] bool canMove = true;       // 이동 가능 여부(스턴용)
+
     [Header("DashInfo")]
     [SerializeField] float dashSpeed = 25f;     // 대시 속도
     [SerializeField] float dashTime = 0.2f;     // 대시 지속 시간
@@ -56,6 +58,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!canMove) return;
+
         //상태에 따른 업데이트 함수 호출
         switch (curState)
         {
@@ -328,10 +332,20 @@ public class PlayerController : MonoBehaviour
         float xInput = Input.GetAxisRaw("Horizontal");
         float yInput = Input.GetAxisRaw("Vertical");
 
+        //대시 방향 결정
         Vector2 dashDirection = new Vector2(xInput, yInput).normalized;
+
         if (dashDirection == Vector2.zero)
         {
-            dashDirection = new Vector2(transform.localScale.x, 0);  // 입력이 없으면 바라보는 방향으로 대시
+            // 플레이어의 회전 값에 따라 대시 방향 결정
+            if (Mathf.Approximately(transform.rotation.eulerAngles.y, 0f)) // 오른쪽을 바라볼 때
+            {
+                dashDirection = Vector2.right; // 오른쪽으로 대시
+            }
+            else if (Mathf.Approximately(transform.rotation.eulerAngles.y, 180f)) // 왼쪽을 바라볼 때
+            {
+                dashDirection = Vector2.left; // 왼쪽으로 대시
+            }
         }
 
         rb.velocity = dashDirection * dashSpeed;
@@ -382,5 +396,24 @@ public class PlayerController : MonoBehaviour
             //애니메이션을 현재 해시값을 통해 플레이하며 전환시간을 0.1초로 두고 기본 레이어의 애니메이션을 전환한다.
             playerAnimator.CrossFade(curAniHash, 0.1f, 0);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Boss")) // 보스와 충돌 시
+        {
+            StartCoroutine(StunTime(1f));            // 1초 동안 입력 비활성화
+        }
+    }
+
+    private IEnumerator StunTime(float duration)
+    {
+        canMove = false;          // 입력 비활성화
+        playerAnimator.speed = 0; // 모든 애니메이션 일시 정지
+
+        yield return new WaitForSeconds(duration); // 1초 대기
+
+        canMove = true;           // 입력 다시 활성화
+        playerAnimator.speed = 1; // 애니메이션 재활성화
     }
 }
