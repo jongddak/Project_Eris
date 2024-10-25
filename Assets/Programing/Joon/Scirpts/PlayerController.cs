@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -26,6 +27,10 @@ public class PlayerController : MonoBehaviour
     private float dashTimeLeft;                 // 대시 남은 시간
     [SerializeField] bool isDashing = false;    // 대시 중인지 여부
     [SerializeField] bool canDash = true;       // 대시 가능 여부
+
+    [Header("GrapInfo")]
+    [SerializeField] float SlipSpeed = 1f;
+
 
     [SerializeField] Animator playerAnimator;
     private int curAniHash;
@@ -176,12 +181,23 @@ public class PlayerController : MonoBehaviour
 
     private void GrabUpdate()
     {
-        GrabMove();
+        //GrabMove();
 
         if (Input.GetKeyUp(KeyCode.Z))
         {
             UnGrab();
         }
+
+        if (!coll.onWall) // 벽에 붙어있지 않을 때
+        {
+            rb.gravityScale = 0f; // 중력 비활성화
+        }
+        else
+        {
+            rb.gravityScale = 1f; // 중력 활성화
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -SlipSpeed)); // 서서히 떨어짐
+        }
+
         if (Input.GetKeyDown(KeyCode.C))
         {
             GrabJump();
@@ -271,10 +287,10 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = 1f;
     }
 
-    private void GrabMove()
+    /*private void GrabMove()
     {
         rb.velocity = Vector2.up * Input.GetAxisRaw("Vertical") * 3f;
-    }
+    }*/
 
     private void GrabJump()
     {
