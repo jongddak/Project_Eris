@@ -7,6 +7,8 @@ public class SamplePlayer : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb; // Rigidbody Á¦¾î
     [SerializeField] float jumpPower;
+    [SerializeField] float playerHp;
+
     private void Update()
     {
 
@@ -18,5 +20,10 @@ public class SamplePlayer : MonoBehaviour
     private void Jump()
     {
         rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        playerHp -= damage;
     }
 }
