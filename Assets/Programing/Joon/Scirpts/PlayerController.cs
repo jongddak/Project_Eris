@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    //자연스러운 회전을 위해 플레이어의 기준점을 바꾼 게임오브젝트
+    [SerializeField] private GameObject gameObjectRotationPoint;
+
     //플레이어가 가질 수 있는 상태
     enum PlayerState {Idle, Run, Jump, Fall, Grab, Dash, Attack, Die}; 
     [SerializeField] PlayerState curState;     // 플레이어의 현재 상태
@@ -38,7 +42,7 @@ public class PlayerController : MonoBehaviour
     [Header("GrapInfo")]
     [SerializeField] float SlipSpeed = 1f;      //벽을 붙잡고 있을 때 떨어지는 속도
 
-
+    [Header("AnamationInfo")]
     [SerializeField] Animator playerAnimator;  
     private int curAniHash;                     //현재 진행할 애니메이션의 해쉬를 담는 변수
 
@@ -51,9 +55,7 @@ public class PlayerController : MonoBehaviour
     private static int attackHash = Animator.StringToHash("Attack");
     private static int dieHash = Animator.StringToHash("Die");
 
-    //자연스러운 회전을 위해 플레이어의 기준점을 바꾼 게임오브젝트
-    [SerializeField] private GameObject gameObject;
-
+    [Header("AttackInfo")]
     [SerializeField] bool isAttack = false;
     [SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
     [SerializeField] private GameObject attackEffectPrefabs; //공격 이펙트
@@ -131,7 +133,7 @@ public class PlayerController : MonoBehaviour
         {
             curState = PlayerState.Idle;
         }
-        if (rb.velocity.y < -0.01f)
+        if (rb.velocity.y < -0.01f && !coll.onGround)
         {
             curState = PlayerState.Fall;
         }
@@ -159,7 +161,7 @@ public class PlayerController : MonoBehaviour
             curState = PlayerState.Idle;
             canDash = true;
         }
-        else if (rb.velocity.y < -0.01f)
+        else if (rb.velocity.y < -0.01f && !coll.onGround)
         {
             curState = PlayerState.Fall;  // 낙하 상태로 전환
         }
