@@ -139,7 +139,7 @@ public class TestBossState : MonoBehaviour
         state = BossState.Attack;
 
         isOnPattern = true;
-        bossPatternNum = Random.Range(1, 5);
+        bossPatternNum = Random.Range(3, 4);
         Debug.Log($"{bossPatternNum}번 패턴 실행");
         switch (bossPatternNum)
         {
