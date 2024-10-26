@@ -131,7 +131,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8653719598885068355, guid: 6b640f7fc7130c549bc6184c259d0e1a, type: 3}
       propertyPath: m_Name
-      value: boss 2_1
+      value: boss 1_1
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 6b640f7fc7130c549bc6184c259d0e1a, type: 3}
       propertyPath: m_RootOrder
