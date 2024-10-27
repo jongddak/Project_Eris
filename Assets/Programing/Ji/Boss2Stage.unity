@@ -673,6 +673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeleteTime: 3
+  spriteRenderer: {fileID: 1348544690}
 --- !u!212 &1348544690
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1510,6 +1511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeleteTime: 3
+  spriteRenderer: {fileID: 2055479751}
 --- !u!212 &2055479751
 SpriteRenderer:
   m_ObjectHideFlags: 0
