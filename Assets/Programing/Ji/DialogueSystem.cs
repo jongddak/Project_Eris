@@ -3,6 +3,7 @@ using UnityEngine;
 public class DialogueSystem : MonoBehaviour
 {
     /* 대사 스크립트 관련 유튜브 영상
+     * https://www.youtube.com/watch?v=DPWvoUlHbjg&list=PLUZ5gNInsv_NG_UKZoua8goQbtseAo8Ow&index=11
      * https://www.youtube.com/watch?v=1fRbGvQlIEQ
      * https://www.youtube.com/watch?v=_04sCWLHoXU
      * https://www.youtube.com/watch?v=qJjfYvEYKiE
