@@ -38,19 +38,14 @@ public class Boss1Phase1 : MonoBehaviour
         StartCoroutine("BossDo");
         curBossState = state;
     }
-
-    private void Update()
-    {
-       
-    }
     IEnumerator BossDo() 
     {
-        yield return new WaitForSeconds(0.1f);
+        WaitForSeconds time = new WaitForSeconds(0.0125f);  // 1초에 80번 호출
         curCoroutine = StartCoroutine(Walk());
         while (true)
         {
             Debug.Log("코루틴 도는중");
-            yield return new WaitForSeconds(0.0125f);
+            yield return time;
             if (curBossState != state)
             {
                 curBossState = state;
@@ -70,11 +65,8 @@ public class Boss1Phase1 : MonoBehaviour
                     case BossState.Flying:
                         curCoroutine = StartCoroutine(Flying());
                         break;
-                    case BossState.Attack:
-                        curCoroutine = StartCoroutine(Attack());
-                        break;
                     case BossState.Die:
-                        Die();
+                       // Die();
                         break;
                 }
             }
@@ -85,15 +77,19 @@ public class Boss1Phase1 : MonoBehaviour
 
 
     IEnumerator Flying() 
-    {
-        Debug.Log("플라잉 도는중");
+    { 
+        Debug.Log("플라잉 도는중");  // 지금 코드는 너무 휙 하고 올라가서 좀 별로 올라갈때 애니메이션이나 이펙트가 있으면 좀 나을듯 
+                                     // 공중일때 이동속도도 다른게 나으려나?
         while (true) 
-        {
+        {   
+            
             Vector2 newPosition = new Vector2(
-            Mathf.MoveTowards(transform.position.x, player.transform.position.x, 2f * Time.deltaTime),
+            Mathf.MoveTowards(transform.position.x, player.transform.position.x, bossSpeed * Time.deltaTime),
             30f
             );
             transform.position = newPosition;
+            // 공중용 패턴 넣기 
+
             if (stateCount >= 2)
             {
                 stateCount = 0;
@@ -107,6 +103,7 @@ public class Boss1Phase1 : MonoBehaviour
 
     IEnumerator Walk()
     {
+        
         while (true)
         {
             Debug.Log("워크 도는중");
@@ -116,7 +113,7 @@ public class Boss1Phase1 : MonoBehaviour
             );
             transform.position = newPosition;
 
-            
+            // 지상용 패턴 넣기   공중에서 지상 내려올때 패턴있으면 더 재밌을듯
             if (stateCount >= 2)
             {
                 stateCount = 0;
@@ -126,22 +123,8 @@ public class Boss1Phase1 : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator Attack()
-    {
-        while (true)
-        {
-            // Attack 로직 작성
-            if (state == BossState.Flying)
-            {
-                // 공중 상태에서 공격 로직
-            }
-            else if (state == BossState.Walk)
-            {
-                // 지상 상태에서 공격 로직
-            }
-            yield return null;
-        }
-    }
+
+
 
     private void Die()
     {
