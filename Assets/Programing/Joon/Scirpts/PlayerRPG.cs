@@ -18,9 +18,9 @@ public class PlayerRPG : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
-    private void Start()
+    public void Dealdamage(float damage)
     {
-        StartHealthDecrease();
+
     }
 
     public void TakeDamage(float damage)
@@ -32,20 +32,5 @@ public class PlayerRPG : MonoBehaviour
         {
             playerController.Die();
         }
-    }
-
-    public IEnumerator DecreaseHealthOverTime()
-    {
-        while (curHp > 0)
-        {
-            yield return new WaitForSeconds(1f); // 1초 대기
-            TakeDamage(1); // 매초 1의 피해를 줍니다.
-        }
-    }
-
-    // 이 메서드를 호출하여 코루틴을 시작할 수 있습니다.
-    public void StartHealthDecrease()
-    {
-        StartCoroutine(DecreaseHealthOverTime());
     }
 }

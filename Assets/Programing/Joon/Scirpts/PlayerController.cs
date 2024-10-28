@@ -499,6 +499,4 @@ public class PlayerController : MonoBehaviour
         canMove = true;           // 입력 다시 활성화
         playerAnimator.speed = 1; // 애니메이션 재활성화
     }
-
-    
 }
