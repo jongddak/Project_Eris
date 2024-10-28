@@ -16,10 +16,11 @@ public class Boss1Phase1 : MonoBehaviour
     }
     // 보스 애니메이션
     // [SerializeField] Animator animator;
-    // 플레이어 프리펩
+    
     [SerializeField] GameObject player;
 
-    [SerializeField] Rigidbody2D bossRigidbody; 
+    [SerializeField] Rigidbody2D bossRigidbody;
+    [SerializeField] GameObject RushCollider;
 
     // 보스 스탯  : 체력 이동속도 
     [SerializeField] int stateCount = 0;  // fly 나 walk 상태에서 카운트가 3이 되면(3번 오르면) 상태를 변경할때 쓸것 , 패턴을 실행 할 때 마다 하나씩 증가
@@ -35,6 +36,11 @@ public class Boss1Phase1 : MonoBehaviour
     private bool isPatternOn = false; // 패턴중이면 
     private BossState preState; // 공격 진입하기 전의 상태 저장용
     private bool isflying = false;  // 공중 확인용 
+
+    //공격 패턴용 필드
+    [SerializeField] Transform atkPoint;
+    [SerializeField] GameObject slashPrefap;
+    [SerializeField] GameObject fireBallPrefab;
 
 
     Coroutine curCoroutine; 
@@ -94,7 +100,7 @@ public class Boss1Phase1 : MonoBehaviour
     IEnumerator Flying()
     {   
         isflying = true;
-        bossRigidbody.gravityScale = 0f;
+        bossRigidbody.gravityScale = 0f; // 공중에서 공격할  땐 이동이 호출되지 않으니까 중력을 0으로 만들어서 계속 떠있게 함 
         // 지금 코드는 너무 휙 하고 올라가서 좀 별로 올라갈때 애니메이션이나 이펙트가 있으면 좀 나을듯 
         if (stateCount >= 3)
         {
@@ -182,13 +188,13 @@ public class Boss1Phase1 : MonoBehaviour
             switch (x)
             {
                 case 0:
-                    StartCoroutine("BackStep");
+                    StartCoroutine(BackStep());
                     break;
                 case 1:
-                    StartCoroutine("BackStep");
+                    StartCoroutine(Slash());
                     break;
                 case 2:
-                    StartCoroutine("BackStep");
+                    StartCoroutine(BodyTacle());
                     break;
             }
         }
@@ -198,10 +204,10 @@ public class Boss1Phase1 : MonoBehaviour
             switch (y)
             {
                 case 0:
-                    StartCoroutine("FireBall");
+                    StartCoroutine(FireBall());
                     break;
                 case 1:
-                    StartCoroutine("RushSlash");
+                    StartCoroutine(RushSlash());
                     break;
             }
         }
@@ -216,35 +222,55 @@ public class Boss1Phase1 : MonoBehaviour
     IEnumerator BackStep()
     {
         Debug.Log("백스텝");
-        if (player.transform.position.x < transform.position.x)
+        if (player.transform.position.x < transform.position.x) // 플레이어의 반대 방향으로 날아감 
         {
-            // 보스가 왼쪽을 바라보도록 함
+            
             bossRigidbody.AddForce(Vector2.right * 50f, ForceMode2D.Impulse);
         }
         else
         {
-            // 보스가 오른쪽을 바라보도록 함
+           
             bossRigidbody.AddForce(Vector2.left * 50f, ForceMode2D.Impulse);
         }
 
 
-        yield return new WaitForSeconds(0.5f)  ;
+        yield return new WaitForSeconds(0.3f)  ;
 
-        bossRigidbody.velocity = Vector2.zero;
+        bossRigidbody.velocity = Vector2.zero; // 너무 안밀리게 속도 없앰 
         
     }
     IEnumerator Slash()
     {
         Debug.Log("베기");
 
+        GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
+
+        Destroy(obj,0.25f);
         yield return null;
 
     }
-    IEnumerator Bodytacle()
-    {
+    IEnumerator BodyTacle()
+    {   
+        RushCollider.SetActive(true);
         Debug.Log("돌진");
+        if (player.transform.position.x < transform.position.x) // 플레이어의 반대 방향으로 날아감 
+        {
 
-        yield return null;
+            
+            bossRigidbody.AddForce(Vector2.left * 200f, ForceMode2D.Impulse);
+        }
+        else
+        {
+            bossRigidbody.AddForce(Vector2.right * 200f, ForceMode2D.Impulse);
+           
+        }
+
+
+        yield return new WaitForSeconds(0.8f);
+
+        bossRigidbody.velocity = Vector2.zero; // 너무 안밀리게 속도 없앰 
+        RushCollider.SetActive(false);
+       
 
     }
     IEnumerator FireBall()
