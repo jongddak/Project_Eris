@@ -8,6 +8,9 @@ public class InteractionEvent : MonoBehaviour
     // Dialogue.cs의 DialogueEvent를 사용하기 위함
     [SerializeField] DialogueEvent dialogueEvent;
 
+
+
+
     /// <summary>
     /// 저장한 대사 데이터를 가져오기 위한 함수
     /// </summary>

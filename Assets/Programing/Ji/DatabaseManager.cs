@@ -42,12 +42,12 @@ public class DatabaseManager : MonoBehaviour
     /// StartNum : 이벤트 대사가 시작하는 번째의 줄 수 / 위의 dialogueDic<int,strint>에서 int값에 들어갈 것
     /// EndNum : 이벤트 대사가 끝나는 하는 번째의 줄 수 / 위의 dialogueDic<int,strint>에서 int값에 들어갈 것
     /// 
-    /// 즉, Start 이벤트에 필요한 대사는 0번째부터 4번째이므로
-    ///     StartNum = 0, EndNum = 4
-    ///     phase1 이벤트에 필요한 대사는 5번째부터 9번째
-    ///     StartNum = 5, EndNum = 9
-    ///     MonsterDie 이벤트에 필요한 대사는 10번째부터 15번째
-    ///     StartNum = 10, EndNum = 15
+    /// 즉, Start 이벤트에 필요한 대사는 0번째부터 5번째이므로
+    ///     StartNum = 0, EndNum = 5
+    ///     phase1 이벤트에 필요한 대사는 6번째부터 10번째
+    ///     StartNum = 6, EndNum = 10
+    ///     MonsterDie 이벤트에 필요한 대사는 11번째부터 16번째
+    ///     StartNum = 11, EndNum = 16
     /// </summary>
     /// <param name="StartNum"></param>
     /// <param name="EndNum"></param>
@@ -57,10 +57,13 @@ public class DatabaseManager : MonoBehaviour
         List<Dialogue> dialogueList = new List<Dialogue>(); // 대사의 양이 이벤트 별로 다르기 때문에 리스트로 저장
 
         // 필요한 대사의 줄 수 = EndNum - StartNum + 1
-        for(int i = 0; i <= EndNum - StartNum + 1; i++)
+        for(int i = 0; i <= EndNum - StartNum; i++)
         {
             // StartNum에 i값을 더하여 사용해야 원하는 대사의 정확한 줄을 dialogueDic에 저장 가능
             dialogueList.Add(dialogueDic[StartNum+i]);
+            /*Debug.Log(dialogueList[i].eventName);
+            Debug.Log(dialogueList[i].name);
+            Debug.Log(dialogueList[i].contexts);*/
         }
 
         return dialogueList.ToArray(); // 리스트를 배열로 변환하여 출력하기
