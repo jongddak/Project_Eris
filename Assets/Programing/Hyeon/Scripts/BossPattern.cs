@@ -17,15 +17,22 @@ public class BossPattern : MonoBehaviour
     [SerializeField] GameObject player;
     // 보스의 Rigidbody
     [SerializeField] Rigidbody2D bossRigid;
-
+    // 보스 돌진 collider
+    [SerializeField] GameObject bossTacklePoint;
     // 파이어볼 생성 좌표
     [SerializeField] Transform fireBallPoint;
     // 파이어볼 프리펩
     [SerializeField] GameObject fireBallPre;
 
+    //화염기둥 생성 좌표
+    [SerializeField] Transform fireWallPoint;
+    // 화염기둥 프리펩
+    [SerializeField] GameObject fireWallPre;
+
     // 패턴 시작 판정 bool
     private bool skillStart = false;
-
+    // 벽 충돌 판정
+    private bool isWall = false;
     // 스킬 이펙트 프리펩
 
 
@@ -40,6 +47,9 @@ public class BossPattern : MonoBehaviour
 
     // 보스 몬스터 패턴 선택
     int bossPatternNum;
+    // 플레이어 위치
+    Vector2 playerPosition;
+
     // 상태를 Idle로 셋팅
     BossState state = BossState.Idle;
 
@@ -74,8 +84,9 @@ public class BossPattern : MonoBehaviour
 
     private void Idle()
     {
+        skillStart = false ;
         // Idle 애니메이션
-        animator.Play("Testidel");
+        animator.Play("boss1_2_idel");
         
         // 플레이어 위치를 바라보게
         Mirrored();
@@ -98,7 +109,7 @@ public class BossPattern : MonoBehaviour
     private void Move()
     {
         // 달리기 애니메이션 재생
-        animator.Play("TestRun");
+        animator.Play("boss1_2_idel");
 
         Vector2 newPosition = new Vector2(
             Mathf.MoveTowards(transform.position.x, player.transform.position.x, bossSpeed * Time.deltaTime),
@@ -127,19 +138,21 @@ public class BossPattern : MonoBehaviour
         // 스킬 패턴 시작
         skillStart = true;
         // 대기 애니메이션
-        animator.Play("Testidel");
+        animator.Play("boss1_2_idel");
 
         // 공격 상태
         state = BossState.Attack;
 
+        // 플레이어 방향 저장
+        playerPosition = (player.transform.position - transform.position).normalized;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         // 플레이어 거리 계산
         float playerDirection = Vector2.Distance(transform.position, player.transform.position);
 
         // 거리에 따라 보스의 패턴 분화
-        if (playerDirection <= attackRange / 2)
+        if (playerDirection <= attackRange / 1.5)
         {
             Debug.Log($"짧은 거리");
             // 1,2 중 랜덤
@@ -157,16 +170,14 @@ public class BossPattern : MonoBehaviour
     private IEnumerator ExecuteAttackPattern()
     {
         skillStart = true;
+        
         // 랜덤으로 보스 패턴 실행
-
-        //패턴 test 코드 ***나중에 지우자!***
-        //bossPatternNum = 3;
 
         switch (bossPatternNum)
         {
-            case 1:
-                yield return StartCoroutine(BodyTackle());
-                Debug.Log("바디태클 패턴");
+            case 1:             
+                yield return StartCoroutine(FireBarrier());
+                Debug.Log("화염기둥 패턴");
                 break;
             case 2:
                 yield return StartCoroutine(JumpSlash());
@@ -177,12 +188,14 @@ public class BossPattern : MonoBehaviour
                 Debug.Log("화염구 패턴");
                 break;
             case 4:
-                yield return StartCoroutine(Patton06());
-                Debug.Log("화염기둥 패턴");
+                yield return StartCoroutine(BodyTackle());
+                Debug.Log("바디태클 패턴");
                 break;           
         }
         skillStart = false;
         state = BossState.Idle;
+        yield return new WaitForSeconds(1f);
+        
     }
     private void Die()
     {
@@ -198,39 +211,37 @@ public class BossPattern : MonoBehaviour
     private IEnumerator BodyTackle()
     {
         // 몸통 박치기 패턴
+        isWall = false;
 
-        // 플레이어 위치 탐색
-        Vector2 playerDirection = (player.transform.position - transform.position).normalized;
         // 돌진 시작 위치
         Vector2 startPosition = transform.position;
-
+        // 돌진 collider 활성화
+        bossTacklePoint.SetActive(true);
         // 애니메이션 재생
-        animator.Play("TestJump");
+        animator.Play("boss1_2_idel");
 
         // 돌진 목표 거리 설정
-        float targetDistance = 30f; // 보스가 이동할 거리 (원하는 값으로 설정)
+        float targetDistance = 50f; // 보스가 이동할 거리 (원하는 값으로 설정)
         float currentDistance = 0f; // 현재 이동거리
-        float tackleSpeed = 70f;  // 돌진 속도
+        float tackleSpeed = 120f;  // 돌진 속도
 
         // 돌진 시작
         Debug.Log("돌진 시작---!");
 
         // while문으로 일정 거리를 돌진
-        while (currentDistance < targetDistance)
+        while (currentDistance < targetDistance && !isWall)
         {
             // 충돌 무시하고 목표 위치로 이동
-            bossRigid.MovePosition(bossRigid.position + playerDirection * tackleSpeed * Time.deltaTime);
-            currentDistance = Vector2.Distance(transform.position, startPosition);
+            Vector2 targetPosition = new Vector2(bossRigid.position.x + (playerPosition.x * tackleSpeed * Time.deltaTime), bossRigid.position.y);
+            bossRigid.MovePosition(targetPosition);
+            currentDistance = Vector2.Distance(new Vector2(transform.position.x, startPosition.y), startPosition);
 
-            if (currentDistance >= targetDistance)
-            {
-                bossRigid.velocity = Vector2.zero;
-                break;
-            }
 
             yield return null;
         }
-
+        bossRigid.velocity = Vector2.zero;
+        // 돌진 collider 비활성화
+        bossTacklePoint.SetActive(false);
         yield return new WaitForSeconds(3f);
         Debug.Log("돌진 끝---!");      
     }
@@ -238,21 +249,18 @@ public class BossPattern : MonoBehaviour
     {
         //넓은 범위에 점프 공격
         // 점프의 파워 
-        float bossJumpPower = 20f;
-
+        float bossJumpPower = 30f;
+        
         // 점프하는 애니메이션
-        animator.Play("TestJump");
+        animator.Play("boss1_2_idel");
 
-        Debug.Log("점프공격 시작---!");
         // 점프 동작 
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
         
         // 보스 팔쪽 콜라이더만 피격판정
   
         // 점프 공격 패턴 동안 대기 (3초 후 Idle 상태로 변경)
-        yield return new WaitForSeconds(3f);
-
-        Debug.Log("점프공격 끝---!");
+        yield return new WaitForSeconds(3f);       
 
         // 위쪽 힘만 가하면 느리게 올라가서 느리게 떨어짐
         // 나중에 기획에 피드백 받고 의도와 맞는지 QnA
@@ -263,7 +271,7 @@ public class BossPattern : MonoBehaviour
         // 전방에 화염구 발사 패턴
 
         // 화염구 발사 애니메이션
-        animator.Play("TestJump");
+        animator.Play("boss1_2_idel");
         // 애니메이션 재생시간
         yield return new WaitForSeconds(4f);
 
@@ -271,30 +279,38 @@ public class BossPattern : MonoBehaviour
         FireBallFire();
         // 화염구는 직선으로 이동
 
-        Debug.Log("불쏜다---!");
-
         // 불 발사 패턴 동안 대기 (1.5초 후 Idle 상태로 변경)
         yield return new WaitForSeconds(2f);
 
-        Debug.Log("불 발사 끝---!");
     }
-    private IEnumerator Patton06()
+    private IEnumerator FireBarrier()
     {
-        // 투명벽에 대한 판정 필요
-        // 공격 전방 후방으로 화염 기둥 프리펩 생성
-
-        // 올라가고 차징하는 애니메이션
-        animator.Play("TestJump");
+        float bossJumpPower = 20f;
+        
+        
+        bossRigid.bodyType = RigidbodyType2D.Dynamic;
         // 보스가 위로 올라감
+        bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
+        // 올라가고 차징하는 애니메이션
+        animator.Play("boss1_2_idel");
+        yield return new WaitForSeconds(1f);
+        // 보스의 위치 고정
+        bossRigid.bodyType = RigidbodyType2D.Kinematic;
 
         // 애니메이션 및 올라가는 시간을 위한 대기시간
-        yield return new WaitForSeconds(2f);
-        // 랜덤한 장소에 화염기둥 프리펩 다수 생성
-
+        yield return new WaitForSeconds(1f);
+        
+      
+        // 보스의 주위에 화염 장벽 생성
+        FireWallInstant();
         Debug.Log("불기둥 만든다---!");
 
-        // 불기둥 생성 패턴 동안 대기 (2초 후 Idle 상태로 변경)
+        // 불기둥 생성 패턴 동안 대기
         yield return new WaitForSeconds(2f);
+
+        bossRigid.bodyType = RigidbodyType2D.Dynamic;
+
+        yield return new WaitForSeconds(1f);
 
         Debug.Log("불기둥 생성 끝---!");
     }
@@ -320,12 +336,15 @@ public class BossPattern : MonoBehaviour
         if (player.transform.position.x < bossObject.transform.position.x)
         {
             // 보스가 왼쪽을 바라보도록 함
-            bossObject.transform.localScale = new Vector3(-1, bossObject.transform.localScale.y, bossObject.transform.localScale.z);
+            bossObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else
         {
+
+        }
+        {
             // 보스가 오른쪽을 바라보도록 함
-            bossObject.transform.localScale = new Vector3(1, bossObject.transform.localScale.y, bossObject.transform.localScale.z);
+            bossObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
@@ -333,5 +352,26 @@ public class BossPattern : MonoBehaviour
     public void FireBallFire()
     {
         GameObject fireBall = Instantiate(fireBallPre, fireBallPoint.position, fireBallPoint.rotation);
+    }
+
+    public void FireWallInstant()
+    {
+        GameObject fireWall = Instantiate(fireWallPre, fireWallPoint.position, fireWallPoint.rotation);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 벽과 충돌했는지 확인 Test => wall로 교체
+        if (collision.gameObject.CompareTag("Test"))
+        {
+            isWall = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Test"))
+        {
+            isWall = false;
+        }
     }
 }
