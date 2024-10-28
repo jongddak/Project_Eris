@@ -639,6 +639,7 @@ GameObject:
   - component: {fileID: 1355452220}
   - component: {fileID: 1355452219}
   - component: {fileID: 1355452224}
+  - component: {fileID: 1355452225}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -737,9 +738,6 @@ MonoBehaviour:
   gameObjectRotationPoint: {fileID: 1355452215}
   curState: 0
   coll: {fileID: 1355452222}
-  attackDamage: 0
-  curHp: 0
-  maxHp: 0
   maxSpeed: 10
   moveAccel: 30
   canMove: 1
@@ -756,6 +754,7 @@ MonoBehaviour:
   isAttack: 0
   attackEffectPrefabs: {fileID: 1802444699524859951, guid: cb800879abf9dff41bf4d4f12fd807ec, type: 3}
   attackTest: {fileID: 1686651275}
+  isDead: 0
 --- !u!61 &1355452224
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -782,6 +781,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.8071513, y: 8.9427395}
   m_EdgeRadius: 0
+--- !u!114 &1355452225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355452215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5bc6e6f0eb4c941b5131bc71e4d78a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 0
+  curHp: 0
+  maxHp: 0
 --- !u!1 &1643061475
 GameObject:
   m_ObjectHideFlags: 0

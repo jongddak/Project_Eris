@@ -17,13 +17,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Collision coll;
 
-    //private SpriteRenderer spriteRenderer;
-
-    [Header("PlayerStat")]
-    [SerializeField] float attackDamage;
-    [SerializeField] float curHp;
-    [SerializeField] float maxHp;
-
     [Header("MoveInfo")]
     [SerializeField] float maxSpeed = 10f;      // 최대 이동 속도 
     [SerializeField] float moveAccel = 30f;     // 이동 가속도
@@ -66,6 +59,7 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
     [SerializeField] private GameObject attackEffectPrefabs;   //공격 이펙트
     [SerializeField] AttackTest attackTest;                    //공격 범위 판정       
+    [SerializeField] private bool isDead = false;
 
     private void Start()
     {
@@ -430,6 +424,13 @@ public class PlayerController : MonoBehaviour
         curState = PlayerState.Idle;
 
         isAttack = false;
+    }
+
+    public void Die()
+    {
+        isDead = true;
+        //curState = PlayerState.Die;
+        Debug.Log("쥬금");
     }
 
     public void StopMovement()
