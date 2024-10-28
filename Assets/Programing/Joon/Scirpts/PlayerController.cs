@@ -19,18 +19,23 @@ public class PlayerController : MonoBehaviour
 
     //private SpriteRenderer spriteRenderer;
 
-
-    [Header("PlayerInfo")]
-    [SerializeField] float maxSpeed = 10f;      // 최대 이동 속도
-    [SerializeField] float maxFallSpeed = 10f;  // 최대 낙하 속도
-    [SerializeField] float moveAccel = 30f;     // 이동 가속도
-    [SerializeField] float jumpSpeed = 15f;     // 점프 속도
-    [SerializeField] bool canMove = true;       // 이동 가능 여부(스턴용)
-
     [Header("PlayerStat")]
     [SerializeField] float attackDamage;
     [SerializeField] float curHp;
     [SerializeField] float maxHp;
+
+    [Header("MoveInfo")]
+    [SerializeField] float maxSpeed = 10f;      // 최대 이동 속도 
+    [SerializeField] float moveAccel = 30f;     // 이동 가속도
+    [SerializeField] bool canMove = true;       // 이동 가능 여부(스턴용)
+    [SerializeField] float TestSpeed;           // 캐릭터 벨로시티 변화값(테스트용)
+
+    [Header("Jump&Fall")]
+    [SerializeField] float jumpSpeed = 15f;     // 점프 속도
+    [SerializeField] float maxFallSpeed = 10f;  // 최대 낙하 속도
+    private BoxCollider2D boxCollider;
+    private Vector2 originalColliderSize;
+    private Vector2 reducedColliderSize;
 
     [Header("DashInfo")]
     [SerializeField] float dashSpeed = 25f;     // 대시 속도
@@ -62,12 +67,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject attackEffectPrefabs;   //공격 이펙트
     [SerializeField] AttackTest attackTest;                    //공격 범위 판정       
 
-    [SerializeField] float TestSpeed;
-
-    private void Awake()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        boxCollider = GetComponent<BoxCollider2D>();
+        originalColliderSize = boxCollider.size;
+        reducedColliderSize = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
+
     }
 
     private void Update()
@@ -134,7 +140,7 @@ public class PlayerController : MonoBehaviour
         Move();
 
         //플레이어의 속도가 거의 0일 때
-        if (rb.velocity.sqrMagnitude < 0.1f )
+        if (rb.velocity.sqrMagnitude < 0.01f )
         {
             curState = PlayerState.Idle;
         }

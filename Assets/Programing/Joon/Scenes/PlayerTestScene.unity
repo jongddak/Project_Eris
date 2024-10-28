@@ -676,6 +676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallMultiplier: 4
   lowJumpMultiplier: 7
+  coll: {fileID: 1355452222}
 --- !u!50 &1355452220
 Rigidbody2D:
   serializedVersion: 4
@@ -736,14 +737,15 @@ MonoBehaviour:
   gameObjectRotationPoint: {fileID: 1355452215}
   curState: 0
   coll: {fileID: 1355452222}
-  maxSpeed: 10
-  maxFallSpeed: 10
-  moveAccel: 30
-  jumpSpeed: 15
-  canMove: 1
   attackDamage: 0
   curHp: 0
   maxHp: 0
+  maxSpeed: 10
+  moveAccel: 30
+  canMove: 1
+  TestSpeed: 0
+  jumpSpeed: 15
+  maxFallSpeed: 10
   dashSpeed: 25
   dashTime: 0.2
   isDashing: 0
@@ -754,7 +756,6 @@ MonoBehaviour:
   isAttack: 0
   attackEffectPrefabs: {fileID: 1802444699524859951, guid: cb800879abf9dff41bf4d4f12fd807ec, type: 3}
   attackTest: {fileID: 1686651275}
-  TestSpeed: 0
 --- !u!61 &1355452224
 BoxCollider2D:
   m_ObjectHideFlags: 0
