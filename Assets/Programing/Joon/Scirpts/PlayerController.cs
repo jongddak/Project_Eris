@@ -17,20 +17,18 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Collision coll;
 
-    //private SpriteRenderer spriteRenderer;
-
-
-    [Header("PlayerInfo")]
-    [SerializeField] float maxSpeed = 10f;      // 최대 이동 속도
-    [SerializeField] float maxFallSpeed = 10f;  // 최대 낙하 속도
+    [Header("MoveInfo")]
+    [SerializeField] float maxSpeed = 10f;      // 최대 이동 속도 
     [SerializeField] float moveAccel = 30f;     // 이동 가속도
-    [SerializeField] float jumpSpeed = 15f;     // 점프 속도
     [SerializeField] bool canMove = true;       // 이동 가능 여부(스턴용)
+    [SerializeField] float TestSpeed;           // 캐릭터 벨로시티 변화값(테스트용)
 
-    [Header("PlayerStat")]
-    [SerializeField] float attackPoint;
-    [SerializeField] float curHp;
-    [SerializeField] float maxHp;
+    [Header("Jump&Fall")]
+    [SerializeField] float jumpSpeed = 15f;     // 점프 속도
+    [SerializeField] float maxFallSpeed = 10f;  // 최대 낙하 속도
+    private BoxCollider2D boxCollider;
+    private Vector2 originalColliderSize;
+    private Vector2 reducedColliderSize;
 
     [Header("DashInfo")]
     [SerializeField] float dashSpeed = 25f;     // 대시 속도
@@ -40,11 +38,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool canDash = true;       // 대시 가능 여부
 
     [Header("GrapInfo")]
-    [SerializeField] float SlipSpeed = 1f;      //벽을 붙잡고 있을 때 떨어지는 속도
+    [SerializeField] float SlipSpeed = 1f;      // 벽을 붙잡고 있을 때 떨어지는 속도
 
     [Header("AnamationInfo")]
     [SerializeField] Animator playerAnimator;  
-    private int curAniHash;                     //현재 진행할 애니메이션의 해쉬를 담는 변수
+    private int curAniHash;                     // 현재 진행할 애니메이션의 해쉬를 담는 변수
+    [SerializeField] GameObject GFX;            // 캐릭터 회전을 위한 부모 오브젝트
 
     //플레이어 애니메이션의 파라미터 해시 생성
     private static int idleHash = Animator.StringToHash("Idle");
@@ -57,13 +56,18 @@ public class PlayerController : MonoBehaviour
 
     [Header("AttackInfo")]
     [SerializeField] bool isAttack = false;
-    [SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
-    [SerializeField] private GameObject attackEffectPrefabs; //공격 이펙트
+    //[SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
+    [SerializeField] private GameObject attackEffectPrefabs;   //공격 이펙트
+    [SerializeField] AttackTest attackTest;                    //공격 범위 판정       
+    [SerializeField] private bool isDead = false;
 
-    private void Awake()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        boxCollider = GetComponent<BoxCollider2D>();
+        originalColliderSize = boxCollider.size;
+        reducedColliderSize = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
+
     }
 
     private void Update()
@@ -98,6 +102,7 @@ public class PlayerController : MonoBehaviour
                 DieUpdate();
                 break;
         }
+        TestSpeed = rb.velocity.sqrMagnitude;
     }
 
     private void FixedUpdate()
@@ -129,7 +134,7 @@ public class PlayerController : MonoBehaviour
         Move();
 
         //플레이어의 속도가 거의 0일 때
-        if (rb.velocity.sqrMagnitude < 0.01f)
+        if (rb.velocity.sqrMagnitude < 0.01f )
         {
             curState = PlayerState.Idle;
         }
@@ -287,11 +292,11 @@ public class PlayerController : MonoBehaviour
         }*/
         if (xInput > 0)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            GFX.transform.localScale = new Vector3(1, 1 ,1);
         }
         else if (xInput < 0)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            GFX.transform.localScale = new Vector3(-1, 1, 1);
         }
 
         //float xSpeed = Mathf.Lerp(rb.velocity.x, xInput * maxSpeed, moveAccel);
@@ -338,14 +343,14 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(13f, 10f);
             //붙잡은 벽이 왼쪽벽일 때 벽점프시 기본방향인 오른쪽을 보도록
-            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            GFX.transform.localScale = new Vector3(1, 1, 1);
         }
         
         else if (coll.onRightWall)
         {
             rb.velocity = new Vector2(-13f, 10f);
             //붙잡은 벽이 오른쪽벽일 때 벽점프시 반대방향인 왼쪽을 보도록
-            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            GFX.transform.localScale = new Vector3(-1, 1, 1);
         }
     }
 
@@ -364,11 +369,11 @@ public class PlayerController : MonoBehaviour
         if (dashDirection == Vector2.zero)
         {
             // 플레이어의 회전 값에 따라 대시 방향 결정
-            if (Mathf.Approximately(transform.rotation.eulerAngles.y, 0f)) // 오른쪽을 바라볼 때
+            if (GFX.transform.localScale.x == 1f) // 오른쪽을 바라볼 때
             {
                 dashDirection = Vector2.right; // 오른쪽으로 대시
             }
-            else if (Mathf.Approximately(transform.rotation.eulerAngles.y, 180f)) // 왼쪽을 바라볼 때
+            else if (GFX.transform.localScale.x == -1f) // 왼쪽을 바라볼 때
             {
                 dashDirection = Vector2.left; // 왼쪽으로 대시
             }
@@ -383,10 +388,33 @@ public class PlayerController : MonoBehaviour
         isAttack = true;
         curState = PlayerState.Attack;  // 공격 상태로 전환
 
-        // 공격 이펙트 생성
-        GameObject attackEffect = Instantiate(attackEffectPrefabs, transform.position, Quaternion.identity);
+        
 
-        // 1초 대기
+        // 공격 이펙트 생성
+        Vector2 effectPosition = attackTest.attackRangeCollider.transform.position;
+        
+        // 공격 이펙트 방향 설정
+        Quaternion effectRotation = Quaternion.identity;
+
+        //방향에 따른 이펙트 회전
+        if (GFX.transform.localScale.x == 1f) // 오른쪽을 바라볼 때
+        {
+            effectRotation = Quaternion.identity; // 기본 회전 유지
+        }
+        else if (GFX.transform.localScale.x == -1f) // 왼쪽을 바라볼 때
+        {
+            effectRotation = Quaternion.Euler(0f, 0f, 180f); // z축 기준 180도 회전
+        }
+
+        // 이펙트 생성
+        GameObject attackEffect = Instantiate(attackEffectPrefabs, effectPosition, effectRotation);
+
+        if (attackTest.IsBossInRange)
+        {
+            Debug.Log("보스에게 피해를 입힘");
+        }
+
+        // @초 대기
         yield return new WaitForSeconds(0.5f);
 
         // 이펙트 및 콜라이더 삭제
@@ -396,6 +424,13 @@ public class PlayerController : MonoBehaviour
         curState = PlayerState.Idle;
 
         isAttack = false;
+    }
+
+    public void Die()
+    {
+        isDead = true;
+        //curState = PlayerState.Die;
+        Debug.Log("쥬금");
     }
 
     public void StopMovement()

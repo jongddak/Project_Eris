@@ -9,12 +9,19 @@ public class JumpAssist : MonoBehaviour
     //캐릭터의 점프키 입력을 땠을 때 중력의 영향을 키워 더 빠르게 떨어지도록 구현
     [SerializeField] float lowJumpMultiplier = 7f;
     Rigidbody2D rb;
+    [SerializeField] Collision coll;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
     private void Update()
     {
+        if (rb.velocity.y < 0 && coll.onGround)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0); // 착지 후 y 속도 초기화
+        }
+
         //캐릭터가 하강중일 때
         if (rb.velocity.y < 0)
         {
