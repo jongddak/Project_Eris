@@ -1,38 +1,17 @@
 ---
 name: 'Bug '
 about: 'Bug '
-title: "[BUG]"
+title: "[BUG] 작성자 : 제목 "
 labels: ''
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**개요**
+ex) 어떤 씬의 무슨 기능이 어떻게 이상합니다 
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+**상세 설명 **
+ex) 사전조건  : 플레이어 점프를 8번 시도 
+     테스트 절차 :  씬 진입 - 점프키 8번 누름 
+     기대 결과 : 플레이어가 8번 점프 
+     실제 결과 : 6~ 7번 만 점프가 출력되었음
