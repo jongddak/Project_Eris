@@ -280,6 +280,7 @@ public class BossPattern : MonoBehaviour
     }
     private IEnumerator Patton06()
     {
+        // 투명벽에 대한 판정 필요
         // 공격 전방 후방으로 화염 기둥 프리펩 생성
 
         // 올라가고 차징하는 애니메이션
