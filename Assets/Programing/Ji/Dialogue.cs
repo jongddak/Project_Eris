@@ -5,8 +5,11 @@ using UnityEngine;
 [System.Serializable] // 인스펙터 창에서 수정 가능하도록 설정
 public class Dialogue
 {
+    [Tooltip("이벤트 이름")] // 인스펙터 창에서 확인 가능하도록 설정
     public string eventName; // 이벤트의 이름을 설정 - 분리에 용이함
-    [Tooltip("대사 치는 캐릭터 이름")] // 인스펙터 창에서 확인 가능하도록 설정
+    [Tooltip("대사 치는 캐릭터 아이디")]
+    public string unitId;
+    [Tooltip("대사 치는 캐릭터 이름")] 
     public string name;
     [Tooltip("대사 내용")]
     public string[] contexts; // 대사는 string[]로 설정

@@ -12,9 +12,10 @@ public class DeadZone : MonoBehaviour
         {
             /* tag가 DeadZone인 경우 
              * 플레이어의 사망
-             * DieUpdate()
+             * 플레이어가 가지고 있는 사망함수를 가져오기위해
+             * collision.플레이어cs로 플레이어의 컴포넌트를 선언하고 사망함수 가져오기
              */
-            Debug.Log("플레이어 사망");
+            Debug.Log("플레이어 사망"); // 완성 후 삭제 할 것
         }
     }
 }

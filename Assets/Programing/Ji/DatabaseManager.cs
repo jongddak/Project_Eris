@@ -46,8 +46,8 @@ public class DatabaseManager : MonoBehaviour
     ///     StartNum = 0, EndNum = 5
     ///     phase1 이벤트에 필요한 대사는 6번째부터 10번째
     ///     StartNum = 6, EndNum = 10
-    ///     MonsterDie 이벤트에 필요한 대사는 11번째부터 16번째
-    ///     StartNum = 11, EndNum = 16
+    ///     MonsterDie 이벤트에 필요한 대사는 11번째부터 17번째
+    ///     StartNum = 11, EndNum = 17
     /// </summary>
     /// <param name="StartNum"></param>
     /// <param name="EndNum"></param>
