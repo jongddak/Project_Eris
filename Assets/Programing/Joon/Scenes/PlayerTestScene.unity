@@ -741,7 +741,7 @@ MonoBehaviour:
   moveAccel: 30
   jumpSpeed: 15
   canMove: 1
-  attackPoint: 0
+  attackDamage: 0
   curHp: 0
   maxHp: 0
   dashSpeed: 25
@@ -752,8 +752,9 @@ MonoBehaviour:
   playerAnimator: {fileID: 1285081680}
   GFX: {fileID: 362969512}
   isAttack: 0
-  attackEffectPrefabs: {fileID: 7335015144733685638, guid: cb800879abf9dff41bf4d4f12fd807ec, type: 3}
+  attackEffectPrefabs: {fileID: 1802444699524859951, guid: cb800879abf9dff41bf4d4f12fd807ec, type: 3}
   attackTest: {fileID: 1686651275}
+  TestSpeed: 0
 --- !u!61 &1355452224
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1048,6 +1049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae101f6fe08959e4db30a21d5aeb3709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackRangeCollider: {fileID: 1686651274}
 --- !u!1 &1869985827
 GameObject:
   m_ObjectHideFlags: 0

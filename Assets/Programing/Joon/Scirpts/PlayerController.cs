@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool canMove = true;       // 이동 가능 여부(스턴용)
 
     [Header("PlayerStat")]
-    [SerializeField] float attackPoint;
+    [SerializeField] float attackDamage;
     [SerializeField] float curHp;
     [SerializeField] float maxHp;
 
@@ -60,8 +60,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool isAttack = false;
     //[SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
     [SerializeField] private GameObject attackEffectPrefabs;   //공격 이펙트
-    [SerializeField] AttackTest attackTest;                    //공격 범위 판정
-    
+    [SerializeField] AttackTest attackTest;                    //공격 범위 판정       
+
+    [SerializeField] float TestSpeed;
 
     private void Awake()
     {
@@ -101,6 +102,7 @@ public class PlayerController : MonoBehaviour
                 DieUpdate();
                 break;
         }
+        TestSpeed = rb.velocity.sqrMagnitude;
     }
 
     private void FixedUpdate()
@@ -132,7 +134,7 @@ public class PlayerController : MonoBehaviour
         Move();
 
         //플레이어의 속도가 거의 0일 때
-        if (rb.velocity.sqrMagnitude < 0.01f)
+        if (rb.velocity.sqrMagnitude < 0.1f )
         {
             curState = PlayerState.Idle;
         }
@@ -367,11 +369,11 @@ public class PlayerController : MonoBehaviour
         if (dashDirection == Vector2.zero)
         {
             // 플레이어의 회전 값에 따라 대시 방향 결정
-            if (Mathf.Approximately(transform.rotation.eulerAngles.y, 0f)) // 오른쪽을 바라볼 때
+            if (GFX.transform.localScale.x == 1f) // 오른쪽을 바라볼 때
             {
                 dashDirection = Vector2.right; // 오른쪽으로 대시
             }
-            else if (Mathf.Approximately(transform.rotation.eulerAngles.y, 180f)) // 왼쪽을 바라볼 때
+            else if (GFX.transform.localScale.x == -1f) // 왼쪽을 바라볼 때
             {
                 dashDirection = Vector2.left; // 왼쪽으로 대시
             }
@@ -386,14 +388,33 @@ public class PlayerController : MonoBehaviour
         isAttack = true;
         curState = PlayerState.Attack;  // 공격 상태로 전환
 
+        
+
         // 공격 이펙트 생성
-        GameObject attackEffect = Instantiate(attackEffectPrefabs, transform.position, Quaternion.identity);
+        Vector2 effectPosition = attackTest.attackRangeCollider.transform.position;
+        
+        // 공격 이펙트 방향 설정
+        Quaternion effectRotation = Quaternion.identity;
+
+        //방향에 따른 이펙트 회전
+        if (GFX.transform.localScale.x == 1f) // 오른쪽을 바라볼 때
+        {
+            effectRotation = Quaternion.identity; // 기본 회전 유지
+        }
+        else if (GFX.transform.localScale.x == -1f) // 왼쪽을 바라볼 때
+        {
+            effectRotation = Quaternion.Euler(0f, 0f, 180f); // z축 기준 180도 회전
+        }
+
+        // 이펙트 생성
+        GameObject attackEffect = Instantiate(attackEffectPrefabs, effectPosition, effectRotation);
 
         if (attackTest.IsBossInRange)
         {
             Debug.Log("보스에게 피해를 입힘");
         }
-        // 1초 대기
+
+        // @초 대기
         yield return new WaitForSeconds(0.5f);
 
         // 이펙트 및 콜라이더 삭제
