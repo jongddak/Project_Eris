@@ -40,11 +40,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool canDash = true;       // 대시 가능 여부
 
     [Header("GrapInfo")]
-    [SerializeField] float SlipSpeed = 1f;      //벽을 붙잡고 있을 때 떨어지는 속도
+    [SerializeField] float SlipSpeed = 1f;      // 벽을 붙잡고 있을 때 떨어지는 속도
 
     [Header("AnamationInfo")]
     [SerializeField] Animator playerAnimator;  
-    private int curAniHash;                     //현재 진행할 애니메이션의 해쉬를 담는 변수
+    private int curAniHash;                     // 현재 진행할 애니메이션의 해쉬를 담는 변수
+    [SerializeField] GameObject GFX;            // 캐릭터 회전을 위한 부모 오브젝트
 
     //플레이어 애니메이션의 파라미터 해시 생성
     private static int idleHash = Animator.StringToHash("Idle");
@@ -57,10 +58,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("AttackInfo")]
     [SerializeField] bool isAttack = false;
-    [SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
-    [SerializeField] private GameObject attackEffectPrefabs; //공격 이펙트
-
-    [SerializeField] GameObject GFX;
+    //[SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
+    [SerializeField] private GameObject attackEffectPrefabs;   //공격 이펙트
+    [SerializeField] AttackTest attackTest;                    //공격 범위 판정
+    
 
     private void Awake()
     {
@@ -388,6 +389,10 @@ public class PlayerController : MonoBehaviour
         // 공격 이펙트 생성
         GameObject attackEffect = Instantiate(attackEffectPrefabs, transform.position, Quaternion.identity);
 
+        if (attackTest.IsBossInRange)
+        {
+            Debug.Log("보스에게 피해를 입힘");
+        }
         // 1초 대기
         yield return new WaitForSeconds(0.5f);
 
@@ -466,4 +471,6 @@ public class PlayerController : MonoBehaviour
         canMove = true;           // 입력 다시 활성화
         playerAnimator.speed = 1; // 애니메이션 재활성화
     }
+
+    
 }
