@@ -17,7 +17,8 @@ public class BossPattern : MonoBehaviour
     [SerializeField] GameObject player;
     // 보스의 Rigidbody
     [SerializeField] Rigidbody2D bossRigid;
-
+    // 보스 돌진 collider
+    [SerializeField] GameObject bossTacklePoint;
     // 파이어볼 생성 좌표
     [SerializeField] Transform fireBallPoint;
     // 파이어볼 프리펩
@@ -172,9 +173,6 @@ public class BossPattern : MonoBehaviour
         
         // 랜덤으로 보스 패턴 실행
 
-        //패턴 test 코드 ***나중에 지우자!***
-        bossPatternNum = 4;
-
         switch (bossPatternNum)
         {
             case 1:             
@@ -190,7 +188,6 @@ public class BossPattern : MonoBehaviour
                 Debug.Log("화염구 패턴");
                 break;
             case 4:
-
                 yield return StartCoroutine(BodyTackle());
                 Debug.Log("바디태클 패턴");
                 break;           
@@ -218,7 +215,8 @@ public class BossPattern : MonoBehaviour
 
         // 돌진 시작 위치
         Vector2 startPosition = transform.position;
-
+        // 돌진 collider 활성화
+        bossTacklePoint.SetActive(true);
         // 애니메이션 재생
         animator.Play("boss1_2_idel");
 
@@ -242,6 +240,8 @@ public class BossPattern : MonoBehaviour
             yield return null;
         }
         bossRigid.velocity = Vector2.zero;
+        // 돌진 collider 비활성화
+        bossTacklePoint.SetActive(false);
         yield return new WaitForSeconds(3f);
         Debug.Log("돌진 끝---!");      
     }
@@ -250,20 +250,17 @@ public class BossPattern : MonoBehaviour
         //넓은 범위에 점프 공격
         // 점프의 파워 
         float bossJumpPower = 30f;
-
+        
         // 점프하는 애니메이션
         animator.Play("boss1_2_idel");
 
-        Debug.Log("점프공격 시작---!");
         // 점프 동작 
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
         
         // 보스 팔쪽 콜라이더만 피격판정
   
         // 점프 공격 패턴 동안 대기 (3초 후 Idle 상태로 변경)
-        yield return new WaitForSeconds(3f);
-
-        Debug.Log("점프공격 끝---!");
+        yield return new WaitForSeconds(3f);       
 
         // 위쪽 힘만 가하면 느리게 올라가서 느리게 떨어짐
         // 나중에 기획에 피드백 받고 의도와 맞는지 QnA
@@ -343,6 +340,9 @@ public class BossPattern : MonoBehaviour
         }
         else
         {
+
+        }
+        {
             // 보스가 오른쪽을 바라보도록 함
             bossObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
@@ -365,7 +365,6 @@ public class BossPattern : MonoBehaviour
         if (collision.gameObject.CompareTag("Test"))
         {
             isWall = true;
-            Debug.Log("충돌");
         }
     }
     private void OnCollisionExit2D(Collision2D collision)

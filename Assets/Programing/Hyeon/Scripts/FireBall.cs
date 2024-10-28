@@ -37,7 +37,7 @@ public class FireBall : MonoBehaviour
             spendDamage = true;            
         }
         // 벽에 부딛치면 소멸시키기
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Test")
         {
             // 소멸 애니메이션 있다면 적용
 

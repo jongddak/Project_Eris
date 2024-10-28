@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2012659518706325869}
   - component: {fileID: 1387756599284188427}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FireWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4759834110277401914}
   - component: {fileID: 3639820288618686775}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FireWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
