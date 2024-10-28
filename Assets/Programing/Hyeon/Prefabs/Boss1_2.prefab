@@ -104,7 +104,7 @@ MonoBehaviour:
   - {fileID: 2740944019046260563}
   - {fileID: 540021441906346133}
   m_Bounds:
-    m_Center: {x: 0.0013105869, y: 0.0074208975, z: 0}
+    m_Center: {x: 0.0013091564, y: 0.0074204206, z: 0}
     m_Extent: {x: 2.7799387, y: 1.8782506, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -137,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345564968312589498}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.76, y: -7.22, z: 0.17737094}
+  m_LocalPosition: {x: -7.2, y: -6.7, z: 0.17737094}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c78322f801cc7a4e86d8d7b89934fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossObject: {fileID: 6813962163670487611}
+  bossObject: {fileID: 345564968312589498}
   animator: {fileID: 2941702945408496534}
   player: {fileID: 0}
   bossRigid: {fileID: 0}
@@ -429,8 +429,8 @@ MonoBehaviour:
   - {fileID: 8244651523340680919}
   - {fileID: 6390227250704609887}
   m_Bounds:
-    m_Center: {x: -0.00753814, y: -0.00917244, z: 0}
-    m_Extent: {x: 0.7658982, y: 2.8175778, z: 0}
+    m_Center: {x: -0.007538438, y: -0.009171963, z: 0}
+    m_Extent: {x: 0.76589835, y: 2.8175778, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -571,7 +571,6 @@ GameObject:
   - component: {fileID: 6603413393934266370}
   - component: {fileID: 372386665084860259}
   - component: {fileID: 5909793642424863909}
-  - component: {fileID: 5077006486049581220}
   m_Layer: 0
   m_Name: R_wing2
   m_TagString: Untagged
@@ -667,37 +666,11 @@ MonoBehaviour:
   - {fileID: 6390227250704609887}
   - {fileID: 7486625694772702275}
   m_Bounds:
-    m_Center: {x: -0.0044999123, y: -0.00000333786, z: 0}
+    m_Center: {x: -0.004500866, y: -0.00000333786, z: 0}
     m_Extent: {x: 7.175189, y: 4.578127, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
---- !u!61 &5077006486049581220
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1321811804966752081}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.70398426, y: -0.032207012}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 14.359375, y: 9.15625}
-    newSize: {x: 14.359375, y: 9.15625}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 12.933409, y: 5.3561993}
-  m_EdgeRadius: 0
 --- !u!1 &2002538959005502174
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,7 +775,7 @@ MonoBehaviour:
   - {fileID: 5516751339469656500}
   m_Bounds:
     m_Center: {x: 0.006289482, y: -0.0002912283, z: 0}
-    m_Extent: {x: 2.1577735, y: 1.5569513, z: 0}
+    m_Extent: {x: 2.157773, y: 1.5569513, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -945,8 +918,8 @@ MonoBehaviour:
   - {fileID: 5516751339469656500}
   - {fileID: 2921052174086920651}
   m_Bounds:
-    m_Center: {x: 0.0071971416, y: 0.109375, z: 0}
-    m_Extent: {x: 3.86657, y: 5.5625, z: 0}
+    m_Center: {x: 0.0071971416, y: 0.10937548, z: 0}
+    m_Extent: {x: 3.8665702, y: 5.5625005, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -1117,8 +1090,8 @@ MonoBehaviour:
   - {fileID: 5999436126385211456}
   - {fileID: 1598822088185295377}
   m_Bounds:
-    m_Center: {x: 0.0027822852, y: 0.0036013126, z: 0}
-    m_Extent: {x: 0.54353106, y: 2.324524, z: 0}
+    m_Center: {x: 0.0027820468, y: 0.0036013126, z: 0}
+    m_Extent: {x: 0.5435309, y: 2.324524, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -1224,8 +1197,8 @@ MonoBehaviour:
   - {fileID: 1598822088185295377}
   - {fileID: 8248556198630273833}
   m_Bounds:
-    m_Center: {x: -0.022445202, y: 0.00012505054, z: 0}
-    m_Extent: {x: 2.3944602, y: 0.86806226, z: 0}
+    m_Center: {x: -0.022445202, y: 0.00012516975, z: 0}
+    m_Extent: {x: 2.3944602, y: 0.8680624, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -1363,8 +1336,8 @@ MonoBehaviour:
   - {fileID: 1620337343181206403}
   - {fileID: 7493070876615450641}
   m_Bounds:
-    m_Center: {x: 0.03000629, y: 0.06344557, z: 0}
-    m_Extent: {x: 1.7028985, y: 3.1831946, z: 0}
+    m_Center: {x: 0.030006528, y: 0.06344533, z: 0}
+    m_Extent: {x: 1.7028985, y: 3.1831949, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -1540,7 +1513,6 @@ GameObject:
   - component: {fileID: 6078301808500667640}
   - component: {fileID: 216192927794004510}
   - component: {fileID: 2047503397304669079}
-  - component: {fileID: 1687826613494913533}
   m_Layer: 0
   m_Name: L_wing2
   m_TagString: Untagged
@@ -1632,37 +1604,11 @@ MonoBehaviour:
   - {fileID: 1222592227796212477}
   - {fileID: 682961818885858167}
   m_Bounds:
-    m_Center: {x: -0.00000333786, y: -0.0000009536743, z: 0}
-    m_Extent: {x: 7.796878, y: 4.359375, z: 0}
+    m_Center: {x: -0.0000042915344, y: -0.0000009536743, z: 0}
+    m_Extent: {x: 7.796879, y: 4.3593755, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
---- !u!61 &1687826613494913533
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4364855159566329532}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.22542477, y: -0.06441021}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 15.59375, y: 8.71875}
-    newSize: {x: 15.59375, y: 8.71875}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 13.468302, y: 7.301779}
-  m_EdgeRadius: 0
 --- !u!1 &4437419203487676509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,8 +1716,8 @@ MonoBehaviour:
   - {fileID: 891260775173915611}
   - {fileID: 1425015350504404954}
   m_Bounds:
-    m_Center: {x: -0.0004994869, y: -0.0039851665, z: 0}
-    m_Extent: {x: 2.3354378, y: 2.550703, z: 0}
+    m_Center: {x: -0.0004994869, y: -0.003984213, z: 0}
+    m_Extent: {x: 2.3354378, y: 2.550702, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -1910,8 +1856,8 @@ MonoBehaviour:
   - {fileID: 1620337343181206403}
   - {fileID: 891260775173915611}
   m_Bounds:
-    m_Center: {x: 0.007484436, y: -0.013643026, z: 0}
-    m_Extent: {x: 1.3909535, y: 2.151517, z: 0}
+    m_Center: {x: 0.0074846745, y: -0.0136425495, z: 0}
+    m_Extent: {x: 1.3909535, y: 2.1515167, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -2017,8 +1963,8 @@ MonoBehaviour:
   - {fileID: 1620337343181206403}
   - {fileID: 891260775173915611}
   m_Bounds:
-    m_Center: {x: 0.009266138, y: -0.00009393692, z: 0}
-    m_Extent: {x: 0.7421565, y: 1.8702507, z: 0}
+    m_Center: {x: 0.009266138, y: -0.00009357929, z: 0}
+    m_Extent: {x: 0.7421565, y: 1.8702505, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -2126,7 +2072,7 @@ MonoBehaviour:
   - {fileID: 1425015350504404954}
   - {fileID: 540021441906346133}
   m_Bounds:
-    m_Center: {x: -0.008266449, y: -0.0058978796, z: 0}
+    m_Center: {x: -0.008266687, y: -0.005896926, z: 0}
     m_Extent: {x: 2.2045622, y: 0.67678905, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -2235,8 +2181,8 @@ MonoBehaviour:
   - {fileID: 1591138383616967811}
   - {fileID: 7486625694772702275}
   m_Bounds:
-    m_Center: {x: 0.09676564, y: 0.0726257, z: 0}
-    m_Extent: {x: 0.69781315, y: 0.715343, z: 0}
+    m_Center: {x: 0.09676564, y: 0.072624385, z: 0}
+    m_Extent: {x: 0.697813, y: 0.71534336, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -2384,7 +2330,7 @@ MonoBehaviour:
   - {fileID: 540021441906346133}
   m_Bounds:
     m_Center: {x: -0.014639854, y: 0.0008740425, z: 0}
-    m_Extent: {x: 4.1509843, y: 5.2175465, z: 0}
+    m_Extent: {x: 4.150985, y: 5.2175465, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -2523,8 +2469,8 @@ MonoBehaviour:
   - {fileID: 1591138383616967811}
   - {fileID: 3572595585459697332}
   m_Bounds:
-    m_Center: {x: -0.008491695, y: 0.07377094, z: 0}
-    m_Extent: {x: 0.5007892, y: 0.8168502, z: 0}
+    m_Center: {x: -0.008491695, y: 0.073771894, z: 0}
+    m_Extent: {x: 0.5007892, y: 0.81685114, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -2615,7 +2561,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6813962163670487611}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16, y: -8.2, z: -0.17737094}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2725,8 +2671,8 @@ MonoBehaviour:
   - {fileID: 5516751339469656500}
   - {fileID: 5999436126385211456}
   m_Bounds:
-    m_Center: {x: 0.000000059604645, y: -0.01585865, z: 0}
-    m_Extent: {x: 0.77343756, y: 2.8234534, z: 0}
+    m_Center: {x: 0.00000011920929, y: -0.015857697, z: 0}
+    m_Extent: {x: 0.7734375, y: 2.8234537, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -2866,7 +2812,7 @@ MonoBehaviour:
   - {fileID: 8880103128318205102}
   m_Bounds:
     m_Center: {x: -0.014139771, y: 0.0011122227, z: 0}
-    m_Extent: {x: 1.292375, y: 2.135656, z: 0}
+    m_Extent: {x: 1.2923745, y: 2.1356559, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -3213,7 +3159,7 @@ MonoBehaviour:
   - {fileID: 2740944019046260563}
   - {fileID: 1022145979449693863}
   m_Bounds:
-    m_Center: {x: -0.0005607605, y: -0.0000026226044, z: 0}
+    m_Center: {x: -0.00056123734, y: -0.0000026226044, z: 0}
     m_Extent: {x: 4.7181883, y: 3.8125005, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -3417,7 +3363,7 @@ MonoBehaviour:
   - {fileID: 7493070876615450641}
   - {fileID: 682961818885858167}
   m_Bounds:
-    m_Center: {x: -0.0065555573, y: 0.0008813143, z: 0}
+    m_Center: {x: -0.0065550804, y: 0.0008813143, z: 0}
     m_Extent: {x: 2.0798678, y: 1.8851804, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
