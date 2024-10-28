@@ -387,7 +387,7 @@ public class PlayerController : MonoBehaviour
         GameObject attackEffect = Instantiate(attackEffectPrefabs, transform.position, Quaternion.identity);
 
         // 1초 대기
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         // 이펙트 및 콜라이더 삭제
         Destroy(attackEffect);
