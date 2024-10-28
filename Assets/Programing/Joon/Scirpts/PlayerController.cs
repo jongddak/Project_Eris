@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
     [SerializeField] private GameObject attackEffectPrefabs; //공격 이펙트
 
+    [SerializeField] GameObject GFX;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -287,11 +289,11 @@ public class PlayerController : MonoBehaviour
         }*/
         if (xInput > 0)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            GFX.transform.localScale = new Vector3(1, 1 ,1);
         }
         else if (xInput < 0)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            GFX.transform.localScale = new Vector3(-1, 1, 1);
         }
 
         //float xSpeed = Mathf.Lerp(rb.velocity.x, xInput * maxSpeed, moveAccel);
@@ -338,14 +340,14 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(13f, 10f);
             //붙잡은 벽이 왼쪽벽일 때 벽점프시 기본방향인 오른쪽을 보도록
-            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            GFX.transform.localScale = new Vector3(1, 1, 1);
         }
         
         else if (coll.onRightWall)
         {
             rb.velocity = new Vector2(-13f, 10f);
             //붙잡은 벽이 오른쪽벽일 때 벽점프시 반대방향인 왼쪽을 보도록
-            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            GFX.transform.localScale = new Vector3(-1, 1, 1);
         }
     }
 
