@@ -15,7 +15,7 @@ public class Boss1Phase1 : MonoBehaviour
         Flying, Walk, Attack, Die
     }
     // 보스 애니메이션
-    // [SerializeField] Animator animator;
+    [SerializeField] Animator animator;
     
     [SerializeField] GameObject player;
 
@@ -112,6 +112,7 @@ public class Boss1Phase1 : MonoBehaviour
         {
             preState = curBossState;
             Mirrored();
+            animator.Play("Fly");
             Vector2 newPosition = new Vector2(
             Mathf.MoveTowards(transform.position.x, player.transform.position.x, flybossSpeed * Time.deltaTime),
             30f
@@ -142,13 +143,16 @@ public class Boss1Phase1 : MonoBehaviour
         bossRigidbody.gravityScale = 1f;
         if (stateCount >= 3)
         {
+            animator.Play("Jump");
+            yield return new WaitForSeconds(1.2f);
             stateCount = 0;
             state = BossState.Flying;
             Debug.Log("상태전환");
+            
         }
         while (state == BossState.Walk)
         {
-
+            animator.Play("Walk");
             preState = curBossState;
             Mirrored();
             Vector2 newPosition = new Vector2(
@@ -221,6 +225,7 @@ public class Boss1Phase1 : MonoBehaviour
 
     IEnumerator BackStep()
     {
+        animator.Play("WalkIdle");
         Debug.Log("백스텝");
         if (player.transform.position.x < transform.position.x) // 플레이어의 반대 방향으로 날아감 
         {
@@ -234,13 +239,14 @@ public class Boss1Phase1 : MonoBehaviour
         }
 
 
-        yield return new WaitForSeconds(0.3f)  ;
+        yield return new WaitForSeconds(0.25f)  ;
 
         bossRigidbody.velocity = Vector2.zero; // 너무 안밀리게 속도 없앰 
         
     }
     IEnumerator Slash()
     {
+        animator.Play("WalkIdle");
         Debug.Log("베기");
 
         GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
@@ -250,7 +256,8 @@ public class Boss1Phase1 : MonoBehaviour
 
     }
     IEnumerator BodyTacle()
-    {   
+    {
+        animator.Play("WalkIdle");
         RushCollider.SetActive(true);
         Debug.Log("돌진");
         if (player.transform.position.x < transform.position.x) // 플레이어의 반대 방향으로 날아감 
@@ -275,6 +282,7 @@ public class Boss1Phase1 : MonoBehaviour
     }
     IEnumerator FireBall()
     {
+        animator.Play("FlyIdle");
         Debug.Log("화염구");
 
         yield return null;
@@ -282,6 +290,7 @@ public class Boss1Phase1 : MonoBehaviour
     }
     IEnumerator RushSlash()
     {
+        animator.Play("FlyIdle");
         Debug.Log("공중돌진베기");
 
         yield return null;
@@ -290,7 +299,7 @@ public class Boss1Phase1 : MonoBehaviour
     // 2페이즈?
 
 
-    private void Die() 
+    private void Die()  // 사망하면 2페이즈로 가게 
     {
         // hp 전부 소모 시 사망 애니메이션 송출 후 프리펩 소멸
 
