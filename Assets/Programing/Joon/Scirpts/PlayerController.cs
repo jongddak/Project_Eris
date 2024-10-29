@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject gameObjectRotationPoint;
 
     //플레이어가 가질 수 있는 상태
-    enum PlayerState {Idle, Run, Jump, Fall, Grab, Dash, Attack, Die}; 
-    [SerializeField] PlayerState curState;     // 플레이어의 현재 상태
+    public enum PlayerState {Idle, Run, Jump, Fall, Grab, Dash, Attack, Die}; 
+    [SerializeField] public PlayerState curState;     // 플레이어의 현재 상태
 
     private Rigidbody2D rb;
 

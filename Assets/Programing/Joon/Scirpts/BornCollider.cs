@@ -7,6 +7,10 @@ public class BornCollider : MonoBehaviour
     public GameObject[] bones; // 스켈레톤 캐릭터의 본 리스트를 배열로 지정
     private BoxCollider2D boxCollider;
 
+    private PlayerController playerController;
+    private Vector3 originalSize;
+    private Vector2 originalOffset;
+
     private void Start()
     {
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
@@ -14,11 +18,26 @@ public class BornCollider : MonoBehaviour
         {
             boxCollider = gameObject.AddComponent<BoxCollider2D>(); // 없다면 추가
         }
+
+        originalSize = boxCollider.size;
+        originalOffset = boxCollider.offset;
+        playerController = gameObject.GetComponent<PlayerController>();
     }
 
     private void Update()
     {
-        UpdateColliderBounds();
+        //플레이어 상태가 Idle or Run이 아닐 때 콜라이더 업데이트
+        if (playerController.curState != PlayerController.PlayerState.Idle &&
+            playerController.curState != PlayerController.PlayerState.Run)
+        {
+            UpdateColliderBounds();
+        }
+        else
+        {
+            boxCollider.offset = originalOffset;
+            boxCollider.size = originalSize;
+        }
+        
     }
 
     private void UpdateColliderBounds()
@@ -40,8 +59,8 @@ public class BornCollider : MonoBehaviour
 
             if (bonePos.x < minX) minX = bonePos.x;
             if (bonePos.x > maxX) maxX = bonePos.x;
-            if (bonePos.y < minY) minY = bonePos.y;
-            if (bonePos.y > maxY) maxY = bonePos.y + 1f;
+            if (bonePos.y < minY) minY = bonePos.y; 
+            if (bonePos.y > maxY) maxY = bonePos.y + 1.5f;
         }
 
         // 콜라이더의 중심 위치와 크기 계산
