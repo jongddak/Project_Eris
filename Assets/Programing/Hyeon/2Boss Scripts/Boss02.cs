@@ -64,7 +64,7 @@ public class Boss02 : MonoBehaviour
                 Die();
                 break;
             case BossState.win:
-                win();
+                Win();
                 break;
         }
     }
@@ -163,12 +163,12 @@ public class Boss02 : MonoBehaviour
 
         StartCoroutine(ExecuteAttackPattern());
     }
-
+    
     private IEnumerator ExecuteAttackPattern()
     {
         if (bosscount == 3)
         {
-            bossPatternNum = 2;
+            bossPatternNum = Random.Range(2, 4);
             bosscount = 0;
         }
         skillStart = true;
@@ -181,6 +181,10 @@ public class Boss02 : MonoBehaviour
             case 2:
                 yield return StartCoroutine(FootWork());
                 Debug.Log("발도 패턴");
+                break;
+            case 3:
+                yield return StartCoroutine(Bash());
+                Debug.Log("공중 검기 날리기");
                 break;
         }
         skillStart = false;
@@ -201,17 +205,39 @@ public class Boss02 : MonoBehaviour
 
         // 돌진 시작 위치
         Vector2 startPosition = transform.position;
+        // 좌측 우측 판정
+        Vector2 dashDirection;
+        if (bossObject.transform.localScale.x > 0)
+        {
+            dashDirection = Vector2.right;
+        }
+        else
+        {
+            dashDirection = Vector2.left;
+        }
+        // 순간이동 거리
+        float targetDistance = 50f;
         // 칼 뽑는 애니메이션 재생
         //animator.Play("boss1 2 BodyTackle");
         // 애니메이션 재생 시간
         yield return new WaitForSeconds(0.7f);
+        // 레이케스트 사용
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dashDirection, targetDistance, LayerMask.GetMask("Wall"));
 
-        // 돌진 목표 거리 설정
-        float targetDistance = 100f; // 보스가 이동할 거리
-
-
-        
-        bossRigid.velocity = Vector2.zero;
+        Vector2 targetPosition;
+        // 레이케스트가 벽에 닿았을때
+        if (hit.collider != null)
+        {
+            // 벽이 가까이 있으면 벽 앞까지만 이동
+            targetPosition = (Vector2)transform.position + dashDirection * (hit.distance - 1f);
+        }
+        else
+        {
+            // 벽이 없으면 정해진 거리만큼 순간이동
+            targetPosition = (Vector2)transform.position + dashDirection * targetDistance;
+        }
+        // 보스 위치
+        transform.position = targetPosition;
         // 칼 넣는 애니메이션 재생
         //animator.Play("boss1 2 BodyTackle");
 
@@ -264,5 +290,4 @@ public class Boss02 : MonoBehaviour
             bossObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
-
 }
