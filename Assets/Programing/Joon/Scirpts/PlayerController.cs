@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Vector2 originalColliderSize;
     private Vector2 reducedColliderSize;
+    public event EventHandler OnJumpDown;
 
     [Header("DashInfo")]
     [SerializeField] float dashSpeed = 25f;     // 대시 속도
@@ -63,13 +67,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AttackTest attackTest;                    //공격 범위 판정       
     [SerializeField] private bool isDead = false;
 
+
+    //[Header("CameraInfo")]
+    //[SerializeField] CameraController CameraController;
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         originalColliderSize = boxCollider.size;
         reducedColliderSize = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
-
     }
 
     private void Update()
@@ -104,7 +112,6 @@ public class PlayerController : MonoBehaviour
                 DieUpdate();
                 break;
         }
-        TestSpeed = rb.velocity.sqrMagnitude;
     }
 
     private void FixedUpdate()
@@ -121,14 +128,23 @@ public class PlayerController : MonoBehaviour
         {
             curState = PlayerState.Run;
         }
-        if (Input.GetKeyDown(KeyCode.C))
+
+        //플랫폼 레이어가 밑에 있을 시 조건 추가
+        if (Input.GetKey(KeyCode.DownArrow) &&
+            Input.GetKeyDown(KeyCode.C))
+        {
+            LowJump();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
         {
             Jump();
         }
+
         if (Input.GetKeyDown(KeyCode.V) && !isAttack)
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
+        
     }
 
     private void RunUpdate()
@@ -144,10 +160,17 @@ public class PlayerController : MonoBehaviour
         {
             curState = PlayerState.Fall;
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        
+        if (Input.GetKey(KeyCode.DownArrow) &&
+            Input.GetKeyDown(KeyCode.C))
+        {
+            LowJump();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
         {
             Jump();
         }
+
         if (Input.GetKeyDown(KeyCode.X) && canDash)
         {
             Dash();
@@ -295,10 +318,12 @@ public class PlayerController : MonoBehaviour
         if (xInput > 0)
         {
             GFX.transform.localScale = new Vector3(1, 1 ,1);
+            //CameraController.isLeft = false;
         }
         else if (xInput < 0)
         {
             GFX.transform.localScale = new Vector3(-1, 1, 1);
+            //CameraController.isLeft = true;
         }
 
         //float xSpeed = Mathf.Lerp(rb.velocity.x, xInput * maxSpeed, moveAccel);
@@ -312,6 +337,12 @@ public class PlayerController : MonoBehaviour
     {
         curState = PlayerState.Jump;
         rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+    }
+
+    private void LowJump()
+    {
+        curState = PlayerState.Fall;
+        OnJumpDown?.Invoke(this, EventArgs.Empty);
     }
 
     private void Grab()
