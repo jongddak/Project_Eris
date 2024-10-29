@@ -47,8 +47,8 @@ public class BornCollider : MonoBehaviour
             return;
         }
 
-        float minX = bones[0].transform.position.x;
-        float maxX = bones[0].transform.position.x;
+        /*float minX = bones[0].transform.position.x;
+        float maxX = bones[0].transform.position.x;*/
         float minY = bones[0].transform.position.y;
         float maxY = bones[0].transform.position.y;
 

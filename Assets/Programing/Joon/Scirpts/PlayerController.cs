@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,10 +32,11 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Vector2 originalColliderSize;
     private Vector2 reducedColliderSize;
+    public event EventHandler OnJumpDown;
 
     [Header("DashInfo")]
     [SerializeField] float dashSpeed = 25f;     // 대시 속도
-    [SerializeField] float dashTime = 0.2f;     // 대시 지속 시간
+    [SerializeField] float dashTime = 0.4f;     // 대시 지속 시간
     private float dashTimeLeft;                 // 대시 남은 시간
     [SerializeField] bool isDashing = false;    // 대시 중인지 여부
     [SerializeField] bool canDash = true;       // 대시 가능 여부
@@ -54,6 +58,8 @@ public class PlayerController : MonoBehaviour
     private static int attack1Hash = Animator.StringToHash("Attack1");
     private static int attack2Hash = Animator.StringToHash("Attack2");
     private static int attack3Hash = Animator.StringToHash("Attack3");
+    private static int dashHash = Animator.StringToHash("Dash");
+    private static int landingHash = Animator.StringToHash("Landing");
     private static int dieHash = Animator.StringToHash("Die");
 
     [Header("AttackInfo")]
@@ -61,7 +67,15 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
     [SerializeField] private GameObject attackEffectPrefabs;   //공격 이펙트
     [SerializeField] AttackTest attackTest;                    //공격 범위 판정       
-    [SerializeField] private bool isDead = false;
+    [SerializeField] private bool isDead = false;              //플레이어의 죽음 판별
+    [SerializeField] private int currentAttackCount = 0;       //현재 공격 횟수
+    private float lastAttackTime;                              //마지막 공격 시간
+    public float comboResetTime = 1.5f;                        //공격 콤보가 초기화 되는 시간
+
+
+    //[Header("CameraInfo")]
+    //[SerializeField] CameraController CameraController;
+
 
     private void Start()
     {
@@ -69,12 +83,13 @@ public class PlayerController : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         originalColliderSize = boxCollider.size;
         reducedColliderSize = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
-
     }
 
     private void Update()
     {
         if (!canMove) return;
+
+        ComboUpdate(); //지정한 시간 내에 공격이 이루어지지 않으면 공격콤보 초기화
 
         //상태에 따른 업데이트 함수 호출
         switch (curState)
@@ -104,7 +119,6 @@ public class PlayerController : MonoBehaviour
                 DieUpdate();
                 break;
         }
-        TestSpeed = rb.velocity.sqrMagnitude;
     }
 
     private void FixedUpdate()
@@ -121,14 +135,23 @@ public class PlayerController : MonoBehaviour
         {
             curState = PlayerState.Run;
         }
-        if (Input.GetKeyDown(KeyCode.C))
+
+        //플랫폼 레이어가 밑에 있을 시 조건 추가
+        if (Input.GetKey(KeyCode.DownArrow) &&
+            Input.GetKeyDown(KeyCode.C))
+        {
+            LowJump();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
         {
             Jump();
         }
-        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+
+        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
+        
     }
 
     private void RunUpdate()
@@ -144,15 +167,22 @@ public class PlayerController : MonoBehaviour
         {
             curState = PlayerState.Fall;
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        
+        if (Input.GetKey(KeyCode.DownArrow) &&
+            Input.GetKeyDown(KeyCode.C))
+        {
+            LowJump();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
         {
             Jump();
         }
-        if (Input.GetKeyDown(KeyCode.X) && canDash)
+
+        if (Input.GetKeyDown(KeyCode.Z) && canDash)
         {
             Dash();
         }
-        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
@@ -173,7 +203,7 @@ public class PlayerController : MonoBehaviour
             curState = PlayerState.Fall;  // 낙하 상태로 전환
         }
 
-        if (Input.GetKeyDown(KeyCode.Z) && coll.onWall)
+        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
         {
             Grab();
         }
@@ -183,11 +213,11 @@ public class PlayerController : MonoBehaviour
             GrabJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && canDash)
+        if (Input.GetKeyDown(KeyCode.Z) && canDash)
         {
             Dash();
         }
-        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
@@ -204,7 +234,7 @@ public class PlayerController : MonoBehaviour
             canDash = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Z) && coll.onWall)
+        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
         {
             Grab();
         }
@@ -213,11 +243,11 @@ public class PlayerController : MonoBehaviour
         {
             GrabJump();
         }
-        if (Input.GetKeyDown(KeyCode.X) && canDash)
+        if (Input.GetKeyDown(KeyCode.Z) && canDash)
         {
             Dash();
         }
-        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
@@ -227,7 +257,7 @@ public class PlayerController : MonoBehaviour
     {
         //GrabMove();
 
-        if (Input.GetKeyUp(KeyCode.Z))
+        if (Input.GetKeyUp(KeyCode.A))
         {
             UnGrab();
         }
@@ -250,7 +280,7 @@ public class PlayerController : MonoBehaviour
 
     private void DashUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && coll.onWall)
+        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
         {
             Grab();
         }
@@ -267,6 +297,14 @@ public class PlayerController : MonoBehaviour
                 curState = PlayerState.Idle;
             }
             curState = PlayerState.Fall;  // 대시 종료 후 낙하 상태로 전환
+        }
+    }
+
+    private void ComboUpdate()
+    {
+        if (Time.time - lastAttackTime > comboResetTime)
+        {
+            currentAttackCount = 0;
         }
     }
 
@@ -295,10 +333,12 @@ public class PlayerController : MonoBehaviour
         if (xInput > 0)
         {
             GFX.transform.localScale = new Vector3(1, 1 ,1);
+            //CameraController.isLeft = false;
         }
         else if (xInput < 0)
         {
             GFX.transform.localScale = new Vector3(-1, 1, 1);
+            //CameraController.isLeft = true;
         }
 
         //float xSpeed = Mathf.Lerp(rb.velocity.x, xInput * maxSpeed, moveAccel);
@@ -312,6 +352,12 @@ public class PlayerController : MonoBehaviour
     {
         curState = PlayerState.Jump;
         rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+    }
+
+    private void LowJump()
+    {
+        curState = PlayerState.Fall;
+        OnJumpDown?.Invoke(this, EventArgs.Empty);
     }
 
     private void Grab()
@@ -398,7 +444,8 @@ public class PlayerController : MonoBehaviour
         isAttack = true;
         curState = PlayerState.Attack;  // 공격 상태로 전환
 
-        
+        currentAttackCount++;
+        lastAttackTime = Time.time;
 
         // 공격 이펙트 생성
         Vector2 effectPosition = attackTest.attackRangeCollider.transform.position;
@@ -430,10 +477,15 @@ public class PlayerController : MonoBehaviour
         // 이펙트 및 콜라이더 삭제
         Destroy(attackEffect);
 
+        isAttack = false;
+
+        if(currentAttackCount >= 3)
+        {
+            currentAttackCount = 0;
+        }
+
         // 공격 상태를 Idle로 전환
         curState = PlayerState.Idle;
-
-        isAttack = false;
     }
 
     public void Die()
@@ -465,22 +517,41 @@ public class PlayerController : MonoBehaviour
         if (curState == PlayerState.Run)
         {
             temp = runHash;
-        }    
+        }
         if (curState == PlayerState.Jump)
         {
             temp = jumpHash;
         }
-        /*if (curState == PlayerState.Fall)
+        if (curState == PlayerState.Fall)
         {
             temp = fallHash;
         }
+
+
         if (curState == PlayerState.Grab)
         {
             temp = grabHash;
-        }*/
+        }
+        if (curState == PlayerState.Dash)
+        {
+            temp = dashHash;
+        }
+
+
         if (curState == PlayerState.Attack)
         {
-            temp = attack1Hash;
+            switch (currentAttackCount)
+            {
+                case 1:
+                    temp = attack1Hash;
+                    break;
+                case 2:
+                    temp = attack2Hash;
+                    break;
+                case 3:
+                    temp = attack3Hash;
+                    break;
+            }        
         }
 
 
@@ -493,8 +564,6 @@ public class PlayerController : MonoBehaviour
             playerAnimator.CrossFade(curAniHash, 0.1f, 0);
         }
     }
-
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
