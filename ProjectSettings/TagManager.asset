@@ -7,6 +7,7 @@ TagManager:
   - Boss
   - Ground
   - Test
+  - Wall
   layers:
   - Default
   - TransparentFX
