@@ -57,15 +57,15 @@ public class BornCollider : MonoBehaviour
         {
             Vector2 bonePos = bone.transform.position;
 
-            if (bonePos.x < minX) minX = bonePos.x;
-            if (bonePos.x > maxX) maxX = bonePos.x;
+            /*if (bonePos.x < minX) minX = bonePos.x;
+            if (bonePos.x > maxX) maxX = bonePos.x;*/
             if (bonePos.y < minY) minY = bonePos.y; 
             if (bonePos.y > maxY) maxY = bonePos.y + 1.5f;
         }
 
         // 콜라이더의 중심 위치와 크기 계산
-        Vector2 center = new Vector2((minX + maxX) / 2, (minY + maxY) / 2);
-        Vector2 size = new Vector2(maxX - minX, maxY - minY);
+        Vector2 center = new Vector2(transform.position.x, (minY + maxY) / 2);
+        Vector2 size = new Vector2(boxCollider.size.x, maxY - minY);
 
         boxCollider.offset = transform.InverseTransformPoint(center); // 로컬 좌표계로 변환
         boxCollider.size = size;
