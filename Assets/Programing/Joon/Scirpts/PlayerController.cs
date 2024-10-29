@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject gameObjectRotationPoint;
 
     //플레이어가 가질 수 있는 상태
-    enum PlayerState {Idle, Run, Jump, Fall, Grab, Dash, Attack, Die}; 
-    [SerializeField] PlayerState curState;     // 플레이어의 현재 상태
+    public enum PlayerState {Idle, Run, Jump, Fall, Grab, Dash, Attack, Die}; 
+    [SerializeField] public PlayerState curState;     // 플레이어의 현재 상태
 
     private Rigidbody2D rb;
 
@@ -51,7 +51,9 @@ public class PlayerController : MonoBehaviour
     private static int jumpHash = Animator.StringToHash("Jump");
     private static int fallHash = Animator.StringToHash("Fall");
     private static int grabHash = Animator.StringToHash("Grab");
-    private static int attackHash = Animator.StringToHash("Attack");
+    private static int attack1Hash = Animator.StringToHash("Attack1");
+    private static int attack2Hash = Animator.StringToHash("Attack2");
+    private static int attack3Hash = Animator.StringToHash("Attack3");
     private static int dieHash = Animator.StringToHash("Die");
 
     [Header("AttackInfo")]
@@ -361,14 +363,18 @@ public class PlayerController : MonoBehaviour
         dashTimeLeft = dashTime;
 
         float xInput = Input.GetAxisRaw("Horizontal");
-        float yInput = Input.GetAxisRaw("Vertical");
 
-        //대시 방향 결정
-        Vector2 dashDirection = new Vector2(xInput, yInput).normalized;
+        // 대시 방향 결정
+        Vector2 dashDirection;
 
-        if (dashDirection == Vector2.zero)
+        if (xInput != 0)
         {
-            // 플레이어의 회전 값에 따라 대시 방향 결정
+            // 수평 입력이 있을 때, 해당 방향으로 대시
+            dashDirection = new Vector2(xInput, 0).normalized;
+        }
+        else
+        {
+            // 수평 입력이 없을 때 플레이어의 회전 값에 따라 대시 방향 결정
             if (GFX.transform.localScale.x == 1f) // 오른쪽을 바라볼 때
             {
                 dashDirection = Vector2.right; // 오른쪽으로 대시
@@ -376,6 +382,10 @@ public class PlayerController : MonoBehaviour
             else if (GFX.transform.localScale.x == -1f) // 왼쪽을 바라볼 때
             {
                 dashDirection = Vector2.left; // 왼쪽으로 대시
+            }
+            else
+            {
+                dashDirection = Vector2.zero; // 대시 방향이 결정되지 않은 경우
             }
         }
 
@@ -468,6 +478,11 @@ public class PlayerController : MonoBehaviour
         {
             temp = grabHash;
         }*/
+        if (curState == PlayerState.Attack)
+        {
+            temp = attack1Hash;
+        }
+
 
         if (curAniHash != temp)
         {
