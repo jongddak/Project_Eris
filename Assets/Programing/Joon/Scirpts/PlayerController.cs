@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("DashInfo")]
     [SerializeField] float dashSpeed = 25f;     // 대시 속도
-    [SerializeField] float dashTime = 0.2f;     // 대시 지속 시간
+    [SerializeField] float dashTime = 0.4f;     // 대시 지속 시간
     private float dashTimeLeft;                 // 대시 남은 시간
     [SerializeField] bool isDashing = false;    // 대시 중인지 여부
     [SerializeField] bool canDash = true;       // 대시 가능 여부
@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
     private static int attack1Hash = Animator.StringToHash("Attack1");
     private static int attack2Hash = Animator.StringToHash("Attack2");
     private static int attack3Hash = Animator.StringToHash("Attack3");
+    private static int dashHash = Animator.StringToHash("Dash");
+    private static int landingHash = Animator.StringToHash("Landing");
     private static int dieHash = Animator.StringToHash("Die");
 
     [Header("AttackInfo")]
@@ -68,7 +70,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isDead = false;              //플레이어의 죽음 판별
     [SerializeField] private int currentAttackCount = 0;       //현재 공격 횟수
     private float lastAttackTime;                              //마지막 공격 시간
-    public float comboResetTime = 1.0f;                        //공격 콤보가 초기화 되는 시간
+    public float comboResetTime = 1.5f;                        //공격 콤보가 초기화 되는 시간
 
 
     //[Header("CameraInfo")]
@@ -444,7 +446,6 @@ public class PlayerController : MonoBehaviour
 
         currentAttackCount++;
         lastAttackTime = Time.time;
-        Debug.Log($"{currentAttackCount}");
 
         // 공격 이펙트 생성
         Vector2 effectPosition = attackTest.attackRangeCollider.transform.position;
@@ -516,19 +517,27 @@ public class PlayerController : MonoBehaviour
         if (curState == PlayerState.Run)
         {
             temp = runHash;
-        }    
+        }
         if (curState == PlayerState.Jump)
         {
             temp = jumpHash;
         }
-        /*if (curState == PlayerState.Fall)
+        if (curState == PlayerState.Fall)
         {
             temp = fallHash;
         }
+
+
         if (curState == PlayerState.Grab)
         {
             temp = grabHash;
-        }*/
+        }
+        if (curState == PlayerState.Dash)
+        {
+            temp = dashHash;
+        }
+
+
         if (curState == PlayerState.Attack)
         {
             switch (currentAttackCount)
@@ -555,8 +564,6 @@ public class PlayerController : MonoBehaviour
             playerAnimator.CrossFade(curAniHash, 0.1f, 0);
         }
     }
-
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
