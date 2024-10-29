@@ -45,7 +45,7 @@ public class Shooting : MonoBehaviour
     {
         for (int i = 0; i < 3; i++) 
         {
-            int x = Random.Range(0, 7);
+           int x = Random.Range(0, 7);
         }
         yield return null;
     }
