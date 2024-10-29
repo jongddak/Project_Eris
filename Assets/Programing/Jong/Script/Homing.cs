@@ -7,6 +7,12 @@ public class Homing : MonoBehaviour
     [SerializeField] GameObject player;
 
 
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+
     private void Update()
     {
         HomingMissile();
@@ -23,10 +29,4 @@ public class Homing : MonoBehaviour
                                                                        // 유도 성능을 낮추려면 이동속도, 각 회전속도 , 함수의 호출횟수?(프레임 마다가 아닌 코루틴으로 몇초마다 이런식으로 조절)를 조정해야함
         transform.Translate(Vector2.up * 10f * Time.deltaTime);
     }
-
-    private void Flying() 
-    {
-
-    }
-
 }

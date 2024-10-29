@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Boss1Phase1 : MonoBehaviour
@@ -104,9 +106,13 @@ public class Boss1Phase1 : MonoBehaviour
         // 지금 코드는 너무 휙 하고 올라가서 좀 별로 올라갈때 애니메이션이나 이펙트가 있으면 좀 나을듯 
         if (stateCount >= 3)
         {
+            yield return new WaitForSeconds(1.2f);
+            StartCoroutine(Fork());
+            yield return new WaitForSeconds(0.5f);
             stateCount = 0;
             state = BossState.Walk;
             Debug.Log("상태전환");
+           
         }
         while (state == BossState.Flying)
         {
@@ -222,7 +228,6 @@ public class Boss1Phase1 : MonoBehaviour
         state = preState;  // 공격 이전의 상태로 돌아감 
         isPatternOn = false;
     }
-
     IEnumerator BackStep()
     {
         animator.Play("WalkIdle");
@@ -252,7 +257,7 @@ public class Boss1Phase1 : MonoBehaviour
         GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
 
         Destroy(obj, 0.25f);
-        yield return null;
+        yield return new WaitForSeconds(1f);
 
     }
     IEnumerator BodyTacle()
@@ -292,10 +297,11 @@ public class Boss1Phase1 : MonoBehaviour
                 GameObject obj = Instantiate(fireBallPrefab, fireBallPoints[i].position, fireBallPoints[i].rotation);
                 Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
                 rb.AddForce(Vector2.left * 50f, ForceMode2D.Impulse);
-                Destroy(obj, 2.3f);
+                Destroy(obj, 2.3f); 
             }
 
         }
+        
         else
         {
             for (int i = 0; i < fireBallPoints.Length; i++)
@@ -317,37 +323,37 @@ public class Boss1Phase1 : MonoBehaviour
         if (player.transform.position.x < transform.position.x) // 플레이어의 방향으로 날아감 
         {
 
-            bossRigidbody.AddForce(Vector2.left * 30f, ForceMode2D.Impulse);
-            yield return new WaitForSeconds(0.25f);
-            bossRigidbody.velocity = Vector2.zero;
-            yield return new WaitForSeconds(0.1f);
-            bossRigidbody.AddForce(Vector2.left * 30f, ForceMode2D.Impulse);
-            yield return new WaitForSeconds(0.25f);
-            bossRigidbody.velocity = Vector2.zero;
-            yield return new WaitForSeconds(0.1f);
-            bossRigidbody.AddForce(Vector2.left * 30f, ForceMode2D.Impulse);
-            yield return new WaitForSeconds(0.25f);
-            bossRigidbody.velocity = Vector2.zero;
-
-
-
+            for (int i = 0; i < 3; i++) 
+            {
+                bossRigidbody.AddForce(Vector2.left * 30f, ForceMode2D.Impulse);
+                yield return new WaitForSeconds(0.25f);
+                bossRigidbody.velocity = Vector2.zero;
+                GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
+                Destroy(obj, 0.25f);
+                yield return new WaitForSeconds(0.25f);
+            }
         }
         else
         {
-            bossRigidbody.AddForce(Vector2.right * 30f, ForceMode2D.Impulse);
-            yield return new WaitForSeconds(0.25f);
-            bossRigidbody.velocity = Vector2.zero;
-            yield return new WaitForSeconds(0.1f);
-            bossRigidbody.AddForce(Vector2.right * 30f, ForceMode2D.Impulse);
-            yield return new WaitForSeconds(0.3f);
-            bossRigidbody.velocity = Vector2.zero;
-            yield return new WaitForSeconds(0.1f);
-            bossRigidbody.AddForce(Vector2.right * 30f, ForceMode2D.Impulse);
-            yield return new WaitForSeconds(0.3f);
-            bossRigidbody.velocity = Vector2.zero;
+            for (int i = 0; i < 3; i++)
+            {
+                bossRigidbody.AddForce(Vector2.right * 30f, ForceMode2D.Impulse);
+                yield return new WaitForSeconds(0.25f);
+                bossRigidbody.velocity = Vector2.zero;
+                GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
+                Destroy(obj, 0.25f);
+                yield return new WaitForSeconds(0.25f);
+            }
         }
         yield return new WaitForSeconds(0.25f);
 
+    }
+    IEnumerator Fork() 
+    {
+        bossRigidbody.AddForce(Vector2.down * 200f, ForceMode2D.Impulse); 
+        
+        yield return new WaitForSeconds(0.25f);
+        bossRigidbody.velocity = Vector2.zero;
     }
     // 2페이즈?
 
