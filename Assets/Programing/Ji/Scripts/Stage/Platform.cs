@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class HealPlatform : MonoBehaviour
+public class Platform : MonoBehaviour
 {
     // playerCheck bool변수를 넣어서 플렛폼에 닿아있는 경우 true를 반환
     // - 이걸로 플레이어가 true일때 아래로 떨어지는 함수를 사용할 수 있도록 제작
@@ -12,12 +12,15 @@ public class HealPlatform : MonoBehaviour
     [Header("State")]
     [SerializeField] float DeleteTime; // 삭제까지 걸리는 시간 조절
     [SerializeField] SpriteRenderer spriteRenderer; // 발판의 이미지
-    [SerializeField] bool playerCheck; // 플레이어가 충돌체 위에 있는 경우 true
+    [SerializeField] public bool playerCheck; // 플레이어가 충돌체 위에 있는 경우 true
 
     private void Start()
     {
         playerCheck = false;
     }
+
+
+
     /// <summary>
     /// HealFlat에 충돌체가 충돌할 때
     /// </summary>
@@ -62,5 +65,21 @@ public class HealPlatform : MonoBehaviour
         // DeleteTime 이 0이되면 오브젝트를 삭제함
         Destroy(gameObject); // 삭제까지 시간이 지나면 HealFlat 오브젝트 삭제
         playerCheck = false; // 플레이어가 발판을 밟지 않음으로 설정
+    }
+
+    /// <summary>
+    /// 오브젝트의 콜라이더를 일시적(0.5f)으로 비활성화상태로 하고 되돌리는 함수
+    /// </summary>
+    public void ChangeColliderState()
+    {
+        StartCoroutine(DisColliderTime());
+        gameObject.GetComponent<Collider>().enabled = false;
+        StopCoroutine(DisColliderTime());
+    }
+
+    IEnumerator DisColliderTime()
+    {
+        gameObject.GetComponent<Collider>().enabled = true;
+        yield return new WaitForSeconds(0.5f);
     }
 }
