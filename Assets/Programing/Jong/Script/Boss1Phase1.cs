@@ -16,7 +16,7 @@ public class Boss1Phase1 : MonoBehaviour
     }
     // 보스 애니메이션
     [SerializeField] Animator animator;
-    
+
     [SerializeField] GameObject player;
 
     [SerializeField] Rigidbody2D bossRigidbody;
@@ -41,9 +41,9 @@ public class Boss1Phase1 : MonoBehaviour
     [SerializeField] Transform atkPoint;
     [SerializeField] GameObject slashPrefap;
     [SerializeField] GameObject fireBallPrefab;
+    [SerializeField] Transform[] fireBallPoints;
 
-
-    Coroutine curCoroutine; 
+    Coroutine curCoroutine;
     BossState state = BossState.Walk;
     [SerializeField] BossState curBossState; // 보스의 현재 상태 확인용 
     // 보스에게 데미지를 주려면 BossPattern bossPattern = boss.GetComponent<BossPattern>();
@@ -57,13 +57,13 @@ public class Boss1Phase1 : MonoBehaviour
     IEnumerator BossDo()
     {
 
-       // WaitForSeconds time = new WaitForSeconds(0.1f);  // 1초에 80번 호출
+        // WaitForSeconds time = new WaitForSeconds(0.1f);  // 1초에 80번 호출
         curCoroutine = StartCoroutine(Walk());
         while (true)
         {
 
             toPlayerDistance = Vector2.Distance(player.transform.position, transform.position);
-                
+
             if (curBossState != state)
             {
                 curBossState = state;
@@ -98,7 +98,7 @@ public class Boss1Phase1 : MonoBehaviour
 
 
     IEnumerator Flying()
-    {   
+    {
         isflying = true;
         bossRigidbody.gravityScale = 0f; // 공중에서 공격할  땐 이동이 호출되지 않으니까 중력을 0으로 만들어서 계속 떠있게 함 
         // 지금 코드는 너무 휙 하고 올라가서 좀 별로 올라갈때 애니메이션이나 이펙트가 있으면 좀 나을듯 
@@ -118,7 +118,7 @@ public class Boss1Phase1 : MonoBehaviour
             30f
             );
             transform.position = newPosition;
-          
+
 
             if (toPlayerDistance <= flyAttackRange)
             {
@@ -138,7 +138,7 @@ public class Boss1Phase1 : MonoBehaviour
     }
 
     IEnumerator Walk()
-    {   
+    {
         isflying = false;
         bossRigidbody.gravityScale = 1f;
         if (stateCount >= 3)
@@ -148,7 +148,7 @@ public class Boss1Phase1 : MonoBehaviour
             stateCount = 0;
             state = BossState.Flying;
             Debug.Log("상태전환");
-            
+
         }
         while (state == BossState.Walk)
         {
@@ -216,7 +216,7 @@ public class Boss1Phase1 : MonoBehaviour
             }
         }
 
-      
+
         yield return time; // 스킬간의 텀 , 스킬의 실행 시간을 보장해줄 정도로 길어야 함 
 
         state = preState;  // 공격 이전의 상태로 돌아감 
@@ -229,20 +229,20 @@ public class Boss1Phase1 : MonoBehaviour
         Debug.Log("백스텝");
         if (player.transform.position.x < transform.position.x) // 플레이어의 반대 방향으로 날아감 
         {
-            
+
             bossRigidbody.AddForce(Vector2.right * 50f, ForceMode2D.Impulse);
         }
         else
         {
-           
+
             bossRigidbody.AddForce(Vector2.left * 50f, ForceMode2D.Impulse);
         }
 
 
-        yield return new WaitForSeconds(0.25f)  ;
+        yield return new WaitForSeconds(0.25f);
 
         bossRigidbody.velocity = Vector2.zero; // 너무 안밀리게 속도 없앰 
-        
+
     }
     IEnumerator Slash()
     {
@@ -251,7 +251,7 @@ public class Boss1Phase1 : MonoBehaviour
 
         GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
 
-        Destroy(obj,0.25f);
+        Destroy(obj, 0.25f);
         yield return null;
 
     }
@@ -260,16 +260,16 @@ public class Boss1Phase1 : MonoBehaviour
         animator.Play("WalkIdle");
         RushCollider.SetActive(true);
         Debug.Log("돌진");
-        if (player.transform.position.x < transform.position.x) // 플레이어의 반대 방향으로 날아감 
+        if (player.transform.position.x < transform.position.x) // 플레이어의 방향으로 날아감 
         {
 
-            
+
             bossRigidbody.AddForce(Vector2.left * 200f, ForceMode2D.Impulse);
         }
         else
         {
             bossRigidbody.AddForce(Vector2.right * 200f, ForceMode2D.Impulse);
-           
+
         }
 
 
@@ -277,23 +277,76 @@ public class Boss1Phase1 : MonoBehaviour
 
         bossRigidbody.velocity = Vector2.zero; // 너무 안밀리게 속도 없앰 
         RushCollider.SetActive(false);
-       
+
 
     }
     IEnumerator FireBall()
     {
         animator.Play("FlyIdle");
+        yield return new WaitForSeconds(0.25f);
         Debug.Log("화염구");
+        if (player.transform.position.x < transform.position.x)
+        {
+            for (int i = 0; i < fireBallPoints.Length; i++)
+            {
+                GameObject obj = Instantiate(fireBallPrefab, fireBallPoints[i].position, fireBallPoints[i].rotation);
+                Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
+                rb.AddForce(Vector2.left * 50f, ForceMode2D.Impulse);
+                Destroy(obj, 2.3f);
+            }
 
-        yield return null;
+        }
+        else
+        {
+            for (int i = 0; i < fireBallPoints.Length; i++)
+            {
+                GameObject obj = Instantiate(fireBallPrefab, fireBallPoints[i].position, fireBallPoints[i].rotation);
+                Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
+                rb.AddForce(Vector2.right * 50f, ForceMode2D.Impulse);
+                Destroy(obj, 2.3f);
+            }
 
+        }
+        yield return new WaitForSeconds(0.5f);
     }
     IEnumerator RushSlash()
     {
         animator.Play("FlyIdle");
         Debug.Log("공중돌진베기");
+        yield return new WaitForSeconds(0.25f);
+        if (player.transform.position.x < transform.position.x) // 플레이어의 방향으로 날아감 
+        {
 
-        yield return null;
+            bossRigidbody.AddForce(Vector2.left * 30f, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(0.25f);
+            bossRigidbody.velocity = Vector2.zero;
+            yield return new WaitForSeconds(0.1f);
+            bossRigidbody.AddForce(Vector2.left * 30f, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(0.25f);
+            bossRigidbody.velocity = Vector2.zero;
+            yield return new WaitForSeconds(0.1f);
+            bossRigidbody.AddForce(Vector2.left * 30f, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(0.25f);
+            bossRigidbody.velocity = Vector2.zero;
+
+
+
+        }
+        else
+        {
+            bossRigidbody.AddForce(Vector2.right * 30f, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(0.25f);
+            bossRigidbody.velocity = Vector2.zero;
+            yield return new WaitForSeconds(0.1f);
+            bossRigidbody.AddForce(Vector2.right * 30f, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(0.3f);
+            bossRigidbody.velocity = Vector2.zero;
+            yield return new WaitForSeconds(0.1f);
+            bossRigidbody.AddForce(Vector2.right * 30f, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(0.3f);
+            bossRigidbody.velocity = Vector2.zero;
+        }
+        yield return new WaitForSeconds(0.25f);
 
     }
     // 2페이즈?
