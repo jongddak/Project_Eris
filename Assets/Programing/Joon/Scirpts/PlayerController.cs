@@ -363,14 +363,18 @@ public class PlayerController : MonoBehaviour
         dashTimeLeft = dashTime;
 
         float xInput = Input.GetAxisRaw("Horizontal");
-        float yInput = Input.GetAxisRaw("Vertical");
 
-        //대시 방향 결정
-        Vector2 dashDirection = new Vector2(xInput, yInput).normalized;
+        // 대시 방향 결정
+        Vector2 dashDirection;
 
-        if (dashDirection == Vector2.zero)
+        if (xInput != 0)
         {
-            // 플레이어의 회전 값에 따라 대시 방향 결정
+            // 수평 입력이 있을 때, 해당 방향으로 대시
+            dashDirection = new Vector2(xInput, 0).normalized;
+        }
+        else
+        {
+            // 수평 입력이 없을 때 플레이어의 회전 값에 따라 대시 방향 결정
             if (GFX.transform.localScale.x == 1f) // 오른쪽을 바라볼 때
             {
                 dashDirection = Vector2.right; // 오른쪽으로 대시
@@ -378,6 +382,10 @@ public class PlayerController : MonoBehaviour
             else if (GFX.transform.localScale.x == -1f) // 왼쪽을 바라볼 때
             {
                 dashDirection = Vector2.left; // 왼쪽으로 대시
+            }
+            else
+            {
+                dashDirection = Vector2.zero; // 대시 방향이 결정되지 않은 경우
             }
         }
 
