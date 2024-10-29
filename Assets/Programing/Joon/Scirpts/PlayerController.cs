@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
@@ -178,11 +178,11 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && canDash)
+        if (Input.GetKeyDown(KeyCode.Z) && canDash)
         {
             Dash();
         }
-        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviour
             curState = PlayerState.Fall;  // 낙하 상태로 전환
         }
 
-        if (Input.GetKeyDown(KeyCode.Z) && coll.onWall)
+        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
         {
             Grab();
         }
@@ -213,11 +213,11 @@ public class PlayerController : MonoBehaviour
             GrabJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && canDash)
+        if (Input.GetKeyDown(KeyCode.Z) && canDash)
         {
             Dash();
         }
-        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
@@ -234,7 +234,7 @@ public class PlayerController : MonoBehaviour
             canDash = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Z) && coll.onWall)
+        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
         {
             Grab();
         }
@@ -243,11 +243,11 @@ public class PlayerController : MonoBehaviour
         {
             GrabJump();
         }
-        if (Input.GetKeyDown(KeyCode.X) && canDash)
+        if (Input.GetKeyDown(KeyCode.Z) && canDash)
         {
             Dash();
         }
-        if (Input.GetKeyDown(KeyCode.V) && !isAttack)
+        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour
     {
         //GrabMove();
 
-        if (Input.GetKeyUp(KeyCode.Z))
+        if (Input.GetKeyUp(KeyCode.A))
         {
             UnGrab();
         }
@@ -280,7 +280,7 @@ public class PlayerController : MonoBehaviour
 
     private void DashUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && coll.onWall)
+        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
         {
             Grab();
         }
