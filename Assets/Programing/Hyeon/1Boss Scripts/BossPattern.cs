@@ -175,10 +175,10 @@ public class BossPattern : MonoBehaviour
     private IEnumerator ExecuteAttackPattern()
     {
         skillStart = true;
-        bossPatternNum = 2;
+
         switch (bossPatternNum)
         {
-            case 1:             
+            case 1:
                 yield return StartCoroutine(FireBarrier());
                 Debug.Log("화염기둥 패턴");
                 break;
@@ -193,7 +193,7 @@ public class BossPattern : MonoBehaviour
             case 4:
                 yield return StartCoroutine(BodyTackle());
                 Debug.Log("바디태클 패턴");
-                break;           
+                break;
         }
         skillStart = false;
         state = BossState.Idle;
@@ -233,7 +233,7 @@ public class BossPattern : MonoBehaviour
 
         yield return new WaitForSeconds(0.7f);
         // 돌진 목표 거리 설정
-        float targetDistance = 80f; // 보스가 이동할 거리 (원하는 값으로 설정)
+        float targetDistance = 80f; // 보스가 이동할 거리
         float currentDistance = 0f; // 현재 이동거리
         float tackleSpeed = 200f;  // 돌진 속도
 
@@ -246,10 +246,10 @@ public class BossPattern : MonoBehaviour
             bossRigid.MovePosition(targetPosition);
             currentDistance = Vector2.Distance(new Vector2(transform.position.x, startPosition.y), startPosition);
 
-
             yield return null;
         }
         bossRigid.velocity = Vector2.zero;
+
         yield return new WaitForSeconds(0.7f);
         // 돌진 collider 비활성화
         bossTacklePoint.SetActive(false);
@@ -375,14 +375,14 @@ public class BossPattern : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // 벽과 충돌했는지 확인 Test => wall로 교체
-        if (collision.gameObject.CompareTag("Test"))
+        if (collision.gameObject.CompareTag("Wall"))
         {
             isWall = true;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Test"))
+        if (collision.gameObject.CompareTag("Wall"))
         {
             isWall = false;
         }
