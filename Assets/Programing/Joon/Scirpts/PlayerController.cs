@@ -51,7 +51,9 @@ public class PlayerController : MonoBehaviour
     private static int jumpHash = Animator.StringToHash("Jump");
     private static int fallHash = Animator.StringToHash("Fall");
     private static int grabHash = Animator.StringToHash("Grab");
-    private static int attackHash = Animator.StringToHash("Attack");
+    private static int attack1Hash = Animator.StringToHash("Attack1");
+    private static int attack2Hash = Animator.StringToHash("Attack2");
+    private static int attack3Hash = Animator.StringToHash("Attack3");
     private static int dieHash = Animator.StringToHash("Die");
 
     [Header("AttackInfo")]
@@ -468,6 +470,11 @@ public class PlayerController : MonoBehaviour
         {
             temp = grabHash;
         }*/
+        if (curState == PlayerState.Attack)
+        {
+            temp = attack1Hash;
+        }
+
 
         if (curAniHash != temp)
         {
