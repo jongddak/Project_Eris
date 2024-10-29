@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 473936139}
   - component: {fileID: 473936138}
   - component: {fileID: 473936137}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Square (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 1489095108}
   - component: {fileID: 1489095110}
   - component: {fileID: 1489095111}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Square (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -972,11 +972,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4546730247487622204, guid: f3264a5a0090d534c902259215b5e9ef, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 81.9
+      value: 99.8
       objectReference: {fileID: 0}
     - target: {fileID: 4546730247487622204, guid: f3264a5a0090d534c902259215b5e9ef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: 10.7
       objectReference: {fileID: 0}
     - target: {fileID: 4546730247487622204, guid: f3264a5a0090d534c902259215b5e9ef, type: 3}
       propertyPath: m_LocalPosition.z
