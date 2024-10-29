@@ -65,7 +65,10 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
     [SerializeField] private GameObject attackEffectPrefabs;   //공격 이펙트
     [SerializeField] AttackTest attackTest;                    //공격 범위 판정       
-    [SerializeField] private bool isDead = false;
+    [SerializeField] private bool isDead = false;              //플레이어의 죽음 판별
+    [SerializeField] private int currentAttackCount = 0;       //현재 공격 횟수
+    private float lastAttackTime;                              //마지막 공격 시간
+    public float comboResetTime = 1.0f;                        //공격 콤보가 초기화 되는 시간
 
 
     //[Header("CameraInfo")]
@@ -83,6 +86,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (!canMove) return;
+
+        ComboUpdate(); //지정한 시간 내에 공격이 이루어지지 않으면 공격콤보 초기화
 
         //상태에 따른 업데이트 함수 호출
         switch (curState)
@@ -293,6 +298,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void ComboUpdate()
+    {
+        if (Time.time - lastAttackTime > comboResetTime)
+        {
+            currentAttackCount = 0;
+        }
+    }
+
     private void AttackUpdate()
     {
 
@@ -429,7 +442,9 @@ public class PlayerController : MonoBehaviour
         isAttack = true;
         curState = PlayerState.Attack;  // 공격 상태로 전환
 
-        
+        currentAttackCount++;
+        lastAttackTime = Time.time;
+        Debug.Log($"{currentAttackCount}");
 
         // 공격 이펙트 생성
         Vector2 effectPosition = attackTest.attackRangeCollider.transform.position;
@@ -461,10 +476,15 @@ public class PlayerController : MonoBehaviour
         // 이펙트 및 콜라이더 삭제
         Destroy(attackEffect);
 
+        isAttack = false;
+
+        if(currentAttackCount >= 3)
+        {
+            currentAttackCount = 0;
+        }
+
         // 공격 상태를 Idle로 전환
         curState = PlayerState.Idle;
-
-        isAttack = false;
     }
 
     public void Die()
@@ -511,7 +531,18 @@ public class PlayerController : MonoBehaviour
         }*/
         if (curState == PlayerState.Attack)
         {
-            temp = attack1Hash;
+            switch (currentAttackCount)
+            {
+                case 1:
+                    temp = attack1Hash;
+                    break;
+                case 2:
+                    temp = attack2Hash;
+                    break;
+                case 3:
+                    temp = attack3Hash;
+                    break;
+            }        
         }
 
 

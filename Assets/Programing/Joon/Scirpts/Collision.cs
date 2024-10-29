@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class Collision : MonoBehaviour
@@ -14,10 +15,12 @@ public class Collision : MonoBehaviour
     [Header("Collision Settings")]
 
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask platformLayer;
     [SerializeField] public bool onGround;
     [SerializeField] public bool onWall;
     [SerializeField] public bool onRightWall;
     [SerializeField] public bool onLeftWall;
+    [SerializeField] public bool onPlatform;
     [SerializeField] public int wallSide;
 
     private void Update()
@@ -26,6 +29,8 @@ public class Collision : MonoBehaviour
         onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
         onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer);
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
+
+        onPlatform = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, platformLayer);
 
         //오른쪽벽이나 왼쪽벽 둘 중 하나만 닿아도 벽에 닿은 것으로 판별
         onWall = onRightWall || onLeftWall;
