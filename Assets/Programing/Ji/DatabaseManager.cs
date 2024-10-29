@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,35 +6,56 @@ public class DatabaseManager : MonoBehaviour
     public static DatabaseManager instance;
 
     [SerializeField] string csvFileName; // CSV 파일의 이름을 지정
+    [SerializeField] public Dialogue[] dialogues; // Dialogue로 dialogues배열을 만들어서 DialogueParser한 데이터를 배열로 저장
 
     // Dictionary를 <string, Dialogue> 로 제작
-    // string = EventName 으로 각 상황별로 불러와질 Dialogue의 딕셔너리
+    // dialogueDic에 데이터를 저장하여 사용
     Dictionary<int, Dialogue> dialogueDic = new Dictionary<int, Dialogue>();
 
     public static bool isFinish = false; // 데이터 파싱 후 제대로 저장이 되었는지 여부를 확인할 수 있는 변수
 
     private void Awake()
     {
-        if(instance == null) // instance가 null 값이면
+        if (instance == null) // instance가 null 값이면
         {
             instance = this; // 현재 인스턴스로 저장
             // DatabaseManager와 DialogueParser.cs는 같은 오브젝트에 넣어 한번에 theParser를 찾을 수 있도록 선언
             DialogueParser theParser = GetComponent<DialogueParser>();
 
-            Dialogue[] dialogues = theParser.Parser(csvFileName); // DialogueParser의 Parser함수를 실행
+            dialogues = theParser.Parser(csvFileName); // DialogueParser의 Parser함수를 실행
             // dialogues에 csv파일의 데이터가 전부 담기게 됨
-
+            /*
             // i가 배열의 줄 수 = Dialogue.cs에서 사용하는 vector2 line과 동일한 값 
             // x번째부터 y번째의 대사를 출력하도록 할때 사용함
             for(int i = 0; i < dialogues.Length; i++)
             {
                 dialogueDic.Add(i, dialogues[i]);
             }
+            */
             isFinish = true; // 데이터의 저장이 완료됨
         }
 
     }
+    /*
+    private void Start()
+    {
+        for (int i = 0; i < dialogues.Length; i++)
+        {
+            if (i == dialogues.Length - 1)
+            {
+                Debug.Log("종료");
+                break;
+            }
+            Debug.Log(dialogues[i].name);
 
+            for (int j = 0; j < dialogues[i].contexts.Length; j++)
+            {
+                    Debug.Log(dialogues[i].contexts[j]);
+            }
+        }
+    }
+    */
+    /*
     /// <summary>
     /// 한 이벤트에 사용되는 대사 Dialogue를 가져오는 함수
     /// Dialogue[] : 한 이벤트에 사용되는 대사가 여러줄이므로 배열로 설정
@@ -63,10 +83,10 @@ public class DatabaseManager : MonoBehaviour
             dialogueList.Add(dialogueDic[StartNum+i]);
             /*Debug.Log(dialogueList[i].eventName);
             Debug.Log(dialogueList[i].name);
-            Debug.Log(dialogueList[i].contexts);*/
+            Debug.Log(dialogueList[i].contexts);
         }
 
         return dialogueList.ToArray(); // 리스트를 배열로 변환하여 출력하기
     }
-
+*/
 }

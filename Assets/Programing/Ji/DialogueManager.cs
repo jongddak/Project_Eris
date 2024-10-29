@@ -1,6 +1,6 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
-using static SceneManager;
 /* 대사 스크립트 관련 유튜브 영상
  * https://www.youtube.com/watch?v=DPWvoUlHbjg&list=PLUZ5gNInsv_NG_UKZoua8goQbtseAo8Ow&index=11
  * https://www.youtube.com/watch?v=1fRbGvQlIEQ
@@ -10,18 +10,27 @@ using static SceneManager;
  * 대사를 타자형식으로 출력하는 것 관련 유튜브 영상
  * https://www.youtube.com/watch?v=OjcPuEVQT6s
  */
+
+// 
 public class DialogueManager : MonoBehaviour
 {
+
     // DatabaseManager.cs의 GetDialogues() 함수를 사용하기 위한 선언
     [SerializeField] DatabaseManager databaseManager;
-
+    private Dialogue[] nowDialogue;
+    int count = 0;
+    int num = 0;
     [Header("UI")]
     [SerializeField] private GameObject imgBoss; // 보스 캐릭터의 대화 시 출력 이미지
     [SerializeField] private GameObject imgPlayer; // 플레이어 캐릭터의 대화 시 출력 이미지
+    [SerializeField] private GameObject imgDialogue; // 대화창 이미지
+    [SerializeField] private GameObject uiTextName; // 대화하는 캐릭터의 이름 출력 오브젝트
+    [SerializeField] private GameObject uiTextDialogue; // 캐릭터가 대사 출력 오브젝트
 
-    [Header("Test")]
+    [Header("Text")]
     [SerializeField] private TextMeshProUGUI textName; // 대화하는 캐릭터의 이름 text
-    [SerializeField] private TextMeshProUGUI textDialogue; // 캐릭터의 대사 text
+    [SerializeField] private TextMeshProUGUI textContext; // 캐릭터의 대사 text
+
     /*
         /// <summary>
         /// 이벤트가 시작하는 번호와 끝나는 번호에 따라서 Text를 알맞은 위치에 출력하고
@@ -63,29 +72,84 @@ public class DialogueManager : MonoBehaviour
         }
     */
 
-
-    /// <summary>
-    /// SceneManager 에서 현재의 Scene의 상태에 따라서 DatabaseManager.cs의 GetDialogues함수를 이용해
-    /// 각 위치에 알맞은 데이터를 Dialogue[] nowDialogueArr의 형태로 저장하여 리턴
-    /// </summary>
-    /// <param name="nowSceneState"></param>
-    /// <returns></returns>
-    public Dialogue[] cheakEvent(SceneState nowSceneState)
+    private void Awake()
     {
-        Dialogue[] nowDialogueArr;
-        switch (nowSceneState)
+        imgBoss.SetActive(true); // 보스 캐릭터의 대화 시 출력 이미지
+        imgPlayer.SetActive(true); // 플레이어 캐릭터의 대화 시 출력 이미지
+        imgDialogue.SetActive(true); // 대화창 이미지
+        uiTextName.SetActive(true); // 대화하는 캐릭터의 이름 출력 오브젝트
+        uiTextDialogue.SetActive(true); // 캐릭터가 대사 출력 오브젝트
+    }
+
+    private void Start()
+    {
+        nowDialogue = databaseManager.dialogues; // DatabaseManager에서 Awake()에서 저장된 Dialogues 배열을 불러와서 사용
+        ShowTextName(nowDialogue, count); // 시작하자마자 이름 출력
+        ShowTextContexts(nowDialogue, count, num); // 시작하자마자 첫 대사 출력
+    }
+
+    private void Update()
+    {
+        Debug.Log($"업데이트시작 : {count}");
+
+        // 우선 키입력으로 작동하지 않아서 우선 마우스 좌클릭으로 구현
+        if (Input.GetMouseButtonDown(0))
         {
-            case SceneState.Start:
-                nowDialogueArr = databaseManager.GetDialogues(0, 5);
-                return nowDialogueArr;
-            case SceneState.Phase1Talk:
-                nowDialogueArr = databaseManager.GetDialogues(6, 10);
-                return nowDialogueArr;
-            case SceneState.MonsterDie:
-                nowDialogueArr = databaseManager.GetDialogues(11, 17);
-                return nowDialogueArr;
+            count++;
+            Debug.Log("키 입력");
+            StartCoroutine(ShowTextName());
+           // StartCoroutine(ShowTextContexts());
+
         }
-        return null;
+
+        /* 스페이스키를 누르면 다음대사 출력으로 설정하였으나 스페이스바로 작동하지 않음을 발견
+         * 왜 키보드 입력이...안되지? 왜?
+         * 내가 뭘 놓쳤나...?
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("스페이스 입력");
+            StartCoroutine(ShowText());
+            count++;
+        }
+        */
+    }
+
+    IEnumerator ShowTextName()
+    {
+        if (count >= nowDialogue.Length - 1)
+        {
+            Debug.Log("종료");
+            yield return null;
+        }
+        else
+        {
+            ShowTextName(nowDialogue, count);
+            for (num = 0; num < nowDialogue[count].contexts.Length;)
+            {
+                ShowTextContexts(nowDialogue, count, num);
+                num++;
+                if (num >= nowDialogue[count].contexts.Length - 1)
+                {
+                    Debug.Log("대사종료");
+                    yield return null;
+                }
+            }
+        }
+        
+        yield return null;
+    }
+
+    IEnumerator ShowTextContexts()
+    {
+        for (num = 0; num < nowDialogue[count].contexts.Length; num++)
+        {
+            ShowTextContexts(nowDialogue, count, num);
+            if (num >= nowDialogue[count].contexts.Length - 1)
+            {
+                yield return null;
+            }
+        }
+
     }
 
     /// <summary>
@@ -94,14 +158,15 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     /// <param name="nowDialogue"></param>
     /// <param name="count"></param>
-    private void ShowTextName(Dialogue[] nowDialogue, int count)
+    public void ShowTextName(Dialogue[] nowDialogue, int count)
     {
-        // 대사가 두 줄 이라서 이름이 공백인 경우가 있기에 공백이 아니면 이름을 출력
-        if (nowDialogue[count].name != "")
-        {
-            textName.text = nowDialogue[count].name.ToString();
-        }
-        // 공백인 경우에는 이전의 이름을 그대로 써야하므로 출력에 변동이 없음
+        textName.text = nowDialogue[count].name.ToString();
+    }
+
+    public void ShowTextContexts(Dialogue[] nowDialogue, int count, int num)
+    {
+        Debug.Log(nowDialogue[count].contexts[num]);
+        textContext.text = nowDialogue[count].contexts[num].ToString();
     }
 
     /// <summary>
@@ -110,9 +175,11 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     /// <param name="nowDialogue"></param>
     /// <param name="count"></param>
-    private void ShowImgName(Dialogue[] nowDialogue, int count)
+    public void ShowImgName(Dialogue[] nowDialogue, int count)
     {
 
 
     }
+
+
 }
