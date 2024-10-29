@@ -24,26 +24,25 @@ public class FireBall : MonoBehaviour
         transform.Translate(direction * fireBallSpeed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.CompareTag("Player") && !spendDamage)
         {
             if (!spendDamage)
-            {
-                // 플레이어에게 데미지를 주는 로직 
-
-                // 한번만 데미지를 주기위해 spendDamage로 데미지 판정
+            {                
+                // 플레이어에게 데미지를 주는 로직
             }
-            spendDamage = true;            
+            // 한번만 데미지를 주기위해 spendDamage로 데미지 판정
+            spendDamage = true;
         }
-        // 벽에 부딛치면 소멸시키기
-        if (collision.gameObject.tag == "Test")
-        {
-            // 소멸 애니메이션 있다면 적용
+    }
 
-            // 애니메이션을 적용한다면 부딛친 위치에 정지하는코드
-            // 삭제를 애니메이션 재생시간동안 유해
-            Destroy(gameObject);
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            // 소멸 애니메이션 적용 가능 (필요 시)
+            Destroy(gameObject); // 애니메이션 후 소멸
         }
     }
 }

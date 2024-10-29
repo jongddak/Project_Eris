@@ -1,14 +1,23 @@
 using System.Collections;
 using UnityEngine;
 
-public class HealFlat : MonoBehaviour
+public class HealPlatform : MonoBehaviour
 {
+    // playerCheck bool변수를 넣어서 플렛폼에 닿아있는 경우 true를 반환
+    // - 이걸로 플레이어가 true일때 아래로 떨어지는 함수를 사용할 수 있도록 제작
+
+
     // 코루틴으로 시간 타이밍을 조절
     // 시간 조절 후 오브젝트 삭제
     [Header("State")]
     [SerializeField] float DeleteTime; // 삭제까지 걸리는 시간 조절
     [SerializeField] SpriteRenderer spriteRenderer; // 발판의 이미지
+    [SerializeField] bool playerCheck; // 플레이어가 충돌체 위에 있는 경우 true
 
+    private void Start()
+    {
+        playerCheck = false;
+    }
     /// <summary>
     /// HealFlat에 충돌체가 충돌할 때
     /// </summary>
@@ -25,6 +34,7 @@ public class HealFlat : MonoBehaviour
              */
             if (collision.relativeVelocity.y < 0)
             {
+                playerCheck = true;
                 // collision의 충돌 직전의 속도가 0보다 작다는 것은
                 // 충돌체가 위에서 아래로 내려오고 있다는 뜻이므로
                 // 충돌체가 위에서 밟았을 때에만 일정시간 후 삭제하는 코루틴 작동
@@ -51,5 +61,6 @@ public class HealFlat : MonoBehaviour
         }
         // DeleteTime 이 0이되면 오브젝트를 삭제함
         Destroy(gameObject); // 삭제까지 시간이 지나면 HealFlat 오브젝트 삭제
+        playerCheck = false; // 플레이어가 발판을 밟지 않음으로 설정
     }
 }
