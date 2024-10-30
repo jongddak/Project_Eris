@@ -137,12 +137,12 @@ public class PlayerController : MonoBehaviour
         }
 
         //플랫폼 레이어가 밑에 있을 시 조건 추가
-        if (Input.GetKey(KeyCode.DownArrow) &&
+        /*if (Input.GetKey(KeyCode.DownArrow) &&
             Input.GetKeyDown(KeyCode.C))
         {
             LowJump();
-        }
-        else if (Input.GetKeyDown(KeyCode.C))
+        }*/
+        if (Input.GetKeyDown(KeyCode.C))
         {
             Jump();
         }
@@ -168,11 +168,11 @@ public class PlayerController : MonoBehaviour
             curState = PlayerState.Fall;
         }
         
-        if (Input.GetKey(KeyCode.DownArrow) &&
+        /*if (Input.GetKey(KeyCode.DownArrow) &&
             Input.GetKeyDown(KeyCode.C))
         {
             LowJump();
-        }
+        }*/
         else if (Input.GetKeyDown(KeyCode.C))
         {
             Jump();
@@ -203,7 +203,8 @@ public class PlayerController : MonoBehaviour
             curState = PlayerState.Fall;  // 낙하 상태로 전환
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
+        //if ((Input.GetKey(KeyCode.LeftArrow) && coll.onLeftWall) || (Input.GetKey(KeyCode.RightArrow) && coll.onRightWall))
+        if (Input.GetKey(KeyCode.V) && coll.onWall)
         {
             Grab();
         }
@@ -234,7 +235,7 @@ public class PlayerController : MonoBehaviour
             canDash = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
+        if (Input.GetKeyDown(KeyCode.V) && coll.onWall)
         {
             Grab();
         }
@@ -257,7 +258,7 @@ public class PlayerController : MonoBehaviour
     {
         //GrabMove();
 
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.V))
         {
             UnGrab();
         }
@@ -280,7 +281,7 @@ public class PlayerController : MonoBehaviour
 
     private void DashUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
+        if (Input.GetKeyDown(KeyCode.V) && coll.onWall)
         {
             Grab();
         }
@@ -307,6 +308,8 @@ public class PlayerController : MonoBehaviour
             currentAttackCount = 0;
         }
     }
+
+
 
     private void AttackUpdate()
     {
@@ -354,11 +357,11 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
     }
 
-    private void LowJump()
+    /*private void LowJump()
     {
         curState = PlayerState.Fall;
         OnJumpDown?.Invoke(this, EventArgs.Empty);
-    }
+    }*/
 
     private void Grab()
     {
@@ -372,7 +375,7 @@ public class PlayerController : MonoBehaviour
 
     private void UnGrab()
     {
-        curState = PlayerState.Jump;
+        curState = PlayerState.Fall;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 1f;
     }
@@ -389,14 +392,14 @@ public class PlayerController : MonoBehaviour
         
         if (coll.onLeftWall)
         {
-            rb.velocity = new Vector2(13f, 10f);
+            rb.velocity = new Vector2(40f, 25f);
             //붙잡은 벽이 왼쪽벽일 때 벽점프시 기본방향인 오른쪽을 보도록
             GFX.transform.localScale = new Vector3(1, 1, 1);
         }
         
         else if (coll.onRightWall)
         {
-            rb.velocity = new Vector2(-13f, 10f);
+            rb.velocity = new Vector2(-40f, 25f);
             //붙잡은 벽이 오른쪽벽일 때 벽점프시 반대방향인 왼쪽을 보도록
             GFX.transform.localScale = new Vector3(-1, 1, 1);
         }

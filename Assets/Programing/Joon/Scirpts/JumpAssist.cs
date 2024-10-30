@@ -5,9 +5,9 @@ using UnityEngine;
 public class JumpAssist : MonoBehaviour
 {
     //캐릭터의 떨어지는 속도를 가중시키기 위한 변수
-    [SerializeField] float fallMultiplier = 4f;
+    [SerializeField] float fallMultiplier = 20f;
     //캐릭터의 점프키 입력을 땠을 때 중력의 영향을 키워 더 빠르게 떨어지도록 구현
-    [SerializeField] float lowJumpMultiplier = 7f;
+    [SerializeField] float lowJumpMultiplier = 20f;
     Rigidbody2D rb;
     [SerializeField] Collision coll;
 

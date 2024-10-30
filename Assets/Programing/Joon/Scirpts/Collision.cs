@@ -7,7 +7,7 @@ public class Collision : MonoBehaviour
 {
     [Header("Collision")]
 
-    [SerializeField] float collisionRadius = 0.25f;
+    [SerializeField] float collisionRadius = 0.4f;
     public Vector2 bottomOffset, rightOffset, leftOffset;
     private Color debugColor = Color.red;
 
