@@ -16,12 +16,13 @@ public class SwordAura : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
 
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, 3f);
     }   
 
     private void Update()
     {
         basetransform.Translate(transform.forward * direction * swordAuraSpeed * Time.deltaTime);
+      
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

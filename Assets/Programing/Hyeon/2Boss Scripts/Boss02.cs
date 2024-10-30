@@ -322,13 +322,17 @@ public class Boss02 : MonoBehaviour
         SwordAura type = swordSopn.GetComponentInChildren<SwordAura>();
 
         // 플레이어가 보스의 좌에 있는지 우에 있는지 판단
-        if (player.transform.position.x <= bossObject.transform.position.x)
+        if (player.transform.position.x < swordAuraPoint.transform.position.x)
         {
             type.direction = -1;
         }
-        else
+        else if (player.transform.position.x > swordAuraPoint.transform.position.x)
         {
             type.direction = 1;
+        }
+        else
+        {
+            type.direction = 0;
         }
     }
 }
