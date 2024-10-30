@@ -11,17 +11,16 @@ public class Boss02 : MonoBehaviour
 
     // 보스 게임 오브젝트
     [SerializeField] GameObject bossObject;
-
     // 플레이어 프리펩
     [SerializeField] GameObject player;
     // 보스의 Rigidbody
     [SerializeField] Rigidbody2D bossRigid;
-
+    // SwordAura 검기 프리펩
+    [SerializeField] GameObject swordAura;
     // 패턴 시작 판정 bool
     private bool skillStart = false;
-    // 벽 충돌 판정
-    private bool isWall = false;
-
+    // SwordAura 검기 생성 좌표
+    [SerializeField] Transform swordAuraPoint;
     // 보스 스탯
     // 보스 HP
     [SerializeField] float bossHP = 10;
@@ -179,6 +178,7 @@ public class Boss02 : MonoBehaviour
             bosscount = 0;
         }
         skillStart = true;
+        bossPatternNum = 3;
         switch (bossPatternNum)
         {
             case 1:
@@ -190,7 +190,7 @@ public class Boss02 : MonoBehaviour
                 Debug.Log("발도 패턴");
                 break;
             case 3:
-                yield return StartCoroutine(Bash());
+                yield return StartCoroutine(SkySwordAura());
                 Debug.Log("공중 검기 날리기");
                 break;
         }
@@ -209,13 +209,10 @@ public class Boss02 : MonoBehaviour
     }
     private IEnumerator FootWork()
     {
-        // 발도 
-        isWall = false;
-
+        // 발도
         // 현재 보스의 Y 좌표 저장
         float y = transform.position.y;
-        // 좌측 우측 판정
-        Vector2 dashDirection = (player.transform.position - transform.position).normalized;
+        
         // 순간이동 거리
         float targetDistance = 100f;
         // 칼 뽑는 애니메이션 재생
@@ -223,19 +220,19 @@ public class Boss02 : MonoBehaviour
         // 애니메이션 재생 시간
         yield return new WaitForSeconds(0.7f);
         // 레이케스트 사용
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, dashDirection, targetDistance, LayerMask.GetMask("Wall"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, playerPosition, targetDistance, LayerMask.GetMask("Wall"));
 
         Vector2 targetPosition;
         // 레이케스트가 벽에 닿았을때
         if (hit.collider != null)
         {
             // 벽에 닿았을 때, 벽 앞까지 이동
-            targetPosition = new Vector2(hit.point.x - dashDirection.x * 1f, y);
+            targetPosition = new Vector2(hit.point.x - playerPosition.x * 1f, y);
         }
         else
         {
             // 벽이 없으면 설정된 거리만큼 순간이동
-            targetPosition = new Vector2(transform.position.x + dashDirection.x * targetDistance, y);
+            targetPosition = new Vector2(transform.position.x + playerPosition.x * targetDistance, y);
         }
         // 보스 위치
         transform.position = targetPosition;
@@ -247,12 +244,43 @@ public class Boss02 : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
     }
     // 데미지 계산 함수
+    private IEnumerator SkySwordAura()
+    {
+        float bossJumpPower = 110f;
+
+        // animator.Play("공중 점프 애니메이션");     
+
+        bossRigid.bodyType = RigidbodyType2D.Dynamic;
+        // 보스가 위로 올라감
+        bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
+
+        // 올라가고 차징하는 애니메이션
+        //animator.Play("boss1 2 FireBarrier");
+
+        // 애니메이션 및 올라가는 시간을 위한 대기시간
+        yield return new WaitForSeconds(0.2f);
+        // 보스의 위치 고정
+        bossRigid.velocity = Vector2.zero;
+        bossRigid.bodyType = RigidbodyType2D.Kinematic;
+
+        // 보스가 뿌리는 검기 생성
+        for (int i = 0; i < 5; i++)
+        {
+            SwordAuraSpon();
+            yield return new WaitForSeconds(1f);
+        }
+
+        bossRigid.bodyType = RigidbodyType2D.Dynamic;
+        bossRigid.gravityScale = 10;
+        yield return new WaitForSeconds(2f);
+        bossRigid.gravityScale = 1;
+    }
     public void TakeDamage(float damage)
     {
-        bossHP -= damage;
+        bossNowHP -= damage;
 
         // 보스의 체력이 0 이하가 되면 상태를 Die로 변경
-        if (bossHP <= 0)
+        if (bossNowHP <= 0)
         {
             state = BossState.Die;
         }
@@ -290,5 +318,9 @@ public class Boss02 : MonoBehaviour
             // 보스가 오른쪽을 바라보도록 함
             bossObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+    }
+    public void SwordAuraSpon()
+    {
+        GameObject swordSopn = Instantiate(swordAura, swordAuraPoint.position, swordAuraPoint.rotation);
     }
 }
