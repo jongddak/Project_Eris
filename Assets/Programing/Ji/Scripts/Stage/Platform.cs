@@ -12,11 +12,11 @@ public class Platform : MonoBehaviour
     [Header("State")]
     [SerializeField] float DeleteTime; // 삭제까지 걸리는 시간 조절
     [SerializeField] SpriteRenderer spriteRenderer; // 발판의 이미지
-    [SerializeField] public bool playerCheck; // 플레이어가 충돌체 위에 있는 경우 true
+    [SerializeField] public Collision collision; // 플레이어 프리팹에 있는 Collision의 충돌 체크를 불러오기 위해 연동
 
     private void Start()
     {
-        playerCheck = false;
+
     }
 
 
@@ -37,7 +37,7 @@ public class Platform : MonoBehaviour
              */
             if (collision.relativeVelocity.y < 0)
             {
-                playerCheck = true;
+                
                 // collision의 충돌 직전의 속도가 0보다 작다는 것은
                 // 충돌체가 위에서 아래로 내려오고 있다는 뜻이므로
                 // 충돌체가 위에서 밟았을 때에만 일정시간 후 삭제하는 코루틴 작동

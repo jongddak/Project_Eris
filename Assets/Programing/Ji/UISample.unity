@@ -138,6 +138,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &316241986 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2623651362045839923, guid: 42fc244e62dd63243b93e43ed0a120a1, type: 3}
+  m_PrefabInstance: {fileID: 6138234271843946740}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb14925e74362f0498f64cdb29e9a917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &941775798
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,6 +640,10 @@ PrefabInstance:
       propertyPath: uiTextDialogue
       value: 
       objectReference: {fileID: 47564750}
+    - target: {fileID: 6138234270851168147, guid: 42fc244e62dd63243b93e43ed0a120a1, type: 3}
+      propertyPath: databaseManager
+      value: 
+      objectReference: {fileID: 316241986}
     - target: {fileID: 6138234270851168156, guid: 42fc244e62dd63243b93e43ed0a120a1, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -676,6 +691,6 @@ PrefabInstance:
     - target: {fileID: 6138234272083768141, guid: 42fc244e62dd63243b93e43ed0a120a1, type: 3}
       propertyPath: csvData
       value: 
-      objectReference: {fileID: 4900000, guid: a3160daefb06f5b47a75d7cda9483d16, type: 3}
+      objectReference: {fileID: 4900000, guid: 52de7e083c9cde1438747330644b906f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42fc244e62dd63243b93e43ed0a120a1, type: 3}
