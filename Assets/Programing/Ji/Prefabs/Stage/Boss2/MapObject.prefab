@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeleteTime: 2
   spriteRenderer: {fileID: 1202220183064760246}
-  playerCheck: 0
+  playerCollision: {fileID: 0}
 --- !u!61 &1202220183064760244
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 1202220183066489743}
   - component: {fileID: 1202220183066489742}
   - component: {fileID: 1202220183066489736}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: SideWall
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1202220183503259328}
   - component: {fileID: 1202220183503259331}
-  - component: {fileID: 1202220183503259330}
+  - component: {fileID: 7492224972180877482}
   - component: {fileID: 1202220183503259329}
   - component: {fileID: 1202220183503259340}
   m_Layer: 7
@@ -456,7 +456,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1202220183503259330
+--- !u!114 &7492224972180877482
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeleteTime: 2
   spriteRenderer: {fileID: 1202220183503259331}
-  playerCheck: 0
+  playerCollision: {fileID: 0}
 --- !u!61 &1202220183503259329
 BoxCollider2D:
   m_ObjectHideFlags: 0

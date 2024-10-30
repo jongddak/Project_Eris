@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SPlayerController : MonoBehaviour
+public class SController : MonoBehaviour
 {
 
     //자연스러운 회전을 위해 플레이어의 기준점을 바꾼 게임오브젝트
@@ -19,7 +19,6 @@ public class SPlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     [SerializeField] Collision coll;
-    [SerializeField] CameraController cameraController; // 플레이어 주석 해제 후 작성 - 이지은
 
     [Header("MoveInfo")]
     [SerializeField] float maxSpeed = 10f;      // 최대 이동 속도 
@@ -74,8 +73,8 @@ public class SPlayerController : MonoBehaviour
     public float comboResetTime = 1.5f;                        //공격 콤보가 초기화 되는 시간
 
 
-    //[Header("CameraInfo")]
-    //[SerializeField] CameraController CameraController;
+    [Header("CameraInfo")]
+    [SerializeField] CameraController cameraController;
 
 
     private void Start()
@@ -91,6 +90,7 @@ public class SPlayerController : MonoBehaviour
         if (!canMove) return;
 
         ComboUpdate(); //지정한 시간 내에 공격이 이루어지지 않으면 공격콤보 초기화
+
 
         //상태에 따른 업데이트 함수 호출
         switch (curState)
@@ -138,12 +138,12 @@ public class SPlayerController : MonoBehaviour
         }
 
         //플랫폼 레이어가 밑에 있을 시 조건 추가
-        if (Input.GetKey(KeyCode.DownArrow) &&
+        /*if (Input.GetKey(KeyCode.DownArrow) &&
             Input.GetKeyDown(KeyCode.C))
         {
             LowJump();
-        }
-        else if (Input.GetKeyDown(KeyCode.C))
+        }*/
+        if (Input.GetKeyDown(KeyCode.C))
         {
             Jump();
         }
@@ -169,12 +169,13 @@ public class SPlayerController : MonoBehaviour
             curState = PlayerState.Fall;
         }
         
-        if (Input.GetKey(KeyCode.DownArrow) &&
+        /*if (Input.GetKey(KeyCode.DownArrow) &&
             Input.GetKeyDown(KeyCode.C))
         {
             LowJump();
-        }
-        else if (Input.GetKeyDown(KeyCode.C))
+        }*/
+
+        if (Input.GetKeyDown(KeyCode.C))
         {
             Jump();
         }
@@ -204,7 +205,7 @@ public class SPlayerController : MonoBehaviour
             curState = PlayerState.Fall;  // 낙하 상태로 전환
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
+        if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
             Grab();
         }
@@ -235,7 +236,7 @@ public class SPlayerController : MonoBehaviour
             canDash = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
+        if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
             Grab();
         }
@@ -256,23 +257,18 @@ public class SPlayerController : MonoBehaviour
 
     private void GrabUpdate()
     {
-        //GrabMove();
-
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            UnGrab();
-        }
-
-        if (!coll.onWall) // 벽에 붙어있지 않을 때
+        if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
             rb.gravityScale = 0f; // 중력 비활성화
+            rb.velocity = Vector2.zero; // 속도를 0으로 고정하여 벽에 붙음
         }
         else
         {
-            rb.gravityScale = 1f; // 중력 활성화
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -SlipSpeed)); // 서서히 떨어짐
+            UnGrab(); // 방향키를 떼면 벽잡기 상태 해제
+            return;
         }
 
+        // 벽잡기 상태에서 점프 입력 시 벽점프 실행
         if (Input.GetKeyDown(KeyCode.C))
         {
             GrabJump();
@@ -281,7 +277,7 @@ public class SPlayerController : MonoBehaviour
 
     private void DashUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.A) && coll.onWall)
+        if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
             Grab();
         }
@@ -309,6 +305,8 @@ public class SPlayerController : MonoBehaviour
         }
     }
 
+
+
     private void AttackUpdate()
     {
 
@@ -334,12 +332,12 @@ public class SPlayerController : MonoBehaviour
         if (xInput > 0)
         {
             GFX.transform.localScale = new Vector3(1, 1 ,1);
-            cameraController.isLeft = false; // 주석해제 - 이지은
+            cameraController.isLeft = false;
         }
         else if (xInput < 0)
         {
             GFX.transform.localScale = new Vector3(-1, 1, 1);
-            cameraController.isLeft = true; // 주석해제 - 이지은
+            cameraController.isLeft = true;
         }
 
         //float xSpeed = Mathf.Lerp(rb.velocity.x, xInput * maxSpeed, moveAccel);
@@ -355,11 +353,11 @@ public class SPlayerController : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
     }
 
-    private void LowJump()
+    /*private void LowJump()
     {
         curState = PlayerState.Fall;
         OnJumpDown?.Invoke(this, EventArgs.Empty);
-    }
+    }*/
 
     private void Grab()
     {
@@ -373,7 +371,7 @@ public class SPlayerController : MonoBehaviour
 
     private void UnGrab()
     {
-        curState = PlayerState.Jump;
+        curState = PlayerState.Fall;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 1f;
     }
@@ -390,14 +388,14 @@ public class SPlayerController : MonoBehaviour
         
         if (coll.onLeftWall)
         {
-            rb.velocity = new Vector2(13f, 10f);
+            rb.velocity = new Vector2(40f, 25f);
             //붙잡은 벽이 왼쪽벽일 때 벽점프시 기본방향인 오른쪽을 보도록
             GFX.transform.localScale = new Vector3(1, 1, 1);
         }
         
         else if (coll.onRightWall)
         {
-            rb.velocity = new Vector2(-13f, 10f);
+            rb.velocity = new Vector2(-40f, 25f);
             //붙잡은 벽이 오른쪽벽일 때 벽점프시 반대방향인 왼쪽을 보도록
             GFX.transform.localScale = new Vector3(-1, 1, 1);
         }

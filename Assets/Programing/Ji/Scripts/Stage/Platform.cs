@@ -12,14 +12,7 @@ public class Platform : MonoBehaviour
     [Header("State")]
     [SerializeField] float DeleteTime; // 삭제까지 걸리는 시간 조절
     [SerializeField] SpriteRenderer spriteRenderer; // 발판의 이미지
-    [SerializeField] public Collision collision; // 플레이어 프리팹에 있는 Collision의 충돌 체크를 불러오기 위해 연동
-
-    private void Start()
-    {
-
-    }
-
-
+    [SerializeField] Collision playerCollision; // 플레이어 프리팹에 있는 Collision의 충돌 체크를 불러오기 위해 연동
 
     /// <summary>
     /// HealFlat에 충돌체가 충돌할 때
@@ -34,14 +27,19 @@ public class Platform : MonoBehaviour
              * relativeVelocity.y <0인 경우에만 삭제하는 코루틴을 출력하도록 함
              * 
              * 위에서 밟았을 때에만 코루틴이 작동해야하므로
+             * 플레이어의 속도가 음수인 경우 = 위에서 아래로 내려오는 경우에
+             * 플레이어의 발이 플랫폼과 닿은 OnPlatform = true 상태일 때 코루틴 작동
              */
             if (collision.relativeVelocity.y < 0)
             {
-                
-                // collision의 충돌 직전의 속도가 0보다 작다는 것은
-                // 충돌체가 위에서 아래로 내려오고 있다는 뜻이므로
-                // 충돌체가 위에서 밟았을 때에만 일정시간 후 삭제하는 코루틴 작동
-                StartCoroutine(FlatDelete()); 
+                if (playerCollision.onPlatform)
+                {
+
+                    // collision의 충돌 직전의 속도가 0보다 작다는 것은
+                    // 충돌체가 위에서 아래로 내려오고 있다는 뜻이므로
+                    // 충돌체가 위에서 밟았을 때에만 일정시간 후 삭제하는 코루틴 작동
+                    StartCoroutine(FlatDelete());
+                }
             }
         }
     }
@@ -64,7 +62,6 @@ public class Platform : MonoBehaviour
         }
         // DeleteTime 이 0이되면 오브젝트를 삭제함
         Destroy(gameObject); // 삭제까지 시간이 지나면 HealFlat 오브젝트 삭제
-        playerCheck = false; // 플레이어가 발판을 밟지 않음으로 설정
     }
 
     /// <summary>
