@@ -308,12 +308,11 @@ public class BossPattern : MonoBehaviour
         animator.Play("boss1 2 FireBarrier");
         yield return new WaitForSeconds(1f);
         // 보스의 위치 고정
+        bossRigid.velocity = Vector2.zero;
         bossRigid.bodyType = RigidbodyType2D.Kinematic;
 
         // 애니메이션 및 올라가는 시간을 위한 대기시간
-       
-        
-      
+             
         // 보스의 주위에 화염 장벽 생성
         FireWallInstant();
 
