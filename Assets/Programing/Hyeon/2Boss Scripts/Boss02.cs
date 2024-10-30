@@ -73,7 +73,6 @@ public class Boss02 : MonoBehaviour
 
     private IEnumerator Idle()
     {
-        Debug.Log("대기");
         skillStart = false;
 
         // 대기 애니메이션
@@ -105,7 +104,6 @@ public class Boss02 : MonoBehaviour
 
     private void Move()
     {
-        Debug.Log("MOVE");
         // 달리기 애니메이션 재생
         // animator.Play("");
 
