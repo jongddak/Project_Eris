@@ -18,6 +18,15 @@ public class PlayerRPG : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
+    private void Update()
+    {
+        //테스트용
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(1f);
+        }
+    }
+
     public void Dealdamage(float damage)
     {
 
@@ -26,6 +35,7 @@ public class PlayerRPG : MonoBehaviour
     public void TakeDamage(float damage)
     {
         curHp -= damage;
+        Debug.Log($"현재 체력 : {curHp}");
 
         // 플레이어의 체력이 0 이하가 되면 상태를 Die로 변경
         if (curHp <= 0)

@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maxSpeed = 10f;      // 최대 이동 속도 
     [SerializeField] float moveAccel = 30f;     // 이동 가속도
     [SerializeField] bool canMove = true;       // 이동 가능 여부(스턴용)
-    [SerializeField] float TestSpeed;           // 캐릭터 벨로시티 변화값(테스트용)
 
     [Header("Jump&Fall")]
     [SerializeField] float jumpSpeed = 15f;     // 점프 속도
@@ -32,7 +31,7 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Vector2 originalColliderSize;
     private Vector2 reducedColliderSize;
-    public event EventHandler OnJumpDown;
+    //public event EventHandler OnJumpDown;
 
     [Header("DashInfo")]
     [SerializeField] float dashSpeed = 25f;     // 대시 속도
@@ -90,7 +89,6 @@ public class PlayerController : MonoBehaviour
         if (!canMove) return;
 
         ComboUpdate(); //지정한 시간 내에 공격이 이루어지지 않으면 공격콤보 초기화
-
 
         //상태에 따른 업데이트 함수 호출
         switch (curState)
@@ -259,8 +257,10 @@ public class PlayerController : MonoBehaviour
     {
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
-            rb.gravityScale = 0f; // 중력 비활성화
-            rb.velocity = Vector2.zero; // 속도를 0으로 고정하여 벽에 붙음
+
+            rb.AddForce(-Physics2D.gravity, ForceMode2D.Force);
+            // y 속도를 -SlipSpeed로 제한하여 천천히 떨어지게 함
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -SlipSpeed));
         }
         else
         {
@@ -365,15 +365,14 @@ public class PlayerController : MonoBehaviour
             return;
 
         curState = PlayerState.Grab;
-        rb.velocity = Vector2.zero;
-        rb.gravityScale = 0f;
+
+        // y 방향 속도를 -SlipSpeed로 설정하여 천천히 미끄러지게 함
+        //rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -SlipSpeed));
     }
 
     private void UnGrab()
     {
         curState = PlayerState.Fall;
-        rb.velocity = Vector2.zero;
-        rb.gravityScale = 1f;
     }
 
     /*private void GrabMove()
@@ -490,7 +489,7 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         isDead = true;
-        //curState = PlayerState.Die;
+        curState = PlayerState.Die;
         Debug.Log("쥬금");
     }
 
@@ -551,6 +550,11 @@ public class PlayerController : MonoBehaviour
                     temp = attack3Hash;
                     break;
             }        
+        }
+
+        if (curState == PlayerState.Die)
+        {
+            temp = dieHash;
         }
 
 
