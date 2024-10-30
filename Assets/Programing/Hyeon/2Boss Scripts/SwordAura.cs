@@ -10,10 +10,13 @@ public class SwordAura : MonoBehaviour
     [SerializeField] float swordAuraSpeed;
     // 발사 방향
     private Vector2 direction;
-    private bool flipped = false;
+    
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
+        HomingSwordAura();
+
+        /*
         if (player != null)
         {
             // 플레이어 방향 계산
@@ -24,11 +27,24 @@ public class SwordAura : MonoBehaviour
 
             // 검기를 플레이어를 향하도록 회전
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        }
+        }*/
     }
-    private void Update()
+    /*private void Update()
     {
         // 검기를 플레이어 방향으로 이동
         transform.Translate(direction * swordAuraSpeed * Time.deltaTime);
+    }*/
+    private void HomingSwordAura()
+    {
+        Vector2 diretion = (Vector2)player.transform.position - (Vector2)transform.position;
+        direction.Normalize();
+
+        float rotate = Vector3.Cross(diretion, transform.up).z;
+        transform.Rotate(0, 0, -rotate * 400f * Time.deltaTime);
+    }
+
+    private void Update()
+    {
+        transform.Translate(Vector2.up * 10f * Time.deltaTime);
     }
 }

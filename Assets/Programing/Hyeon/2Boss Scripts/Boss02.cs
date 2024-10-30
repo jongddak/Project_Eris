@@ -306,14 +306,10 @@ public class Boss02 : MonoBehaviour
         // 플레이어가 보스의 왼쪽에 있으면 보스를 왼쪽으로, 오른쪽에 있으면 오른쪽을 바라보게 설정
         if (player.transform.position.x < bossObject.transform.position.x)
         {
-            Debug.Log("보스 왼쪽");
-            // 보스가 왼쪽을 바라보도록 함
             bossObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else
         {
-            Debug.Log("보스 오른쪽");
-            // 보스가 오른쪽을 바라보도록 함
             bossObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
