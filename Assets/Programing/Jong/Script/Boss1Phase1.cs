@@ -27,7 +27,7 @@ public class Boss1Phase1 : MonoBehaviour
     // 보스 스탯  : 체력 이동속도 
     [SerializeField] int stateCount = 0;  // fly 나 walk 상태에서 카운트가 3이 되면(3번 오르면) 상태를 변경할때 쓸것 , 패턴을 실행 할 때 마다 하나씩 증가
 
-    public float bossHP = 10;
+    [SerializeField] float bossHP = 10;
     [SerializeField] float toPlayerDistance; // 보스와 플레이어의 거리 
     [SerializeField] float walkAttackRange;  // 지상사거리 
 
