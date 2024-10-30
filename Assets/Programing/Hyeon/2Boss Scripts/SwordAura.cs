@@ -8,43 +8,28 @@ public class SwordAura : MonoBehaviour
     [SerializeField] GameObject player;
     // 검기의 스피드
     [SerializeField] float swordAuraSpeed;
+    public Transform basetransform;
     // 발사 방향
-    private Vector2 direction;
+    public int direction;
     
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
-        HomingSwordAura();
 
-        /*
-        if (player != null)
-        {
-            // 플레이어 방향 계산
-            direction = ((Vector2)player.transform.position - (Vector2)transform.position).normalized;
-
-            // 방향을 기반으로 각도 계산
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-            // 검기를 플레이어를 향하도록 회전
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        }*/
-    }
-    /*private void Update()
-    {
-        // 검기를 플레이어 방향으로 이동
-        transform.Translate(direction * swordAuraSpeed * Time.deltaTime);
-    }*/
-    private void HomingSwordAura()
-    {
-        Vector2 diretion = (Vector2)player.transform.position - (Vector2)transform.position;
-        direction.Normalize();
-
-        float rotate = Vector3.Cross(diretion, transform.up).z;
-        transform.Rotate(0, 0, -rotate * 400f * Time.deltaTime);
-    }
+        Destroy(gameObject, 5f);
+    }   
 
     private void Update()
     {
-        transform.Translate(Vector2.up * 10f * Time.deltaTime);
+        basetransform.Translate(transform.forward * direction * swordAuraSpeed * Time.deltaTime);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            // 소멸 애니메이션 적용 가능
+            Destroy(gameObject); // 애니메이션 후 소멸
+        }
     }
 }
