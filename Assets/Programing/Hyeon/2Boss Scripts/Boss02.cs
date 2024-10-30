@@ -25,11 +25,13 @@ public class Boss02 : MonoBehaviour
     // 보스 스탯
     // 보스 HP
     [SerializeField] float bossHP = 10;
+    // 보스 현재 HP
+    float bossNowHP;
     // 보스 공격 사거리
     [SerializeField] float attackRange;
     // 보스 스피드
     [SerializeField] float bossSpeed;
-
+    
     // 플레이어 위치
     Vector2 playerPosition;
     // 보스 몬스터 패턴 선택
@@ -45,6 +47,7 @@ public class Boss02 : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         bossRigid = GetComponent<Rigidbody2D>();
+        bossNowHP = bossHP;
     }
 
     private void Update()
@@ -154,10 +157,14 @@ public class Boss02 : MonoBehaviour
             // 1,2 중 랜덤
             bossPatternNum = 1;
         }
-        else
+        else if (bossNowHP <= bossHP / 2)
         {
             //Debug.Log($"긴 거리");
             // 3,4 중 랜덤
+            bossPatternNum = Random.Range(2, 4); ;
+        }
+        else
+        {
             bossPatternNum = 2;
         }
 
@@ -196,6 +203,8 @@ public class Boss02 : MonoBehaviour
         // 일반베기
         bosscount += 1;
         Debug.Log("베어가르기!");
+        // 베는 애니메이션
+        // 이펙트 프리펩 생성
         yield return new WaitForSeconds(2f);
     }
     private IEnumerator FootWork()
@@ -203,20 +212,12 @@ public class Boss02 : MonoBehaviour
         // 발도 
         isWall = false;
 
-        // 돌진 시작 위치
-        Vector2 startPosition = transform.position;
+        // 현재 보스의 Y 좌표 저장
+        float y = transform.position.y;
         // 좌측 우측 판정
-        Vector2 dashDirection;
-        if (bossObject.transform.localScale.x > 0)
-        {
-            dashDirection = Vector2.right;
-        }
-        else
-        {
-            dashDirection = Vector2.left;
-        }
+        Vector2 dashDirection = (player.transform.position - transform.position).normalized;
         // 순간이동 거리
-        float targetDistance = 50f;
+        float targetDistance = 100f;
         // 칼 뽑는 애니메이션 재생
         //animator.Play("boss1 2 BodyTackle");
         // 애니메이션 재생 시간
@@ -228,13 +229,13 @@ public class Boss02 : MonoBehaviour
         // 레이케스트가 벽에 닿았을때
         if (hit.collider != null)
         {
-            // 벽이 가까이 있으면 벽 앞까지만 이동
-            targetPosition = (Vector2)transform.position + dashDirection * (hit.distance - 1f);
+            // 벽에 닿았을 때, 벽 앞까지 이동
+            targetPosition = new Vector2(hit.point.x - dashDirection.x * 1f, y);
         }
         else
         {
-            // 벽이 없으면 정해진 거리만큼 순간이동
-            targetPosition = (Vector2)transform.position + dashDirection * targetDistance;
+            // 벽이 없으면 설정된 거리만큼 순간이동
+            targetPosition = new Vector2(transform.position.x + dashDirection.x * targetDistance, y);
         }
         // 보스 위치
         transform.position = targetPosition;
