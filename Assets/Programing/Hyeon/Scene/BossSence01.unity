@@ -596,15 +596,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 483660025234811454, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.4
+      value: 5.9347878
       objectReference: {fileID: 0}
     - target: {fileID: 483660025234811454, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.6
+      value: -14.423256
       objectReference: {fileID: 0}
     - target: {fileID: 483660025234811454, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 483660025234811454, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
       propertyPath: m_LocalRotation.w
@@ -638,7 +638,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss1_2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4956684878795439975, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
 --- !u!1 &1489095107
 GameObject:

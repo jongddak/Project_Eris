@@ -175,7 +175,7 @@ public class BossPattern : MonoBehaviour
     private IEnumerator ExecuteAttackPattern()
     {
         skillStart = true;
-        bossPatternNum = 3;
+
         switch (bossPatternNum)
         {
             case 1:
@@ -306,7 +306,7 @@ public class BossPattern : MonoBehaviour
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
         // 올라가고 차징하는 애니메이션
         animator.Play("boss1 2 FireBarrier");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
         // 보스의 위치 고정
         bossRigid.velocity = Vector2.zero;
         bossRigid.bodyType = RigidbodyType2D.Kinematic;
@@ -320,9 +320,9 @@ public class BossPattern : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         bossRigid.bodyType = RigidbodyType2D.Dynamic;
-
+        bossRigid.gravityScale = 5;
         yield return new WaitForSeconds(1f);
-
+        bossRigid.gravityScale = 1;
     }
     
 
