@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class DatabaseManager : MonoBehaviour
@@ -24,6 +25,7 @@ public class DatabaseManager : MonoBehaviour
 
             dialogues = theParser.Parser(csvFileName); // DialogueParser의 Parser함수를 실행
             // dialogues에 csv파일의 데이터가 전부 담기게 됨
+            
             isFinish = true; // 데이터의 저장이 완료됨
         }
 

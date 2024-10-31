@@ -126,6 +126,10 @@ public class DialogueManager : MonoBehaviour
                 // > 인 경우 for문의 위로 가서 다음 < 가 출력되지 않는지 추가 확인이 필요
                 continue;
             }
+            if (context.Contains('*'))
+            {
+                context = context.Replace('*',',');
+            }
             textContext.text = context.Substring(0, i).ToString();
             // Substring(시작지점, 끝지점)을 지정하여 문장의 하나씩 출력되는 기능
             yield return new WaitForSeconds(0.05f); // 출력딜레이 시간
