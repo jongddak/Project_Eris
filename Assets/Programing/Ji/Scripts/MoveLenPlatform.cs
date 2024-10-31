@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveLenPlatform : MonoBehaviour
@@ -9,15 +7,33 @@ public class MoveLenPlatform : MonoBehaviour
 
     // 방향별로 이동
     // PlatformAttackPattern에서 라인별로 받아오도록 구현하기
-    [SerializeField] PatternController patternController;
+    // [SerializeField] PatternController patternController;
+    [SerializeField] public bool isUpMove;
+
+    private void Start()
+    {
+        int num = Random.Range(0, 2);
+        switch (num)
+        {
+            case 0:
+                isUpMove = false;
+                Debug.Log("다운");
+                break;
+            case 1:
+                isUpMove = true;
+                Debug.Log("업");
+                break;
+        }
+
+    }
 
     private void Update()
     {
-        if (patternController.isUpMove)
+        if (isUpMove)
         {
             MoveUp();
         }
-        else if (!patternController.isUpMove)
+        else if (!isUpMove)
         {
             MoveDown();
         }

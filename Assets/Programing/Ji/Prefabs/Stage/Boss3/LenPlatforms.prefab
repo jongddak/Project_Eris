@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5348921679612869851}
   - component: {fileID: 5348921679612869848}
   - component: {fileID: 5348921679612869849}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenP1 (5)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 944494979
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acb54ab742775344a9a48965b4b8c2c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0dc95e7b26674d9f3dd6c9f96850d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patternController: {fileID: 0}
+  moveLenPlatform: {fileID: 0}
   createPlatform: {fileID: 5348921681567543788}
   ciling: {fileID: 0}
   dCiling: {fileID: 0}
@@ -141,9 +141,9 @@ GameObject:
   - component: {fileID: 5348921680058910712}
   - component: {fileID: 5348921680058910713}
   - component: {fileID: 5348921680058910718}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenP1 (11)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,7 +202,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 944494979
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acb54ab742775344a9a48965b4b8c2c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0dc95e7b26674d9f3dd6c9f96850d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patternController: {fileID: 0}
+  moveLenPlatform: {fileID: 0}
   createPlatform: {fileID: 5348921681567543788}
   ciling: {fileID: 0}
   dCiling: {fileID: 0}
@@ -270,9 +270,9 @@ GameObject:
   - component: {fileID: 5348921680106216343}
   - component: {fileID: 5348921680106216340}
   - component: {fileID: 5348921680106216341}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenP1 (8)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,7 +331,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 944494979
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acb54ab742775344a9a48965b4b8c2c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0dc95e7b26674d9f3dd6c9f96850d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patternController: {fileID: 0}
+  moveLenPlatform: {fileID: 0}
   createPlatform: {fileID: 5348921681567543788}
   ciling: {fileID: 0}
   dCiling: {fileID: 0}
@@ -399,9 +399,9 @@ GameObject:
   - component: {fileID: 5348921680324542499}
   - component: {fileID: 5348921680324542496}
   - component: {fileID: 5348921680324542497}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenP1 (9)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -460,7 +460,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 944494979
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acb54ab742775344a9a48965b4b8c2c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0dc95e7b26674d9f3dd6c9f96850d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patternController: {fileID: 0}
+  moveLenPlatform: {fileID: 0}
   createPlatform: {fileID: 5348921681567543788}
   ciling: {fileID: 0}
   dCiling: {fileID: 0}
@@ -528,9 +528,9 @@ GameObject:
   - component: {fileID: 5348921680425863732}
   - component: {fileID: 5348921680425863733}
   - component: {fileID: 5348921680425863738}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenP1 (10)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -589,7 +589,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 944494979
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acb54ab742775344a9a48965b4b8c2c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -614,7 +614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0dc95e7b26674d9f3dd6c9f96850d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patternController: {fileID: 0}
+  moveLenPlatform: {fileID: 0}
   createPlatform: {fileID: 5348921681567543788}
   ciling: {fileID: 0}
   dCiling: {fileID: 0}
@@ -657,9 +657,9 @@ GameObject:
   - component: {fileID: 5348921680571149397}
   - component: {fileID: 5348921680571149396}
   - component: {fileID: 5348921680571149402}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenP1 (3)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -718,7 +718,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 944494979
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acb54ab742775344a9a48965b4b8c2c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -743,7 +743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0dc95e7b26674d9f3dd6c9f96850d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patternController: {fileID: 0}
+  moveLenPlatform: {fileID: 0}
   createPlatform: {fileID: 5348921681567543788}
   ciling: {fileID: 0}
   dCiling: {fileID: 0}
@@ -786,9 +786,9 @@ GameObject:
   - component: {fileID: 5348921680687968819}
   - component: {fileID: 5348921680687968816}
   - component: {fileID: 5348921680687968817}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenP1 (7)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -847,7 +847,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 944494979
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acb54ab742775344a9a48965b4b8c2c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -872,7 +872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0dc95e7b26674d9f3dd6c9f96850d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patternController: {fileID: 0}
+  moveLenPlatform: {fileID: 0}
   createPlatform: {fileID: 5348921681567543788}
   ciling: {fileID: 0}
   dCiling: {fileID: 0}
@@ -915,9 +915,9 @@ GameObject:
   - component: {fileID: 5348921680863750953}
   - component: {fileID: 5348921680863750952}
   - component: {fileID: 5348921680863750958}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenP1 (4)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -976,7 +976,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 944494979
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acb54ab742775344a9a48965b4b8c2c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0dc95e7b26674d9f3dd6c9f96850d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patternController: {fileID: 0}
+  moveLenPlatform: {fileID: 0}
   createPlatform: {fileID: 5348921681567543788}
   ciling: {fileID: 0}
   dCiling: {fileID: 0}
@@ -1044,9 +1044,9 @@ GameObject:
   - component: {fileID: 5348921681220508101}
   - component: {fileID: 5348921681220508100}
   - component: {fileID: 5348921681220508106}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenP1 (1)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1105,7 +1105,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 944494979
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acb54ab742775344a9a48965b4b8c2c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1130,7 +1130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0dc95e7b26674d9f3dd6c9f96850d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patternController: {fileID: 0}
+  moveLenPlatform: {fileID: 0}
   createPlatform: {fileID: 5348921681567543788}
   ciling: {fileID: 0}
   dCiling: {fileID: 0}
@@ -1173,9 +1173,9 @@ GameObject:
   - component: {fileID: 5348921681259290480}
   - component: {fileID: 5348921681259290481}
   - component: {fileID: 5348921681259290486}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenP1 (6)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1234,7 +1234,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 944494979
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acb54ab742775344a9a48965b4b8c2c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1259,7 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0dc95e7b26674d9f3dd6c9f96850d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patternController: {fileID: 0}
+  moveLenPlatform: {fileID: 0}
   createPlatform: {fileID: 5348921681567543788}
   ciling: {fileID: 0}
   dCiling: {fileID: 0}
@@ -1302,9 +1302,9 @@ GameObject:
   - component: {fileID: 5348921681406169913}
   - component: {fileID: 5348921681406169912}
   - component: {fileID: 5348921681406169918}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenP1 (2)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1363,7 +1363,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 944494979
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: acb54ab742775344a9a48965b4b8c2c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1388,7 +1388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d0dc95e7b26674d9f3dd6c9f96850d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patternController: {fileID: 0}
+  moveLenPlatform: {fileID: 0}
   createPlatform: {fileID: 5348921681567543788}
   ciling: {fileID: 0}
   dCiling: {fileID: 0}
@@ -1430,9 +1430,9 @@ GameObject:
   - component: {fileID: 5348921681567543794}
   - component: {fileID: 5348921681567543789}
   - component: {fileID: 5348921681567543788}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: LenPlatforms
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1476,7 +1476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  patternController: {fileID: 0}
+  isUpMove: 0
 --- !u!114 &5348921681567543788
 MonoBehaviour:
   m_ObjectHideFlags: 0
