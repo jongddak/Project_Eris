@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SideWall : MonoBehaviour
 {
+    // 데미지 확인 필요
     [SerializeField] float poisionDamage; // 독 데미지의 크기
     [SerializeField] float poisionDebuffTime; // 독 데미지 디버프 주기
     // 충돌한 플레이어의 플레이어 컨트롤러를 가져오기위해서 작성
