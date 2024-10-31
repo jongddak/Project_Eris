@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     [Header("Jump&Fall")]
     [SerializeField] float jumpSpeed = 15f;     // 점프 속도
     [SerializeField] float maxFallSpeed = 10f;  // 최대 낙하 속도
+    [SerializeField] float maxJumpSpeedX = 15f;  // 최대 점프 속도(제한용)
+    [SerializeField] float maxJumpSpeedY = 15f;  // 최대 점프 속도(제한용)
     private BoxCollider2D boxCollider;
     private Vector2 originalColliderSize;
     private Vector2 reducedColliderSize;
@@ -48,6 +50,8 @@ public class PlayerController : MonoBehaviour
     private int curAniHash;                     // 현재 진행할 애니메이션의 해쉬를 담는 변수
     [SerializeField] GameObject GFX;            // 캐릭터 회전을 위한 부모 오브젝트
 
+    [SerializeField] GameObject[] attackParticle;
+
     //플레이어 애니메이션의 파라미터 해시 생성
     private static int idleHash = Animator.StringToHash("Idle");
     private static int runHash = Animator.StringToHash("Run");
@@ -64,7 +68,7 @@ public class PlayerController : MonoBehaviour
     [Header("AttackInfo")]
     [SerializeField] bool isAttack = false;
     //[SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
-    [SerializeField] private GameObject attackEffectPrefabs;   //공격 이펙트
+    //[SerializeField] private GameObject attackEffectPrefabs;   //공격 이펙트
     [SerializeField] AttackTest attackTest;                    //공격 범위 판정       
     [SerializeField] private bool isDead = false;              //플레이어의 죽음 판별
     [SerializeField] private int currentAttackCount = 0;       //현재 공격 횟수
@@ -228,7 +232,7 @@ public class PlayerController : MonoBehaviour
         Move();
 
         // 착지하면 Idle 상태로 전환
-        if (coll.onGround)
+        if (coll.onGround || coll.onPlatform)
         {
             curState = PlayerState.Idle;
             canDash = true;
@@ -350,7 +354,9 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         curState = PlayerState.Jump;
-        rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+
+        float limitedJumpSpeed = Mathf.Min(jumpSpeed, maxJumpSpeedY);
+        rb.velocity = new Vector2(rb.velocity.x, limitedJumpSpeed);
     }
 
     /*private void LowJump()
@@ -387,14 +393,20 @@ public class PlayerController : MonoBehaviour
         
         if (coll.onLeftWall)
         {
-            rb.velocity = new Vector2(40f, 25f);
+            float limitedJumpSpeedX = Mathf.Min(40f, maxJumpSpeedX);
+            float limitedJumpSpeedY = Mathf.Min(25f, maxJumpSpeedY);
+
+            rb.velocity = new Vector2(limitedJumpSpeedX, limitedJumpSpeedY);
             //붙잡은 벽이 왼쪽벽일 때 벽점프시 기본방향인 오른쪽을 보도록
             GFX.transform.localScale = new Vector3(1, 1, 1);
         }
         
         else if (coll.onRightWall)
         {
-            rb.velocity = new Vector2(-40f, 25f);
+            float limitedJumpSpeedX = Mathf.Min(-40f, maxJumpSpeedX);
+            float limitedJumpSpeedY = Mathf.Min(25f, maxJumpSpeedY);
+
+            rb.velocity = new Vector2(limitedJumpSpeedX, limitedJumpSpeedY);
             //붙잡은 벽이 오른쪽벽일 때 벽점프시 반대방향인 왼쪽을 보도록
             GFX.transform.localScale = new Vector3(-1, 1, 1);
         }
@@ -445,24 +457,28 @@ public class PlayerController : MonoBehaviour
         currentAttackCount++;
         lastAttackTime = Time.time;
 
-        // 공격 이펙트 생성
+        // 공격 이펙트 생성 위치 설정
         Vector2 effectPosition = attackTest.attackRangeCollider.transform.position;
-        
-        // 공격 이펙트 방향 설정
-        Quaternion effectRotation = Quaternion.identity;
-
-        //방향에 따른 이펙트 회전
-        if (GFX.transform.localScale.x == 1f) // 오른쪽을 바라볼 때
-        {
-            effectRotation = Quaternion.identity; // 기본 회전 유지
-        }
-        else if (GFX.transform.localScale.x == -1f) // 왼쪽을 바라볼 때
-        {
-            effectRotation = Quaternion.Euler(0f, 0f, 180f); // z축 기준 180도 회전
-        }
 
         // 이펙트 생성
-        GameObject attackEffect = Instantiate(attackEffectPrefabs, effectPosition, effectRotation);
+        if (currentAttackCount <= attackParticle.Length)
+        {
+            // 공격 이펙트 방향 설정
+            Quaternion effectRotation = Quaternion.identity;
+
+            //방향에 따른 이펙트 회전
+            if (GFX.transform.localScale.x == -1f) // 오른쪽을 바라볼 때
+            {
+                effectRotation = Quaternion.identity; // 기본 회전 유지
+            }
+            else if (GFX.transform.localScale.x == 1f) // 왼쪽을 바라볼 때
+            {
+                effectRotation = Quaternion.Euler(0f, 180f, 0f); // z축 기준 180도 회전
+            }
+
+            GameObject attackEffect = Instantiate(attackParticle[currentAttackCount - 1], effectPosition, effectRotation);
+            Destroy(attackEffect, 0.5f); // 일정 시간이 지난 후 파괴
+        }
 
         if (attackTest.IsBossInRange)
         {
@@ -472,8 +488,6 @@ public class PlayerController : MonoBehaviour
         // @초 대기
         yield return new WaitForSeconds(0.5f);
 
-        // 이펙트 및 콜라이더 삭제
-        Destroy(attackEffect);
 
         isAttack = false;
 
