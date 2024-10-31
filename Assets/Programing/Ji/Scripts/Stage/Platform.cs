@@ -32,9 +32,8 @@ public class Platform : MonoBehaviour
              */
             if (collision.relativeVelocity.y < 0)
             {
-                if (playerCollision.onPlatform)
+                if (playerCollision.onPlatform) // 플레이어 컨트롤러에서 onPlatform 판정을 가져와서 출력
                 {
-
                     // collision의 충돌 직전의 속도가 0보다 작다는 것은
                     // 충돌체가 위에서 아래로 내려오고 있다는 뜻이므로
                     // 충돌체가 위에서 밟았을 때에만 일정시간 후 삭제하는 코루틴 작동
