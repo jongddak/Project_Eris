@@ -154,27 +154,36 @@ public class Boss02 : MonoBehaviour
             // 1,2 중 랜덤
             bossPatternNum = 1;
         }
-        else if (bossNowHP <= bossHP / 2)
+        else if (playerDirection > attackRange / 3)
         {
-            //Debug.Log($"긴 거리");
-            // 3,4 중 랜덤
-            bossPatternNum = Random.Range(2, 4); ;
-        }
-        else
-        {
-            bossPatternNum = 2;
+            if (bossNowHP <= bossHP / 2)
+            {
+                bossPatternNum = Random.Range(2, 4);
+            }
+            else
+            {
+                bossPatternNum = 2;
+            }          
         }
 
+        if (bosscount == 3)
+        {
+            if (bossNowHP <= bossHP / 2)
+            {
+                bossPatternNum = Random.Range(2, 4);
+            }
+            else
+            {
+                bossPatternNum = 2;
+            }
+            bosscount = 0;
+        }
+        // 거리 멀때 2,3
         StartCoroutine(ExecuteAttackPattern());
     }
     
     private IEnumerator ExecuteAttackPattern()
     {
-        if (bosscount == 3)
-        {
-            bossPatternNum = Random.Range(2, 4);
-            bosscount = 0;
-        }
         skillStart = true;
   
         switch (bossPatternNum)

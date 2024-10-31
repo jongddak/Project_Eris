@@ -267,11 +267,12 @@ public class BossPattern : MonoBehaviour
         // 점프 동작 
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.7f);
+        bossRigid.gravityScale = 5;
         // 보스 팔쪽 콜라이더만 피격판정
         SlashEffect();
         // 점프 공격 패턴 동안 대기 (3초 후 Idle 상태로 변경)
-        yield return new WaitForSeconds(2.3f);       
-
+        yield return new WaitForSeconds(1f);
+        bossRigid.gravityScale = 1;
         // 위쪽 힘만 가하면 느리게 올라가서 느리게 떨어짐
         // 나중에 기획에 피드백 받고 의도와 맞는지 QnA
     }
@@ -306,7 +307,7 @@ public class BossPattern : MonoBehaviour
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
         // 올라가고 차징하는 애니메이션
         animator.Play("boss1 2 FireBarrier");
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.7f);
         // 보스의 위치 고정
         bossRigid.velocity = Vector2.zero;
         bossRigid.bodyType = RigidbodyType2D.Kinematic;
@@ -317,7 +318,7 @@ public class BossPattern : MonoBehaviour
         FireWallInstant();
 
         // 불기둥 생성 패턴 동안 대기
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         bossRigid.bodyType = RigidbodyType2D.Dynamic;
         bossRigid.gravityScale = 5;
