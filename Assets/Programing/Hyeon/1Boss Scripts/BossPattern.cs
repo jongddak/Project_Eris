@@ -175,7 +175,7 @@ public class BossPattern : MonoBehaviour
     private IEnumerator ExecuteAttackPattern()
     {
         skillStart = true;
-
+        bossPatternNum = 3;
         switch (bossPatternNum)
         {
             case 1:
