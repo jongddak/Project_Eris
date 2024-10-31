@@ -19,6 +19,14 @@ public class FireBall : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         // 파이어볼과 플레이어 사이의 방향 계산
         direction = new Vector2((player.transform.position.x - transform.position.x), 0).normalized;
+        
+        if (direction.x < 0)
+        {
+            Vector3 scale = transform.localScale;
+            scale.x *= 1;
+            transform.localScale = scale;
+        }
+
         Destroy(gameObject, 4f);
     }
 

@@ -176,7 +176,7 @@ public class Boss02 : MonoBehaviour
             bosscount = 0;
         }
         skillStart = true;
-        bossPatternNum = 3;
+  
         switch (bossPatternNum)
         {
             case 1:
