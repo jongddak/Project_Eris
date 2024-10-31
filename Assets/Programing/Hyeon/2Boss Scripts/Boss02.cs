@@ -142,7 +142,7 @@ public class Boss02 : MonoBehaviour
         // 플레이어 방향 저장
         playerPosition = (player.transform.position - transform.position).normalized;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
 
         // 플레이어 거리 계산
         float playerDirection = Vector2.Distance(transform.position, player.transform.position);
@@ -249,6 +249,7 @@ public class Boss02 : MonoBehaviour
         // animator.Play("공중 점프 애니메이션");     
 
         bossRigid.bodyType = RigidbodyType2D.Dynamic;
+        bossRigid.velocity = Vector2.zero;
         // 보스가 위로 올라감
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
 
@@ -264,6 +265,7 @@ public class Boss02 : MonoBehaviour
         // 보스가 뿌리는 검기 생성
         for (int i = 0; i < 5; i++)
         {
+            Mirrored();
             SwordAuraSpon();
             yield return new WaitForSeconds(1f);
         }
@@ -306,19 +308,31 @@ public class Boss02 : MonoBehaviour
         // 플레이어가 보스의 왼쪽에 있으면 보스를 왼쪽으로, 오른쪽에 있으면 오른쪽을 바라보게 설정
         if (player.transform.position.x < bossObject.transform.position.x)
         {
-            Debug.Log("보스 왼쪽");
-            // 보스가 왼쪽을 바라보도록 함
             bossObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else
         {
-            Debug.Log("보스 오른쪽");
-            // 보스가 오른쪽을 바라보도록 함
             bossObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
     public void SwordAuraSpon()
-    {
-        GameObject swordSopn = Instantiate(swordAura, swordAuraPoint.position, swordAuraPoint.rotation);
+    {     
+        GameObject swordSopn = Instantiate(swordAura, swordAuraPoint.position, Quaternion.identity);
+        swordSopn.transform.LookAt(player.transform);
+        SwordAura type = swordSopn.GetComponentInChildren<SwordAura>();
+
+        // 플레이어가 보스의 좌에 있는지 우에 있는지 판단
+        if (player.transform.position.x < swordAuraPoint.transform.position.x)
+        {
+            type.direction = -1;
+        }
+        else if (player.transform.position.x > swordAuraPoint.transform.position.x)
+        {
+            type.direction = 1;
+        }
+        else
+        {
+            type.direction = 0;
+        }
     }
 }
