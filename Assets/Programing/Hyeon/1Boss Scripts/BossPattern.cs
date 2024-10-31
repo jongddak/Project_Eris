@@ -21,8 +21,10 @@ public class BossPattern : MonoBehaviour
     [SerializeField] GameObject bossTacklePoint;
     // 파이어볼 생성 좌표
     [SerializeField] Transform fireBallPoint;
-    // 파이어볼 프리펩
-    [SerializeField] GameObject fireBallPre;
+    // 파이어볼 오른쪽 프리펩
+    [SerializeField] GameObject fireBallRightPre;
+    // 파이어볼 왼쪽 프리펩
+    [SerializeField] GameObject fireBallLeftPre;
 
     //화염기둥 생성 좌표
     [SerializeField] Transform fireWallPoint;
@@ -283,16 +285,17 @@ public class BossPattern : MonoBehaviour
 
         // 화염구 발사 애니메이션
         animator.Play("boss1 2 SponFireBall");
+        FireBallFire();
         // 애니메이션 재생시간
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(2.3f);
 
         // 화염구 프리펩 생성
-        FireBallFire();
+        
         // 화염구가 생성되는 1.3 초동안 먼 사거리에서 빠르게 보스 뒤로 이동하면 화염구가 보스뒤로 이동하는 문제 발생
         // 플레이어가 1.3초 동안 먼 거리에서 보스뒤로 가기 불가능 하다고 판단. 이 문제는 알아두기만 하자
 
         // 불 발사 패턴 동안 대기 (1.5초 후 Idle 상태로 변경)
-        yield return new WaitForSeconds(1f);
+
 
     }
     private IEnumerator FireBarrier()
@@ -359,7 +362,17 @@ public class BossPattern : MonoBehaviour
     // 화염구 발사 
     public void FireBallFire()
     {
-        GameObject fireBall = Instantiate(fireBallPre, fireBallPoint.position, fireBallPoint.rotation);
+        if (player.transform.position.x < bossObject.transform.position.x)
+        {
+            // 보스가 왼쪽을 바라보도록 함
+            GameObject fireBall = Instantiate(fireBallLeftPre, fireBallPoint.position, fireBallPoint.rotation);
+        }
+        else
+        {
+            // 보스가 오른쪽을 바라보도록 함
+            GameObject fireBall = Instantiate(fireBallRightPre, fireBallPoint.position, fireBallPoint.rotation);
+        }
+        
     }
 
     public void FireWallInstant()

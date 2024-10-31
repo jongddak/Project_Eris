@@ -638,6 +638,14 @@ PrefabInstance:
       propertyPath: slash
       value: 
       objectReference: {fileID: 3509583253766115054, guid: d68316b093fcb3a4b9ac25b538430aaa, type: 3}
+    - target: {fileID: 733618551774523331, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
+      propertyPath: fireBallLeftPre
+      value: 
+      objectReference: {fileID: 6370675487758921578, guid: 097505ae3cb542241b9a4091d2bad9a6, type: 3}
+    - target: {fileID: 733618551774523331, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
+      propertyPath: fireBallRightPre
+      value: 
+      objectReference: {fileID: 6370675487758921578, guid: 7d866f43b10b667428a4aed488b162fd, type: 3}
     - target: {fileID: 4815606438165921375, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
       propertyPath: m_Layer
       value: 3
