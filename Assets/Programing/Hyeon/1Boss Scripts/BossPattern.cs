@@ -388,14 +388,14 @@ public class BossPattern : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // 벽과 충돌했는지 확인 Test => wall로 교체
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
         {
             isWall = true;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
         {
             isWall = false;
         }

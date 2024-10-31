@@ -233,7 +233,8 @@ MonoBehaviour:
   bossRigid: {fileID: 0}
   bossTacklePoint: {fileID: 4815606438165921375}
   fireBallPoint: {fileID: 5542831673176100159}
-  fireBallPre: {fileID: 6370675487758921578, guid: 7d866f43b10b667428a4aed488b162fd, type: 3}
+  fireBallRightPre: {fileID: 6370675487758921578, guid: 7d866f43b10b667428a4aed488b162fd, type: 3}
+  fireBallLeftPre: {fileID: 6370675487758921578, guid: 097505ae3cb542241b9a4091d2bad9a6, type: 3}
   fireWallPoint: {fileID: 1944911420572674382}
   fireWallPre: {fileID: 3357796224081856480, guid: 72eda0f2c4ea49b41bdfda85c94cc77d, type: 3}
   slash: {fileID: 3509583253766115054, guid: d68316b093fcb3a4b9ac25b538430aaa, type: 3}
