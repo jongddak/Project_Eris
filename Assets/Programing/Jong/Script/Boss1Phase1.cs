@@ -108,7 +108,7 @@ public class Boss1Phase1 : MonoBehaviour
         {
             yield return new WaitForSeconds(1.2f);
             StartCoroutine(Fork());
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
             stateCount = 0;
             state = BossState.Walk;
             Debug.Log("상태전환");
@@ -121,7 +121,7 @@ public class Boss1Phase1 : MonoBehaviour
             animator.Play("Fly");
             Vector2 newPosition = new Vector2(
             Mathf.MoveTowards(transform.position.x, player.transform.position.x, flybossSpeed * Time.deltaTime),
-            30f
+            10f
             );
             transform.position = newPosition;
 
@@ -191,7 +191,7 @@ public class Boss1Phase1 : MonoBehaviour
     {
         WaitForSeconds time = new WaitForSeconds(1.5f);
         isPatternOn = true;
-
+        yield return time;
         if (isflying == false) // 지상 패턴
         {
             int x = Random.Range(0, 3);
@@ -230,7 +230,7 @@ public class Boss1Phase1 : MonoBehaviour
     }
     IEnumerator BackStep()
     {
-        animator.Play("WalkIdle");
+        animator.Play("BackStep");
         Debug.Log("백스텝");
         if (player.transform.position.x < transform.position.x) // 플레이어의 반대 방향으로 날아감 
         {
@@ -251,7 +251,7 @@ public class Boss1Phase1 : MonoBehaviour
     }
     IEnumerator Slash()
     {
-        animator.Play("WalkIdle");
+        animator.Play("Atk1");
         Debug.Log("베기");
 
         GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
@@ -262,18 +262,18 @@ public class Boss1Phase1 : MonoBehaviour
     }
     IEnumerator BodyTacle()
     {
-        animator.Play("WalkIdle");
+        animator.Play("Atk2");
         RushCollider.SetActive(true);
         Debug.Log("돌진");
         if (player.transform.position.x < transform.position.x) // 플레이어의 방향으로 날아감 
         {
 
 
-            bossRigidbody.AddForce(Vector2.left * 200f, ForceMode2D.Impulse);
+            bossRigidbody.AddForce(Vector2.left * 100f, ForceMode2D.Impulse);
         }
         else
         {
-            bossRigidbody.AddForce(Vector2.right * 200f, ForceMode2D.Impulse);
+            bossRigidbody.AddForce(Vector2.right * 100f, ForceMode2D.Impulse);
 
         }
 
@@ -287,8 +287,8 @@ public class Boss1Phase1 : MonoBehaviour
     }
     IEnumerator FireBall()
     {
-        animator.Play("FlyIdle");
-        yield return new WaitForSeconds(0.25f);
+        animator.Play("Atk3");
+        yield return new WaitForSeconds(0.8f);
         Debug.Log("화염구");
         if (player.transform.position.x < transform.position.x)
         {
@@ -317,20 +317,20 @@ public class Boss1Phase1 : MonoBehaviour
     }
     IEnumerator RushSlash()
     {
-        animator.Play("FlyIdle");
+        animator.Play("Atk4");
         Debug.Log("공중돌진베기");
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.3f);
         if (player.transform.position.x < transform.position.x) // 플레이어의 방향으로 날아감 
         {
 
             for (int i = 0; i < 3; i++) 
             {
                 bossRigidbody.AddForce(Vector2.left * 30f, ForceMode2D.Impulse);
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.3f);
                 bossRigidbody.velocity = Vector2.zero;
                 GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
                 Destroy(obj, 0.25f);
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.3f);
             }
         }
         else
@@ -338,22 +338,25 @@ public class Boss1Phase1 : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 bossRigidbody.AddForce(Vector2.right * 30f, ForceMode2D.Impulse);
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.3f);
                 bossRigidbody.velocity = Vector2.zero;
                 GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
                 Destroy(obj, 0.25f);
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.3f);
             }
         }
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1f);
 
     }
     IEnumerator Fork() 
     {
+        animator.Play("Landing");
         bossRigidbody.AddForce(Vector2.down * 200f, ForceMode2D.Impulse); 
         
         yield return new WaitForSeconds(0.25f);
         bossRigidbody.velocity = Vector2.zero;
+
+        yield return new WaitForSeconds(1f);
     }
     // 2페이즈?
 
