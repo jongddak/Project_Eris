@@ -48,6 +48,9 @@ TagManager:
   - name: Platform
     uniqueID: 944494979
     locked: 0
+  - name: Boss
+    uniqueID: 1924457267
+    locked: 0
   - name: Unit
     uniqueID: 2912025991
     locked: 0
