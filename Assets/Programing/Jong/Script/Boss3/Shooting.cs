@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     [SerializeField] Transform[] shootingPoints;
-
+    [SerializeField] GameObject[] lineRender;
     [SerializeField] GameObject player;
 
 
@@ -19,7 +19,8 @@ public class Shooting : MonoBehaviour
     private void Start()
     {
         // curRoutine = StartCoroutine(BossDo());
-        StartCoroutine(ShootingMissile());
+       StartCoroutine(ShootingMissile());
+       //StartCoroutine(ShootingLaser());
     }
 
     private void Update()
@@ -62,12 +63,19 @@ public class Shooting : MonoBehaviour
 
     }
 
+
+
     IEnumerator ShootingLaser() //레이저 패턴, 1발씩 6번씩 쏨 
     {
         for (int i = 0; i < 6; i++)
         {
             int rand = Random.Range(0, 6);
-            Instantiate(missilePrefab, shootingPoints[rand].position, shootingPoints[rand].rotation);
+            lineRender[rand].SetActive(true);
+            yield return new WaitForSeconds(1f);
+            lineRender[rand].SetActive(false);
+            
+            GameObject obj =  Instantiate(laserPrefab, shootingPoints[rand].position, shootingPoints[rand].rotation);
+
             yield return new WaitForSeconds(1f);
         }
 
@@ -93,14 +101,18 @@ public class Shooting : MonoBehaviour
                 
             } 
         }
-
-
-;       
+        lineRender[pickNum[0]].SetActive(true);
+        lineRender[pickNum[1]].SetActive(true);
+        lineRender[pickNum[2]].SetActive(true);
+        yield return new WaitForSeconds(1f);
+        lineRender[pickNum[0]].SetActive(false);
+        lineRender[pickNum[1]].SetActive(false);
+        lineRender[pickNum[2]].SetActive(false);
         Instantiate(missilePrefab, shootingPoints[pickNum[0]].position, shootingPoints[pickNum[0]].rotation);
 
         Instantiate(missilePrefab, shootingPoints[pickNum[1]].position, shootingPoints[pickNum[1]].rotation);
 
         Instantiate(missilePrefab, shootingPoints[pickNum[2]].position, shootingPoints[pickNum[2]].rotation);
-        yield return null;
+        
     }
 }

@@ -41,21 +41,44 @@ public class Boss1Phase1 : MonoBehaviour
 
     //공격 패턴용 필드
     [SerializeField] Transform atkPoint;
-    [SerializeField] GameObject slashPrefap;
+   // [SerializeField] Transform slashPoint;
+    
+    [SerializeField] GameObject slashPrefap2;
+
     [SerializeField] GameObject fireBallPrefab;
     [SerializeField] Transform[] fireBallPoints;
+
+    [SerializeField] Transform forkPoint;
+    [SerializeField] GameObject forkPrefab;
+
+    [SerializeField] GameObject RtacklePrefab;
+    [SerializeField] GameObject LtacklePrefab;
+    [SerializeField] GameObject slash;
 
     Coroutine curCoroutine;
     BossState state = BossState.Walk;
     [SerializeField] BossState curBossState; // 보스의 현재 상태 확인용 
     // 보스에게 데미지를 주려면 BossPattern bossPattern = boss.GetComponent<BossPattern>();
     // bossPattern.TakeDamage(데미지);로 데미지를 줄 수 있음 , 이벤트로 호출하면 될듯
+
+    
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine("BossDo");
         curBossState = state;
     }
 
+    private void Update()
+    {
+        if (bossHP <= 0) 
+        {
+            state = BossState.Die; 
+            curBossState = state;
+            Die();
+              // 사망 
+        }
+    }
     IEnumerator BossDo()
     {
 
@@ -194,7 +217,7 @@ public class Boss1Phase1 : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if (isflying == false)
         {
-            animator.Play("WalkIdle");
+            animator.Play("idle");
         }
         else if (isflying == true) 
         {
@@ -270,16 +293,15 @@ public class Boss1Phase1 : MonoBehaviour
     {
         isPatternOn = true;
         animator.Play("Atk1");
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.9f);
+        slash.SetActive(true);
         Debug.Log("베기");
-
-        GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
-
-        Destroy(obj, 0.25f);
+        yield return new WaitForSeconds(0.4f);
+        slash.SetActive(false);
         yield return new WaitForSeconds(1f);
+        
+        
         isPatternOn = false;
-        yield return new WaitForSeconds(0.3f);
-
     }
     IEnumerator BodyTacle()
     {
@@ -291,17 +313,23 @@ public class Boss1Phase1 : MonoBehaviour
         if (player.transform.position.x < transform.position.x) // 플레이어의 방향으로 날아감 
         {
 
-
+            
+            LtacklePrefab.SetActive(true);
             bossRigidbody.AddForce(Vector2.left * 150f, ForceMode2D.Impulse);
         }
         else
         {
+            
+            RtacklePrefab.SetActive(true);
             bossRigidbody.AddForce(Vector2.right * 150f, ForceMode2D.Impulse);
 
         }
 
 
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.3f);
+        RtacklePrefab.SetActive(false);
+        LtacklePrefab.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
 
         bossRigidbody.velocity = Vector2.zero; // 너무 안밀리게 속도 없앰 
         RushCollider.SetActive(false);
@@ -357,9 +385,10 @@ public class Boss1Phase1 : MonoBehaviour
                 bossRigidbody.AddForce(Vector2.left * 30f, ForceMode2D.Impulse);
                 yield return new WaitForSeconds(0.3f);
                 bossRigidbody.velocity = Vector2.zero;
-                GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
-                Destroy(obj, 0.25f);
+                slashPrefap2.SetActive(true);
+
                 yield return new WaitForSeconds(0.3f);
+                slashPrefap2.SetActive(false);
             }
         }
         else
@@ -369,43 +398,49 @@ public class Boss1Phase1 : MonoBehaviour
                 bossRigidbody.AddForce(Vector2.right * 30f, ForceMode2D.Impulse);
                 yield return new WaitForSeconds(0.3f);
                 bossRigidbody.velocity = Vector2.zero;
-                GameObject obj = Instantiate(slashPrefap, atkPoint.position, atkPoint.rotation);
-                Destroy(obj, 0.25f);
+                slashPrefap2.SetActive(true);
+
                 yield return new WaitForSeconds(0.3f);
+                slashPrefap2.SetActive(false);
             }
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
+        
+       
         isPatternOn = false;
-        yield return new WaitForSeconds(0.3f);
 
     }
     IEnumerator Fork() 
     {
+        Vector2 pos = new Vector2(forkPoint.position.x , 5.4f);
         isPatternOn = true;
         yield return new WaitForSeconds(1f);
-        
+        GameObject obj = Instantiate(forkPrefab, pos, forkPoint.rotation);
+        Destroy(obj, 0.8f);
+
         bossRigidbody.AddForce(Vector2.down * 300f, ForceMode2D.Impulse);
         animator.Play("Landing");
+        
+        
+        
 
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
+        
         bossRigidbody.velocity = Vector2.zero;
-
-        yield return new WaitForSeconds(1f);
+        
+        yield return new WaitForSeconds(1.5f);
+        
         isPatternOn = false;
-        yield return new WaitForSeconds(0.3f);
+        
     }
     // 2페이즈?
 
 
     private void Die()  // 사망하면 2페이즈로 가게 
     {
-        // hp 전부 소모 시 사망 애니메이션 송출 후 프리펩 소멸
-
         // 사망 애니메이션 
-        // animator.Play();
-
-        // 오브젝트 삭제 처리
-        //Destroy(gameObject, 2f);
+        animator.Play("Change");
+        Destroy(gameObject, 2f);
     }
 
     public void TakeDamage(float damage) // 업데이트나 이벤트로 처리하면 될듯
