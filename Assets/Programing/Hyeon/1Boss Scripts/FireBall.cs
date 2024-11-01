@@ -29,8 +29,7 @@ public class FireBall : MonoBehaviour
         // SpriteRenderer와 Collider를 비활성화
         spriteRenderer.enabled = false;
         collider2D.enabled = false;
-
-        
+       
         
         /* 나중에 플레이어 방향 계산해서 반전시킬때 또 쓰자
         if (direction.x < 0)
