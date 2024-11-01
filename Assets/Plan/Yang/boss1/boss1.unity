@@ -323,7 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -806875547098269655, guid: 3baa4752fa732a442aee55e3ca27ddec, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.30297932
+      value: 0.25564536
       objectReference: {fileID: 0}
     - target: {fileID: -806875547098269655, guid: 3baa4752fa732a442aee55e3ca27ddec, type: 3}
       propertyPath: m_LocalRotation.x
@@ -335,11 +335,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -806875547098269655, guid: 3baa4752fa732a442aee55e3ca27ddec, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.9529972
+      value: 0.96677065
       objectReference: {fileID: 0}
     - target: {fileID: -806875547098269655, guid: 3baa4752fa732a442aee55e3ca27ddec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 144.727
+      value: 150.376
       objectReference: {fileID: 0}
     - target: {fileID: 1084202659806275929, guid: 3baa4752fa732a442aee55e3ca27ddec, type: 3}
       propertyPath: m_SortingOrder
@@ -367,7 +367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4663410592282120313, guid: 3baa4752fa732a442aee55e3ca27ddec, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8726518
+      value: 0.8955859
       objectReference: {fileID: 0}
     - target: {fileID: 4663410592282120313, guid: 3baa4752fa732a442aee55e3ca27ddec, type: 3}
       propertyPath: m_LocalRotation.x
@@ -375,11 +375,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4663410592282120313, guid: 3baa4752fa732a442aee55e3ca27ddec, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.48834297
+      value: 0.4448888
       objectReference: {fileID: 0}
     - target: {fileID: 4663410592282120313, guid: 3baa4752fa732a442aee55e3ca27ddec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -661.537
+      value: -667.16797
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 3baa4752fa732a442aee55e3ca27ddec, type: 3}
