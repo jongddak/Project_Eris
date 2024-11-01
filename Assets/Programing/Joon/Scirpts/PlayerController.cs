@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     //플레이어가 가질 수 있는 상태
     public enum PlayerState { Idle, Run, Jump, Fall, Grab, GrabJump, 
-        Dash, Attack, DashAttack, Die };
+        Dash, Attack, DashAttack, Hovering, Die };
     [SerializeField] public PlayerState curState;     // 플레이어의 현재 상태
 
     private Rigidbody2D rb;
@@ -80,6 +80,9 @@ public class PlayerController : MonoBehaviour
     private float lastAttackTime;                              //마지막 공격 시간
     public float comboResetTime = 1.5f;                        //공격 콤보가 초기화 되는 시간
     [SerializeField] bool isAttacking = false;
+
+    [Header("StageInfo")]
+    [SerializeField] bool canUseDashAttack = false;
 
     //[Header("CameraInfo")]
     //[SerializeField] CameraController CameraController;
@@ -357,7 +360,7 @@ public class PlayerController : MonoBehaviour
             curState = PlayerState.Fall;  // 대시 종료 후 낙하 상태로 전환
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && canUseDashAttack)
         {
             StartCoroutine(DashAttack());
         }
@@ -365,10 +368,13 @@ public class PlayerController : MonoBehaviour
 
     private void AttackUpdate()
     {
-        if ((coll.onGround || coll.onPlatform) && !isAttacking)
+        if (rb.velocity.y < 0 && !isAttacking) // 캐릭터가 하강 중인 경우
         {
-            curState = PlayerState.Idle;
-            canDash = true;
+            curState = PlayerState.Fall; // Fall 상태로 전환
+        }
+        else if((coll.onGround || coll.onPlatform) && !isAttacking)
+        {
+            curState = PlayerState.Idle; // Idle 상태로 전환
         }
     }
     private void DashAttackUpdate()
@@ -557,9 +563,6 @@ public class PlayerController : MonoBehaviour
         }
 
         isAttacking = false;
-
-        // 공격 상태를 Idle로 전환
-        curState = PlayerState.Idle;
     }
 
     private IEnumerator DashAttack()
