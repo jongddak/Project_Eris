@@ -10,12 +10,18 @@ public class LenPlatformLoop : MonoBehaviour
     [SerializeField] MoveLenPlatform moveLenPlatform;
     // 자식오브젝트로 생성한 발판의 갯수(num)와 지정했던 간격(space)으로 오브젝트의 위치를 지정하기 위해 필요
     [SerializeField] CreatePlatform createPlatform;
+
     [SerializeField] Transform ciling; // 천장 - 배경이미지보다 더 넓게 설정할 것
     [SerializeField] Transform dCiling; // 바닥 - 배경이미지보다 더 넓게 설정할 것
     Transform makingPos; // 발판 재배치의 시작 지점 위치 설정
     int num; // 발판의 갯수
     public float space; // 발판의 간격 
 
+    private void Awake()
+    {
+        ciling = moveLenPlatform.ciling;
+        dCiling = moveLenPlatform.dCiling;
+    }
     private void Start()
     {
         // CreatePlatform에서 설정한 수치를 불러오기
