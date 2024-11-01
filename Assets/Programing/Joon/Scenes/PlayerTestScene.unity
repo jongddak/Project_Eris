@@ -801,9 +801,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1071370966367872505, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1071370966367872506, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: jumpSpeed
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1071370966367872506, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: maxJumpSpeed

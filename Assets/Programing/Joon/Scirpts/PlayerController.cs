@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject gameObjectRotationPoint;
 
     //플레이어가 가질 수 있는 상태
-    public enum PlayerState {Idle, Run, Jump, Fall, Grab, GrabJump, Dash, Attack, Die}; 
+    public enum PlayerState { Idle, Run, Jump, Fall, Grab, GrabJump, Dash, Attack, Die };
     [SerializeField] public PlayerState curState;     // 플레이어의 현재 상태
 
     private Rigidbody2D rb;
@@ -26,12 +26,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool canMove = true;       // 이동 가능 여부(스턴용)
 
     [Header("Jump&Fall")]
-    [SerializeField] float jumpSpeed = 15f;     // 점프 속도
+    [SerializeField] float jumpSpeed = 30f;     // 점프 속도
     [SerializeField] float maxFallSpeed = 10f;  // 최대 낙하 속도
     [SerializeField] float jumpRemainTime;      // 점프 유지 시간
     [SerializeField] float maxJumpUpTime = 0.5f;// 최대 점프 유지 속도
-    //[SerializeField] float maxJumpSpeedX = 15f;  // 최대 점프 속도(제한용)
-    //[SerializeField] float maxJumpSpeedY = 15f;  // 최대 점프 속도(제한용)
+    [SerializeField] bool isJumping = false;
+    [SerializeField] Coroutine jumpCoroutine;
+
     private BoxCollider2D boxCollider;
     private Vector2 originalColliderSize;
     private Vector2 reducedColliderSize;
@@ -41,7 +42,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float dashSpeed = 25f;     // 대시 속도
     [SerializeField] float dashTime = 0.4f;     // 대시 지속 시간
     private float dashTimeLeft;                 // 대시 남은 시간
-    [SerializeField] bool isDashing = false;    // 대시 중인지 여부
     [SerializeField] bool canDash = true;       // 대시 가능 여부
 
 
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float SlipSpeed = 1f;      // 벽을 붙잡고 있을 때 떨어지는 속도
 
     [Header("AnamationInfo")]
-    [SerializeField] Animator playerAnimator;  
+    [SerializeField] Animator playerAnimator;
     private int curAniHash;                     // 현재 진행할 애니메이션의 해쉬를 담는 변수
     [SerializeField] GameObject GFX;            // 캐릭터 회전을 위한 부모 오브젝트
 
@@ -153,14 +153,15 @@ public class PlayerController : MonoBehaviour
         }*/
         if (Input.GetKeyDown(KeyCode.C))
         {
-            StartCoroutine(JumpRoutine());
+            jumpCoroutine = StartCoroutine(JumpRoutine());
+
         }
 
         if (Input.GetKeyDown(KeyCode.X) && !isAttack)
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
-        
+
     }
 
     private void RunUpdate()
@@ -168,7 +169,7 @@ public class PlayerController : MonoBehaviour
         Move();
 
         //플레이어의 속도가 거의 0일 때
-        if (rb.velocity.sqrMagnitude < 0.01f )
+        if (rb.velocity.sqrMagnitude < 0.01f)
         {
             curState = PlayerState.Idle;
         }
@@ -176,16 +177,16 @@ public class PlayerController : MonoBehaviour
         {
             curState = PlayerState.Fall;
         }
-        
+
         /*if (Input.GetKey(KeyCode.DownArrow) &&
             Input.GetKeyDown(KeyCode.C))
         {
             LowJump();
         }*/
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKey(KeyCode.C))
         {
-            StartCoroutine(JumpRoutine());
+            jumpCoroutine = StartCoroutine(JumpRoutine());
         }
 
         if (Input.GetKeyDown(KeyCode.Z) && canDash)
@@ -212,6 +213,19 @@ public class PlayerController : MonoBehaviour
         {
             curState = PlayerState.Fall;  // 낙하 상태로 전환
         }
+
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            if (jumpCoroutine != null)
+            {
+                StopCoroutine(jumpCoroutine);
+            }
+            if (rb.velocity.y > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+            }
+        }
+
 
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
@@ -298,8 +312,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            isDashing = false;
-            rb.gravityScale = 1f;
+            rb.gravityScale = 5f;
             if (coll.onGround)
             {
                 curState = PlayerState.Idle;
@@ -334,7 +347,7 @@ public class PlayerController : MonoBehaviour
 
         if (xInput > 0)
         {
-            GFX.transform.localScale = new Vector3(1, 1 ,1);
+            GFX.transform.localScale = new Vector3(1, 1, 1);
             //CameraController.isLeft = false;
         }
         else if (xInput < 0)
@@ -354,12 +367,13 @@ public class PlayerController : MonoBehaviour
     {
         curState = PlayerState.Jump;
         jumpRemainTime = maxJumpUpTime;
-        while(jumpRemainTime >= 0)
+        while (jumpRemainTime >= 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
             jumpRemainTime -= Time.deltaTime;
             yield return null;
         }
+
     }
 
     /*private void LowJump()
@@ -392,15 +406,15 @@ public class PlayerController : MonoBehaviour
     private void GrabJump()
     {
         curState = PlayerState.GrabJump;
-        rb.gravityScale = 1f;
-        
+        rb.gravityScale = 5f;
+
         if (coll.onLeftWall)
         {
             rb.velocity = new Vector2(40f, 25f);
             //붙잡은 벽이 왼쪽벽일 때 벽점프시 기본방향인 오른쪽을 보도록
             GFX.transform.localScale = new Vector3(1, 1, 1);
         }
-        
+
         else if (coll.onRightWall)
         {
             rb.velocity = new Vector2(40f, 25f);
@@ -411,7 +425,6 @@ public class PlayerController : MonoBehaviour
 
     private void Dash()
     {
-        isDashing = true;
         curState = PlayerState.Dash;
         dashTimeLeft = dashTime;
 
@@ -493,7 +506,7 @@ public class PlayerController : MonoBehaviour
 
         isAttack = false;
 
-        if(currentAttackCount >= 3)
+        if (currentAttackCount >= 3)
         {
             currentAttackCount = 0;
         }
@@ -565,7 +578,7 @@ public class PlayerController : MonoBehaviour
                 case 3:
                     temp = attack3Hash;
                     break;
-            }        
+            }
         }
 
         if (curState == PlayerState.Die)
