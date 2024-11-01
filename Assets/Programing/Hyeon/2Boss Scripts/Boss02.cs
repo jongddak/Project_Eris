@@ -17,10 +17,25 @@ public class Boss02 : MonoBehaviour
     [SerializeField] Rigidbody2D bossRigid;
     // SwordAura 검기 프리펩
     [SerializeField] GameObject swordAura;
+    // Bash 프리펩 생성
+    [SerializeField] GameObject bash;
+    // FootWork 프리펩 짧은거
+    [SerializeField] GameObject footWarkPre01;
+    // FootWork 프리펩 긴거
+    [SerializeField] GameObject footWarkPre02;
+    // SwordSlash 프리펩
+    [SerializeField] GameObject SwordSlashPre;
     // 패턴 시작 판정 bool
     private bool skillStart = false;
     // SwordAura 검기 생성 좌표
     [SerializeField] Transform swordAuraPoint;
+    // 맵에서 1 좌표
+    [SerializeField] Transform bosswarp01;
+    // 맵에서 2 좌표
+    [SerializeField] Transform bosswarp02;
+    // 맵에서 3 좌표
+    [SerializeField] Transform bosswarp03;
+    
     // 보스 스탯
     // 보스 HP
     [SerializeField] float bossHP = 10;
@@ -45,6 +60,8 @@ public class Boss02 : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         bossRigid = GetComponent<Rigidbody2D>();
         bossNowHP = bossHP;
+        transform.position = bosswarp03.position;
+        Mirrored();
     }
 
     private void Update()
@@ -52,7 +69,7 @@ public class Boss02 : MonoBehaviour
         switch (state)
         {
             case BossState.Idle:
-                StartCoroutine(Idle());
+                Idle();
                 break;
             case BossState.Attack:
                 // 패턴 중에는 다른 동작을 하지 않도록 함
@@ -66,38 +83,27 @@ public class Boss02 : MonoBehaviour
         }
     }
 
-    private IEnumerator Idle()
+    private void Idle()
     {
         skillStart = false;
 
         // 대기 애니메이션
         // animator.Play("");
-
-        // 플레이어 위치를 바라보게
-        for (int i = 0; i < 10; i++)
-        {
-            Mirrored();
-            yield return new WaitForSeconds(0.2f);
-        }
+        
+        // 플레이어 위치를 바라보게        
+        Mirrored();
 
         if (!skillStart)
         {
-            // 플레이어와의 거리가 사거리보다 작을때는 공격준비
             WaitSkill();
+            
         }
     }
 
-
     private void WaitSkill()
     {
-        // 스킬 패턴 시작
         skillStart = true;
-        // 대기 애니메이션
-        // animator.Play("boss1 2 idel");
-
-        // 공격 상태
         state = BossState.Attack;
-
         // 플레이어 거리 계산
         float playerDirection = Vector2.Distance(transform.position, player.transform.position);
 
@@ -131,14 +137,16 @@ public class Boss02 : MonoBehaviour
             }
             bosscount = 0;
         }
-        // 거리 멀때 2,3
+
         StartCoroutine(ExecuteAttackPattern());
     }
     
     private IEnumerator ExecuteAttackPattern()
     {
         skillStart = true;
-  
+        yield return new WaitForSeconds(1f);
+        // 공격 상태
+        bossPatternNum = 3;
         switch (bossPatternNum)
         {
             case 1:
@@ -164,16 +172,85 @@ public class Boss02 : MonoBehaviour
         bosscount += 1;
         Debug.Log("베어가르기!");
         // 베는 애니메이션
+
         // 이펙트 프리펩 생성
+        GameObject swordSopn = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation);
         yield return new WaitForSeconds(2f);
     }
     private IEnumerator FootWork()
     {
         // 발도
+        // 있어야 되는 좌표 bosswarp01, bosswarp02, bosswarp03
+        // 1,2 중간과 2,3 중간에 들어갈 베기 프리펩(FootWorkEffect01), 1과 3사이에 들어갈 일반 베기보다 두배 긴 베기 프리펩(FootWorkEffect02)
+        // 1,2,3 세 구간이 있음
+        Mirrored();
+        yield return new WaitForSeconds(1f);
+        // 검뽑는 애니메이션 실행
 
-        yield return new WaitForSeconds(2f);
+        // 현재 보스 위치를 확인하고 플레이어의 위치에 따라 순간이동
+        // 보스 의 위치가 bosswarp01.position.x 근처일때
+        if (Mathf.Abs(transform.position.x - bosswarp01.position.x) <= 10f)
+        {
+            if (player.transform.position.x > bosswarp01.position.x && player.transform.position.x < bosswarp02.position.x)
+            {
+                // 보스가 bosswarp01에 있고 플레이어가 1,2 사이에 있을 때 bosswarp02로 이동
+                Debug.Log("011");
+                transform.position = bosswarp02.position;
+                yield return new WaitForSeconds(0.7f);
+                Instantiate(footWarkPre01, (bosswarp01.position + bosswarp02.position) / 2, Quaternion.identity);
+            }
+            else if (player.transform.position.x > bosswarp02.position.x && player.transform.position.x < bosswarp03.position.x)
+            {
+                Debug.Log("012");
+                // 보스가 bosswarp01에 있고 플레이어가 2,3 사이에 있을 때 bosswarp03으로 이동
+                transform.position = bosswarp03.position;
+                yield return new WaitForSeconds(0.7f);
+                Instantiate(footWarkPre02, bosswarp02.position, Quaternion.identity);
+            }
+        }
+        else if (Mathf.Abs(transform.position.x - bosswarp02.position.x) <= 10f)
+        {
+            if (player.transform.position.x > bosswarp01.position.x && player.transform.position.x < bosswarp02.position.x)
+            {
+                Debug.Log("021");
+                // 보스가 bosswarp02에 있고 플레이어가 1,2 사이에 있을 때 bosswarp01로 이동
+                transform.position = bosswarp01.position;
+                yield return new WaitForSeconds(0.7f);
+                Instantiate(footWarkPre01, (bosswarp01.position + bosswarp02.position) / 2, Quaternion.identity);
+            }
+            else if (player.transform.position.x > bosswarp02.position.x && player.transform.position.x < bosswarp03.position.x)
+            {
+                Debug.Log("022");
+                // 보스가 bosswarp02에 있고 플레이어가 2,3 사이에 있을 때 bosswarp03으로 이동
+                transform.position = bosswarp03.position;
+                yield return new WaitForSeconds(0.7f);
+                Instantiate(footWarkPre01, (bosswarp02.position + bosswarp03.position) / 2, Quaternion.identity);
+            }
+        }
+        else if (Mathf.Abs(transform.position.x - bosswarp03.position.x) <= 10f)
+        {
+            if (player.transform.position.x > bosswarp02.position.x && player.transform.position.x < bosswarp03.position.x)
+            {
+                Debug.Log("031");
+                // 보스가 bosswarp03에 있고 플레이어가 2,3 사이에 있을 때 bosswarp02로 이동
+                transform.position = bosswarp02.position;
+                yield return new WaitForSeconds(0.7f);
+                Instantiate(footWarkPre01, (bosswarp02.position + bosswarp03.position) / 2, Quaternion.identity);
+            }
+            else if (player.transform.position.x > bosswarp01.position.x && player.transform.position.x < bosswarp02.position.x)
+            {
+                Debug.Log("032");
+                // 보스가 bosswarp03에 있고 플레이어가 1,2 사이에 있을 때 bosswarp01로 이동
+                transform.position = bosswarp01.position;
+                yield return new WaitForSeconds(0.7f);
+                Instantiate(footWarkPre02, bosswarp02.position, Quaternion.identity);
+            }
+        }
+        // 검 넣는 애니메이션 실행
+        yield return new WaitForSeconds(3f);
+        Debug.Log("끝");
     }
-    // 데미지 계산 함수
+
     private IEnumerator SkySwordAura()
     {
         float bossJumpPower = 110f;
@@ -184,7 +261,8 @@ public class Boss02 : MonoBehaviour
         bossRigid.velocity = Vector2.zero;
         // 보스가 위로 올라감
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
-
+        // 슬레쉬 프리펩 생성
+        GameObject swordSopn = Instantiate(SwordSlashPre, swordAuraPoint.position, swordAuraPoint.rotation);
         // 올라가고 차징하는 애니메이션
         //animator.Play("boss1 2 FireBarrier");
 
@@ -245,6 +323,19 @@ public class Boss02 : MonoBehaviour
         else
         {
             bossObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    private void MinusMirrored()
+    {
+        // 플레이어가 보스의 왼쪽에 있으면 보스를 왼쪽으로, 오른쪽에 있으면 오른쪽을 바라보게 설정
+        if (player.transform.position.x < bossObject.transform.position.x)
+        {
+            bossObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            bossObject.transform.rotation = Quaternion.Euler(0, -180, 0);
         }
     }
     public void SwordAuraSpon()
