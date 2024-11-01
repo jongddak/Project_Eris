@@ -297,6 +297,12 @@ public class PlayerController : MonoBehaviour
 
     private void GrabUpdate()
     {
+        if (coll.onGround || coll.onPlatform)
+        {
+            curState = PlayerState.Idle;
+            canDash = true;
+        }
+
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
             rb.AddForce(-Physics2D.gravity, ForceMode2D.Force);

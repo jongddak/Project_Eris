@@ -1,0 +1,71 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DronController : MonoBehaviour
+{
+    [SerializeField] GameObject bulletPrefab; // 발사할 총알의 프리팹
+    [SerializeField] Transform bulletSpawnPoint; // 총알의 발사 위치
+    [SerializeField] float bulletSpeed = 10f; // 총알의 속도
+    [SerializeField] float fireGap = 0.1f; // 연속 발사 간격
+    [SerializeField] bool isFiring = false; // 발사 상태
+
+    [SerializeField] Animator DronAnimator;
+    //private static int dronIdleHash = Animator.StringToHash("DroneIdle");
+    //private static int dronAttackHash = Animator.StringToHash("DroneAttack");
+    [SerializeField] Coroutine FireCoroutine;
+    private void Awake()
+    {
+        // 같은 GameObject에 있는 Animator를 자동으로 할당
+        if (DronAnimator == null)
+        {
+            DronAnimator = GetComponent<Animator>();
+        }
+    }
+
+    private void Update()
+    {
+        // V 키 입력으로 발사 온오프
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            isFiring = !isFiring;
+            if (isFiring)
+            {
+                FireCoroutine = StartCoroutine(FireBullets());
+                DronAnimator.Play("DroneAttack");//임시 수정 필요
+            }
+            else
+            {
+                StopCoroutine(FireBullets());
+                DronAnimator.Play("DronIdle");
+            }
+        }
+    }
+
+    // 총알 발사 코루틴
+    private IEnumerator FireBullets()
+    {
+        while (isFiring)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                FireSingleBullet();
+                yield return new WaitForSeconds(fireGap); // 발사 간격
+            }
+            yield return new WaitForSeconds(1f); // 세 발 발사 후 재발사 대기 시간
+        }
+    }
+
+    // 단일 총알 발사
+    private void FireSingleBullet()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
+        BulletController bulletScript = bullet.GetComponent<BulletController>();
+        if (bulletScript != null)
+        {
+            Vector2 direction = bulletSpawnPoint.right; // 오른쪽 방향
+            bulletScript.SetSpeed(direction * bulletSpeed); // 총알 속도 설정
+        }
+    }
+}
