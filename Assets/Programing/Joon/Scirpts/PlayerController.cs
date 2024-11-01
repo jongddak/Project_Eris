@@ -582,7 +582,30 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DashAttack()
     {
         curState = PlayerState.DashAttack;
-        yield return new WaitForSeconds(dashTime);
+        // 공격 이펙트 생성 위치 설정
+        Vector2 effectPosition = attackTest.attackRangeCollider.transform.position;
+        // 공격 이펙트 방향 설정
+        Quaternion effectRotation = Quaternion.identity;
+
+        //방향에 따른 이펙트 회전
+        if (GFX.transform.localScale.x == -1f) // 오른쪽을 바라볼 때
+        {
+            effectRotation = Quaternion.identity; // 기본 회전 유지
+        }
+        else if (GFX.transform.localScale.x == 1f) // 왼쪽을 바라볼 때
+        {
+            effectRotation = Quaternion.Euler(0f, 180f, 0f); // z축 기준 180도 회전
+        }
+
+        GameObject attackEffect = Instantiate(attackParticle[3], effectPosition, effectRotation);
+        Destroy(attackEffect, 0.3f); // 일정 시간이 지난 후 파괴
+
+        if (attackTest.IsBossInRange)
+        {
+            Debug.Log("보스에게 피해를 입힘");
+        }
+
+        yield return new WaitForSeconds(0.3f);
 
         rb.gravityScale = 5f;
         curState = PlayerState.Fall;
