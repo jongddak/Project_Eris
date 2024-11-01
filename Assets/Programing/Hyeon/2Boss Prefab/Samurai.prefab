@@ -1763,6 +1763,7 @@ MonoBehaviour:
   bash: {fileID: 5675702017995866896, guid: 7deab8d919a4622409020b90995637b0, type: 3}
   footWarkPre01: {fileID: 7371584410195539576, guid: 74776428b12c4bf41a1498f5f968fecc, type: 3}
   footWarkPre02: {fileID: 5698565380114106586, guid: 30c41396f3c685f449262c4404342f25, type: 3}
+  SwordSlashPre: {fileID: 4344972417151175817, guid: 476fba96477712b4e9e835d3b3508fe9, type: 3}
   swordAuraPoint: {fileID: 4239721308000507395}
   bosswarp01: {fileID: 0}
   bosswarp02: {fileID: 0}

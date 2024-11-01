@@ -6,9 +6,10 @@ public class SwordAura : MonoBehaviour
 {
     // 플레이어 프리펩
     [SerializeField] GameObject player;
+    [SerializeField] GameObject mainPre;
     // 검기의 스피드
     [SerializeField] float swordAuraSpeed;
-    public Transform basetransform;
+
     // 발사 방향
     public int direction;
     
@@ -21,7 +22,7 @@ public class SwordAura : MonoBehaviour
 
     private void Update()
     {
-        basetransform.Translate(transform.forward * direction * swordAuraSpeed * Time.deltaTime);
+        mainPre.transform.Translate(transform.forward * direction * swordAuraSpeed * Time.deltaTime);
       
     }
 
@@ -30,7 +31,7 @@ public class SwordAura : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             // 소멸 애니메이션 적용 가능
-            Destroy(gameObject); // 애니메이션 후 소멸
+            Destroy(mainPre);
         }
     }
 }

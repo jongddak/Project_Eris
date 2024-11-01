@@ -23,6 +23,8 @@ public class Boss02 : MonoBehaviour
     [SerializeField] GameObject footWarkPre01;
     // FootWork 프리펩 긴거
     [SerializeField] GameObject footWarkPre02;
+    // SwordSlash 프리펩
+    [SerializeField] GameObject SwordSlashPre;
     // 패턴 시작 판정 bool
     private bool skillStart = false;
     // SwordAura 검기 생성 좌표
@@ -79,7 +81,6 @@ public class Boss02 : MonoBehaviour
                 Win();
                 break;
         }
-        Debug.Log($"{state}");
     }
 
     private void Idle()
@@ -99,11 +100,9 @@ public class Boss02 : MonoBehaviour
         }
     }
 
-
     private void WaitSkill()
     {
         skillStart = true;
-        Debug.Log(" 거리재기 ");
         state = BossState.Attack;
         // 플레이어 거리 계산
         float playerDirection = Vector2.Distance(transform.position, player.transform.position);
@@ -147,7 +146,7 @@ public class Boss02 : MonoBehaviour
         skillStart = true;
         yield return new WaitForSeconds(1f);
         // 공격 상태
-        bossPatternNum = 3;
+        bossPatternNum = 1;
         switch (bossPatternNum)
         {
             case 1:
@@ -262,7 +261,8 @@ public class Boss02 : MonoBehaviour
         bossRigid.velocity = Vector2.zero;
         // 보스가 위로 올라감
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
-
+        // 슬레쉬 프리펩 생성
+        GameObject swordSopn = Instantiate(SwordSlashPre, swordAuraPoint.position, swordAuraPoint.rotation);
         // 올라가고 차징하는 애니메이션
         //animator.Play("boss1 2 FireBarrier");
 

@@ -39,11 +39,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6946967502086764827}
     m_Modifications:
-    - target: {fileID: 6866909267112605497, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
+    - target: {fileID: 3542797155827208821, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
+      propertyPath: mainPre
+      value: 
+      objectReference: {fileID: 4965152600031193644}
+    - target: {fileID: 3542797155827208821, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
       propertyPath: basetransform
       value: 
       objectReference: {fileID: 6946967502086764827}
-    - target: {fileID: 6866909267112605497, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
+    - target: {fileID: 3542797155827208821, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
       propertyPath: swordAuraSpeed
       value: 120
       objectReference: {fileID: 0}

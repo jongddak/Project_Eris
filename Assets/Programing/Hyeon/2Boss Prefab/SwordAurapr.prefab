@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8497372156888620136}
   - component: {fileID: 8497372156888620139}
   - component: {fileID: 8497372156888620138}
-  - component: {fileID: 6866909267112605497}
+  - component: {fileID: 3542797155827208821}
   m_Layer: 8
   m_Name: SwordAurapr
   m_TagString: Untagged
@@ -126,7 +126,7 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!114 &6866909267112605497
+--- !u!114 &3542797155827208821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,6 +139,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  swordAuraSpeed: 80
+  swordAuraSpeed: 0
   basetransform: {fileID: 0}
   direction: 0

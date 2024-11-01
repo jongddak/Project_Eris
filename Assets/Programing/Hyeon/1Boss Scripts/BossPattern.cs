@@ -321,10 +321,11 @@ public class BossPattern : MonoBehaviour
         FireWallInstant();
 
         // 불기둥 생성 패턴 동안 대기
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
 
         bossRigid.bodyType = RigidbodyType2D.Dynamic;
-        bossRigid.gravityScale = 5;
+        bossRigid.gravityScale = 10;
+        animator.Play("boss1 2 idel");
         yield return new WaitForSeconds(1f);
         bossRigid.gravityScale = 1;
     }
