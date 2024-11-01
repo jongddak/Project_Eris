@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int currentAttackCount = 0;               //현재 공격 횟수
     private float lastAttackTime;                              //마지막 공격 시간
     public float comboResetTime = 1.5f;                        //공격 콤보가 초기화 되는 시간
+    [SerializeField] bool isAttacking = false;
 
     //[Header("CameraInfo")]
     //[SerializeField] CameraController CameraController;
@@ -364,7 +365,7 @@ public class PlayerController : MonoBehaviour
 
     private void AttackUpdate()
     {
-        if (coll.onGround || coll.onPlatform)
+        if ((coll.onGround || coll.onPlatform) && !isAttacking)
         {
             curState = PlayerState.Idle;
             canDash = true;
@@ -513,6 +514,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Attack()
     {
         curState = PlayerState.Attack;  // 공격 상태로 전환
+        isAttacking = true;
 
         currentAttackCount++;
         lastAttackTime = Time.time;
@@ -537,7 +539,7 @@ public class PlayerController : MonoBehaviour
             }
 
             GameObject attackEffect = Instantiate(attackParticle[currentAttackCount - 1], effectPosition, effectRotation);
-            Destroy(attackEffect, 0.5f); // 일정 시간이 지난 후 파괴
+            Destroy(attackEffect, 0.3f); // 일정 시간이 지난 후 파괴
         }
 
         if (attackTest.IsBossInRange)
@@ -546,13 +548,15 @@ public class PlayerController : MonoBehaviour
         }
 
         // @초 대기
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
 
 
         if (currentAttackCount >= 3)
         {
             currentAttackCount = 0;
         }
+
+        isAttacking = false;
 
         // 공격 상태를 Idle로 전환
         curState = PlayerState.Idle;
