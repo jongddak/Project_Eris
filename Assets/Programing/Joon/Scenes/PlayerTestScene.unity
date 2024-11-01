@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 287639230}
   - component: {fileID: 287639232}
   - component: {fileID: 287639231}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 1706412081}
   - component: {fileID: 1706412083}
   - component: {fileID: 1706412082}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: LeftWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1071370966367872506, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: jumpSpeed
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1071370966367872506, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: maxJumpSpeed
@@ -811,11 +811,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1071370966367872506, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: maxJumpSpeedX
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1071370966367872506, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: maxJumpSpeedY
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1071370966367872506, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: attackParticle.Array.size
@@ -833,6 +833,10 @@ PrefabInstance:
       propertyPath: attackParticle.Array.data[2]
       value: 
       objectReference: {fileID: 9084286743597997520, guid: 91e7f1202ee51d6498a020bd1ffe2640, type: 3}
+    - target: {fileID: 1071370966367872507, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 1071370966367872508, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -875,6 +879,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1071370966367872508, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071370966367872510, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
