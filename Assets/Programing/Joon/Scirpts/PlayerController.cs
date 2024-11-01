@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     //플레이어가 가질 수 있는 상태
     public enum PlayerState { Idle, Run, Jump, Fall, Grab, GrabJump, 
-        Dash, Attack, DashAttack, Hovering, Die };
+        Dash, Attack, DashAttack, Die };
     [SerializeField] public PlayerState curState;     // 플레이어의 현재 상태
 
     private Rigidbody2D rb;
@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Animator playerAnimator;
     private int curAniHash;                     // 현재 진행할 애니메이션의 해쉬를 담는 변수
     [SerializeField] GameObject GFX;            // 캐릭터 회전을 위한 부모 오브젝트
-
     [SerializeField] GameObject[] attackParticle;
 
     //플레이어 애니메이션의 파라미터 해시 생성
@@ -81,8 +80,14 @@ public class PlayerController : MonoBehaviour
     public float comboResetTime = 1.5f;                        //공격 콤보가 초기화 되는 시간
     [SerializeField] bool isAttacking = false;
 
+    [Header("HoveringInfo")]
+    //플레이어가 내려가는 힘 조절(작을 수록 천천히 떨어짐)
+    [SerializeField] float hoverForce = 10f;                   
+
     [Header("StageInfo")]
-    [SerializeField] bool canUseDashAttack = false;
+    [SerializeField] public bool canUseDashAttack = false;     //1스테이지 클리어시 활성화
+    [SerializeField] public bool canUseHovering = false;       //2스테이지 클리어시 활성화
+
 
     //[Header("CameraInfo")]
     //[SerializeField] CameraController CameraController;
@@ -284,6 +289,10 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
+        if (Input.GetKey(KeyCode.LeftShift) && canUseHovering)
+        {
+            Hovering();
+        }
     }
 
     private void GrabUpdate()
@@ -386,6 +395,11 @@ public class PlayerController : MonoBehaviour
     {
 
     }
+    private void HoveringUpdate()
+    {
+
+    }
+
     private void ComboUpdate()
     {
         if (Time.time - lastAttackTime > comboResetTime)
@@ -572,6 +586,11 @@ public class PlayerController : MonoBehaviour
 
         rb.gravityScale = 5f;
         curState = PlayerState.Fall;
+    }
+
+    private void Hovering()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -hoverForce));
     }
 
     public void Die()
