@@ -1759,8 +1759,8 @@ MonoBehaviour:
   bossObject: {fileID: 4409388862024179201}
   player: {fileID: 0}
   bossRigid: {fileID: 0}
-  swordAura: {fileID: 4965152600031193644, guid: 575388d3639c27d43916ccb1410ed174, type: 3}
-  bash: {fileID: 0}
+  swordAura: {fileID: 4965152600031193644, guid: b7a4e8fc0f5583e4d8e928ad8ec1c515, type: 3}
+  bash: {fileID: 5675702017995866896, guid: 7deab8d919a4622409020b90995637b0, type: 3}
   footWarkPre01: {fileID: 7371584410195539576, guid: 74776428b12c4bf41a1498f5f968fecc, type: 3}
   footWarkPre02: {fileID: 5698565380114106586, guid: 30c41396f3c685f449262c4404342f25, type: 3}
   swordAuraPoint: {fileID: 4239721308000507395}
