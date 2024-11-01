@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("GrapInfo")]
     [SerializeField] float SlipSpeed = 1f;      // 벽을 붙잡고 있을 때 떨어지는 속도
+    [SerializeField] bool isGrabJumping = false;
 
     [Header("AnamationInfo")]
     [SerializeField] Animator playerAnimator;
@@ -69,7 +70,6 @@ public class PlayerController : MonoBehaviour
     private static int dieHash = Animator.StringToHash("Die");
 
     [Header("AttackInfo")]
-    [SerializeField] bool isAttack = false;
     //[SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
     //[SerializeField] private GameObject attackEffectPrefabs;   //공격 이펙트
     [SerializeField] AttackTest attackTest;                    //공격 범위 판정       
@@ -77,7 +77,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int currentAttackCount = 0;       //현재 공격 횟수
     private float lastAttackTime;                              //마지막 공격 시간
     public float comboResetTime = 1.5f;                        //공격 콤보가 초기화 되는 시간
-
 
     //[Header("CameraInfo")]
     //[SerializeField] CameraController CameraController;
@@ -116,7 +115,7 @@ public class PlayerController : MonoBehaviour
                 GrabUpdate();
                 break;
             case PlayerState.GrabJump:
-                JumpUpdate();
+                GrapJumpUpdate();
                 break;
             case PlayerState.Dash:
                 DashUpdate();
@@ -157,7 +156,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
+        if (Input.GetKeyDown(KeyCode.X))
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
@@ -193,7 +192,7 @@ public class PlayerController : MonoBehaviour
         {
             Dash();
         }
-        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
+        if (Input.GetKeyDown(KeyCode.X))
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
@@ -229,19 +228,23 @@ public class PlayerController : MonoBehaviour
 
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
+            if (jumpCoroutine != null)
+            {
+                StopCoroutine(jumpCoroutine);
+            }
             Grab();
         }
 
-        if (Input.GetKeyDown(KeyCode.C) && coll.onWall)
-        {
-            GrabJump();
-        }
 
         if (Input.GetKeyDown(KeyCode.Z) && canDash)
         {
+            if (jumpCoroutine != null)
+            {
+                StopCoroutine(jumpCoroutine);
+            }
             Dash();
         }
-        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
+        if (Input.GetKeyDown(KeyCode.X))
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
@@ -263,15 +266,12 @@ public class PlayerController : MonoBehaviour
             Grab();
         }
 
-        if (Input.GetKeyDown(KeyCode.C) && coll.onWall)
-        {
-            GrabJump();
-        }
+
         if (Input.GetKeyDown(KeyCode.Z) && canDash)
         {
             Dash();
         }
-        if (Input.GetKeyDown(KeyCode.X) && !isAttack)
+        if (Input.GetKeyDown(KeyCode.X))
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
@@ -281,7 +281,6 @@ public class PlayerController : MonoBehaviour
     {
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
-
             rb.AddForce(-Physics2D.gravity, ForceMode2D.Force);
             // y 속도를 -SlipSpeed로 제한하여 천천히 떨어지게 함
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -SlipSpeed));
@@ -295,15 +294,63 @@ public class PlayerController : MonoBehaviour
         // 벽잡기 상태에서 점프 입력 시 벽점프 실행
         if (Input.GetKeyDown(KeyCode.C))
         {
-            GrabJump();
+            StartCoroutine(GrabJumpCoroutine());
         }
     }
-
-    private void DashUpdate()
+    private void GrapJumpUpdate()
     {
+        Move();
+
+        //땅에 붙어 있으며 y축 속도의 변화가 거의 없을 때
+        if (coll.onGround && rb.velocity.y < 0.01f)
+        {
+            curState = PlayerState.Idle;
+            canDash = true;
+        }
+        else if (rb.velocity.y < -0.01f && !coll.onGround)
+        {
+            curState = PlayerState.Fall;  // 낙하 상태로 전환
+        }
+
+        if (isGrabJumping)
+        {
+            return;
+        }
+        /*if (Input.GetKeyUp(KeyCode.C))
+        {
+            if (jumpCoroutine != null)
+            {
+                StopCoroutine(jumpCoroutine);
+            }
+            if (rb.velocity.y > 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+            }
+        }*/
+
+
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
             Grab();
+        }
+        if (Input.GetKeyDown(KeyCode.Z) && canDash)
+        {
+            Dash();
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            StartCoroutine(Attack());        // 공격 코루틴 호출
+        }
+    }
+
+
+    private void DashUpdate()
+    {
+
+        if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
+        {
+            Grab();
+            rb.gravityScale = 5f;
         }
 
         if (dashTimeLeft > 0)
@@ -313,10 +360,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             rb.gravityScale = 5f;
-            if (coll.onGround)
-            {
-                curState = PlayerState.Idle;
-            }
             curState = PlayerState.Fall;  // 대시 종료 후 낙하 상태로 전환
         }
     }
@@ -384,13 +427,10 @@ public class PlayerController : MonoBehaviour
 
     private void Grab()
     {
-        if (!coll.onWall)
-            return;
-
         curState = PlayerState.Grab;
 
-        // y 방향 속도를 -SlipSpeed로 설정하여 천천히 미끄러지게 함
-        //rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -SlipSpeed));
+        //그랩 시 플레이어의 속도를 빼서 위로 올라가는 현상 방지
+        rb.velocity = Vector2.zero;
     }
 
     private void UnGrab()
@@ -403,24 +443,28 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.up * Input.GetAxisRaw("Vertical") * 3f;
     }*/
 
-    private void GrabJump()
+    private IEnumerator GrabJumpCoroutine()
     {
+        isGrabJumping = true;
         curState = PlayerState.GrabJump;
         rb.gravityScale = 5f;
 
         if (coll.onLeftWall)
         {
-            rb.velocity = new Vector2(40f, 25f);
+            rb.velocity = new Vector2(60f, 30f);
             //붙잡은 벽이 왼쪽벽일 때 벽점프시 기본방향인 오른쪽을 보도록
             GFX.transform.localScale = new Vector3(1, 1, 1);
         }
 
         else if (coll.onRightWall)
         {
-            rb.velocity = new Vector2(40f, 25f);
+            rb.velocity = new Vector2(-60f, 30f);
             //붙잡은 벽이 오른쪽벽일 때 벽점프시 반대방향인 왼쪽을 보도록
             GFX.transform.localScale = new Vector3(-1, 1, 1);
         }
+
+        yield return new WaitForSeconds(0.3f);
+        isGrabJumping = false;
     }
 
     private void Dash()
@@ -466,7 +510,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        isAttack = true;
         curState = PlayerState.Attack;  // 공격 상태로 전환
 
         currentAttackCount++;
@@ -503,8 +546,6 @@ public class PlayerController : MonoBehaviour
         // @초 대기
         yield return new WaitForSeconds(0.5f);
 
-
-        isAttack = false;
 
         if (currentAttackCount >= 3)
         {
@@ -553,11 +594,13 @@ public class PlayerController : MonoBehaviour
         {
             temp = fallHash;
         }
-
-
         if (curState == PlayerState.Grab)
         {
             temp = grabHash;
+        }
+        if (curState == PlayerState.GrabJump)
+        {
+            temp = jumpHash;
         }
         if (curState == PlayerState.Dash)
         {
