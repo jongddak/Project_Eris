@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject gameObjectRotationPoint;
 
     //플레이어가 가질 수 있는 상태
-    public enum PlayerState {Idle, Run, Jump, Fall, Grab, Dash, Attack, Die}; 
+    public enum PlayerState {Idle, Run, Jump, Fall, Grab, GrabJump, Dash, Attack, Die}; 
     [SerializeField] public PlayerState curState;     // 플레이어의 현재 상태
 
     private Rigidbody2D rb;
@@ -28,8 +28,10 @@ public class PlayerController : MonoBehaviour
     [Header("Jump&Fall")]
     [SerializeField] float jumpSpeed = 15f;     // 점프 속도
     [SerializeField] float maxFallSpeed = 10f;  // 최대 낙하 속도
-    [SerializeField] float maxJumpSpeedX = 15f;  // 최대 점프 속도(제한용)
-    [SerializeField] float maxJumpSpeedY = 15f;  // 최대 점프 속도(제한용)
+    [SerializeField] float jumpRemainTime;      // 점프 유지 시간
+    [SerializeField] float maxJumpUpTime = 0.5f;// 최대 점프 유지 속도
+    //[SerializeField] float maxJumpSpeedX = 15f;  // 최대 점프 속도(제한용)
+    //[SerializeField] float maxJumpSpeedY = 15f;  // 최대 점프 속도(제한용)
     private BoxCollider2D boxCollider;
     private Vector2 originalColliderSize;
     private Vector2 reducedColliderSize;
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private float dashTimeLeft;                 // 대시 남은 시간
     [SerializeField] bool isDashing = false;    // 대시 중인지 여부
     [SerializeField] bool canDash = true;       // 대시 가능 여부
+
 
     [Header("GrapInfo")]
     [SerializeField] float SlipSpeed = 1f;      // 벽을 붙잡고 있을 때 떨어지는 속도
@@ -112,6 +115,9 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Grab:
                 GrabUpdate();
                 break;
+            case PlayerState.GrabJump:
+                JumpUpdate();
+                break;
             case PlayerState.Dash:
                 DashUpdate();
                 break;
@@ -147,7 +153,7 @@ public class PlayerController : MonoBehaviour
         }*/
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Jump();
+            StartCoroutine(JumpRoutine());
         }
 
         if (Input.GetKeyDown(KeyCode.X) && !isAttack)
@@ -179,7 +185,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Jump();
+            StartCoroutine(JumpRoutine());
         }
 
         if (Input.GetKeyDown(KeyCode.Z) && canDash)
@@ -293,6 +299,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             isDashing = false;
+            rb.gravityScale = 1f;
             if (coll.onGround)
             {
                 curState = PlayerState.Idle;
@@ -325,14 +332,6 @@ public class PlayerController : MonoBehaviour
     {
         float xInput = Input.GetAxisRaw("Horizontal");
 
-        /*if (xInput < 0)
-        {
-            spriteRenderer.flipX = true; // 왼쪽 방향으로 이동 시 스프라이트를 뒤집음
-        }
-        else if (xInput > 0)
-        {
-            spriteRenderer.flipX = false; // 오른쪽 방향으로 이동 시 스프라이트를 정상으로
-        }*/
         if (xInput > 0)
         {
             GFX.transform.localScale = new Vector3(1, 1 ,1);
@@ -351,12 +350,16 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(xSpeed, ySpeed);
     }
 
-    private void Jump()
+    private IEnumerator JumpRoutine()
     {
         curState = PlayerState.Jump;
-
-        float limitedJumpSpeed = Mathf.Min(jumpSpeed, maxJumpSpeedY);
-        rb.velocity = new Vector2(rb.velocity.x, limitedJumpSpeed);
+        jumpRemainTime = maxJumpUpTime;
+        while(jumpRemainTime >= 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+            jumpRemainTime -= Time.deltaTime;
+            yield return null;
+        }
     }
 
     /*private void LowJump()
@@ -388,25 +391,19 @@ public class PlayerController : MonoBehaviour
 
     private void GrabJump()
     {
-        curState = PlayerState.Jump;
+        curState = PlayerState.GrabJump;
         rb.gravityScale = 1f;
         
         if (coll.onLeftWall)
         {
-            float limitedJumpSpeedX = Mathf.Min(40f, maxJumpSpeedX);
-            float limitedJumpSpeedY = Mathf.Min(25f, maxJumpSpeedY);
-
-            rb.velocity = new Vector2(limitedJumpSpeedX, limitedJumpSpeedY);
+            rb.velocity = new Vector2(40f, 25f);
             //붙잡은 벽이 왼쪽벽일 때 벽점프시 기본방향인 오른쪽을 보도록
             GFX.transform.localScale = new Vector3(1, 1, 1);
         }
         
         else if (coll.onRightWall)
         {
-            float limitedJumpSpeedX = Mathf.Min(-40f, maxJumpSpeedX);
-            float limitedJumpSpeedY = Mathf.Min(25f, maxJumpSpeedY);
-
-            rb.velocity = new Vector2(limitedJumpSpeedX, limitedJumpSpeedY);
+            rb.velocity = new Vector2(40f, 25f);
             //붙잡은 벽이 오른쪽벽일 때 벽점프시 반대방향인 왼쪽을 보도록
             GFX.transform.localScale = new Vector3(-1, 1, 1);
         }
@@ -446,6 +443,11 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.velocity = dashDirection * dashSpeed;
+        if (!coll.onGround)
+        {
+            rb.gravityScale = 0f; // 중력 제거
+        }
+
         canDash = false;
     }
 
