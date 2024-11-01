@@ -1394,7 +1394,7 @@ MonoBehaviour:
   - {fileID: 427794302}
   - {fileID: 1186202832}
   player: {fileID: 918364584}
-  laserPrefab: {fileID: 7530232580621766812, guid: 29498ab8034f5e5489a55ac1dff106a8, type: 3}
+  laserPrefab: {fileID: 6713457394774136954, guid: b01d8eb0f9bf117468f0fac35f121500, type: 3}
   missilePrefab: {fileID: 2847561751441668144, guid: aa7e1ab848956a74c9082e875a08cf36, type: 3}
   bulletPrefab: {fileID: 8101443823765708097, guid: 2bfeb5ea7274a024fa6ca3227a33ce76, type: 3}
 --- !u!1 &851624118

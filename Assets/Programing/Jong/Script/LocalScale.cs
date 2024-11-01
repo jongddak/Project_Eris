@@ -7,6 +7,10 @@ public class LocalScale : MonoBehaviour
     [SerializeField] Transform Boss;
     private Vector3 originalScale;
 
+    private void Awake()
+    {
+        Boss = GameObject.FindGameObjectWithTag("Boss").transform;
+    }
 
     void Start()
     {

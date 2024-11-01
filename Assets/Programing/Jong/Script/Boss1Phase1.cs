@@ -412,7 +412,7 @@ public class Boss1Phase1 : MonoBehaviour
     }
     IEnumerator Fork() 
     {
-        Vector2 pos = new Vector2(forkPoint.position.x , 5.4f);
+        Vector2 pos = new Vector2(forkPoint.position.x , 0f);
         isPatternOn = true;
         yield return new WaitForSeconds(1f);
         GameObject obj = Instantiate(forkPrefab, pos, forkPoint.rotation);

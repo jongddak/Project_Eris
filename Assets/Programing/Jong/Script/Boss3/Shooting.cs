@@ -19,8 +19,8 @@ public class Shooting : MonoBehaviour
     private void Start()
     {
         // curRoutine = StartCoroutine(BossDo());
-       StartCoroutine(ShootingMissile());
-       //StartCoroutine(ShootingLaser());
+       //StartCoroutine(ShootingMissile());
+       StartCoroutine(ShootingLaser());
     }
 
     private void Update()
