@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] GameObject player; // 플레이어 오브젝트 설정
     [SerializeField] CinemachineVirtualCamera LCam; // 플레이어가 왼쪽을 바라볼 때(isLeft = true) 사용하는 카메라
     [SerializeField] CinemachineVirtualCamera RCam; // 플레이어가 오른쪽을 바라볼 때(isLeft = false) 사용하는 카메라
-    [SerializeField] public bool isLeft;
+    public bool isLeft;
 
     private void Update()
     {

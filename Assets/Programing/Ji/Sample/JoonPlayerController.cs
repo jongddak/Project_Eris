@@ -76,8 +76,8 @@ public class JoonPlayerController : MonoBehaviour
     public float comboResetTime = 1.5f;                        //공격 콤보가 초기화 되는 시간
 
 
-    //[Header("CameraInfo")]
-    //[SerializeField] CameraController CameraController;
+    [Header("CameraInfo")]
+    [SerializeField] CameraController CameraController;
 
 
     private void Start()
@@ -336,12 +336,12 @@ public class JoonPlayerController : MonoBehaviour
         if (xInput > 0)
         {
             GFX.transform.localScale = new Vector3(1, 1 ,1);
-            //CameraController.isLeft = false;
+            CameraController.isLeft = false;
         }
         else if (xInput < 0)
         {
             GFX.transform.localScale = new Vector3(-1, 1, 1);
-            //CameraController.isLeft = true;
+            CameraController.isLeft = true;
         }
 
         //float xSpeed = Mathf.Lerp(rb.velocity.x, xInput * maxSpeed, moveAccel);

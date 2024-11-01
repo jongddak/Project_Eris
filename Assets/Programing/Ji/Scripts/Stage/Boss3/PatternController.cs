@@ -22,8 +22,10 @@ public class PatternController : MonoBehaviour
     // 보스가 공격하는 패턴을 보스의 개별 스크립트에서 받아서 사용하도록 수정이 필요
     public bool isAttackP; // 패턴 변경 공격 상태 여부
 
+    // [SerializeField] Boss3Manager bossManager; // 현재 보스의 상태와 공격패턴을 불러오기 위해 인스펙터에서 선언
 
-    [SerializeField] GameObject[] lines; // 자식오브젝트드를 받아오는 배열 생성
+    [SerializeField] GameObject[] lines; // 자식오브젝트들을 받아오는 배열 생성
+
 
     private void Awake()
     {

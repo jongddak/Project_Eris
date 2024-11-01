@@ -4,7 +4,9 @@ public class MoveLenPlatform : MonoBehaviour
 {
     // 일정한 속도로
     [SerializeField] public float moveSpeed;
-
+    // LenPlatfomeLoop.cs를 가지고 있는 각 벽에서 사용할 수치이나, 설정을 쉽게 하기 위해 MoveLenPlatform에 사용
+    [SerializeField] public Transform ciling; // 천장 - 배경이미지보다 더 넓게 설정할 것
+    [SerializeField] public Transform dCiling; // 바닥 - 배경이미지보다 더 넓게 설정할 것
     // 방향별로 이동
     // PlatformAttackPattern에서 라인별로 받아오도록 구현하기
     // [SerializeField] PatternController patternController;
