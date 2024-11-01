@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 /* 대사 스크립트 관련 유튜브 영상
  * https://www.youtube.com/watch?v=DPWvoUlHbjg&list=PLUZ5gNInsv_NG_UKZoua8goQbtseAo8Ow&index=11
@@ -41,7 +40,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private SpriteRenderer imgBoss; // 보스 캐릭터의 대화 시 출력 이미지
     [SerializeField] private SpriteRenderer imgPlayer; // 플레이어 캐릭터의 대화 시 출력 이미지
 
-    [SerializeField] private bool isClicked = false; // 순간의 클릭여부를 판단 - false은 대화 종료
+    [SerializeField] private bool isTyping = false; // 대사의 타이핑이 끝나는 것을 판단하여 다음 대사로 넘어가도록 제어하는 변수
+
     int count = 0; // nowDialogue[count]로 사용
     int num = 0; // nowDialogue[count].contexts[num] 으로 사용
 
@@ -65,51 +65,54 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        // 스페이스바를 누르는 경우
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!isTyping) // 타이핑이 끝난 경우에
         {
-            num++;
-            // 다음 대사가 존재하는지 판단하여
-            if (num < nowDialogue[count].contexts.Length)
+            // 스페이스바를 누르는 경우
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                // 존재하는 경우 대사만 출력
-                // ShowTextContexts(nowDialogue, count, num);
-                StartCoroutine(ShowTextTyping());
-            }
-            else // 다음 대사가 존재하지 않는 경우
-            {
-                count++; // 다음 화자로 넘어가고
-                num = 0; // 대사 횟수를 초기화
-
-                // 이벤트가 끝나지 않았으면
-                if (nowDialogue[count].eventName.ToString() != "end")
+                num++;
+                // 다음 대사가 존재하는지 판단하여
+                if (num < nowDialogue[count].contexts.Length)
                 {
-                    // 알맞은 대사(캐릭터 이름, 대사, 캐릭터이미지)를 출력
-                    ShowTextName(nowDialogue, count);
-                    ShowImgName(nowDialogue, count);
-                    StartCoroutine(ShowTextTyping()); // 대사는 타이핑 효과를 넣기 위해 코루틴으로 구성
+                    // 존재하는 경우 대사만 출력
+                    // ShowTextContexts(nowDialogue, count, num);
+                    StartCoroutine(ShowTextTyping());
                 }
-                else // 이벤트가 끝났다면
+                else // 다음 대사가 존재하지 않는 경우
                 {
-                    Debug.Log("씬전환"); // 추후 씬 전환하는 명령어로 변경하여 사용할 것
-                }
-            }
-            StopCoroutine(ShowTextTyping());
+                    count++; // 다음 화자로 넘어가고
+                    num = 0; // 대사 횟수를 초기화
 
+                    // 이벤트가 끝나지 않았으면
+                    if (nowDialogue[count].eventName.ToString() != "end")
+                    {
+                        // 알맞은 대사(캐릭터 이름, 대사, 캐릭터이미지)를 출력
+                        ShowTextName(nowDialogue, count);
+                        ShowImgName(nowDialogue, count);
+                        StartCoroutine(ShowTextTyping()); // 대사는 타이핑 효과를 넣기 위해 코루틴으로 구성
+                    }
+                    else // 이벤트가 끝났다면
+                    {
+                        Debug.Log("씬전환"); // 추후 씬 전환하는 명령어로 변경하여 사용할 것
+                    }
+                }
+                StopCoroutine(ShowTextTyping());
+            }
         }
     }
 
     IEnumerator ShowTextTyping()
     {
+        isTyping = true;
         string context = nowDialogue[count].contexts[num];
         for (int i = 0; i < context.Length; i++)
         {
             // 각종 효과 조절을 위한 <을 열었을 경우 출력을 제어하는 조건문
-            if (context[i] == '<') 
+            if (context[i] == '<')
             {
                 while (true)
                 {
-                    if(i == context.Length)
+                    if (i == context.Length)
                     {
                         break;
                     }
@@ -121,20 +124,20 @@ public class DialogueManager : MonoBehaviour
                     i++;
                 }
             }
-            if (context[i] =='>')
+            if (context[i] == '>')
             {
                 // > 인 경우 for문의 위로 가서 다음 < 가 출력되지 않는지 추가 확인이 필요
                 continue;
             }
             if (context.Contains('*'))
             {
-                context = context.Replace('*',',');
+                context = context.Replace('*', ',');
             }
             textContext.text = context.Substring(0, i).ToString();
             // Substring(시작지점, 끝지점)을 지정하여 문장의 하나씩 출력되는 기능
             yield return new WaitForSeconds(0.05f); // 출력딜레이 시간
-
         }
+        isTyping = false;
     }
 
     /// <summary>

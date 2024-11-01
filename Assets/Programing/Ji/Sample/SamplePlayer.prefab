@@ -104,8 +104,8 @@ MonoBehaviour:
   - {fileID: 6237134309344073861}
   - {fileID: 6237134309444293942}
   m_Bounds:
-    m_Center: {x: 3.6380696, y: -0.7573719, z: 0}
-    m_Extent: {x: 1.1688353, y: 1.8529613, z: 0}
+    m_Center: {x: 3.638072, y: -0.75737214, z: 0}
+    m_Extent: {x: 1.1688347, y: 1.8529608, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -243,8 +243,8 @@ MonoBehaviour:
   - {fileID: 6237134308795155367}
   - {fileID: 6237134308699641484}
   m_Bounds:
-    m_Center: {x: 3.64209, y: -0.76787066, z: 0}
-    m_Extent: {x: 0.84276605, y: 2.1530085, z: 0}
+    m_Center: {x: 3.64209, y: -0.76786995, z: 0}
+    m_Extent: {x: 0.84276605, y: 2.153008, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -353,8 +353,8 @@ MonoBehaviour:
   - {fileID: 6237134308699641484}
   - {fileID: 6237134308599704058}
   m_Bounds:
-    m_Center: {x: 3.643043, y: -0.75373864, z: 0}
-    m_Extent: {x: 1.1842031, y: 1.0750468, z: 0}
+    m_Center: {x: 3.643043, y: -0.75373876, z: 0}
+    m_Extent: {x: 1.1842031, y: 1.0750469, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -460,8 +460,8 @@ MonoBehaviour:
   - {fileID: 6237134310104505283}
   - {fileID: 6237134309246178895}
   m_Bounds:
-    m_Center: {x: 3.6525822, y: -0.77015257, z: 0}
-    m_Extent: {x: 3.3713355, y: 2.1539607, z: 0}
+    m_Center: {x: 3.6525831, y: -0.77015257, z: 0}
+    m_Extent: {x: 3.3713346, y: 2.1539607, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -568,8 +568,8 @@ MonoBehaviour:
   - {fileID: 6237134309246178895}
   - {fileID: 6237134309055271040}
   m_Bounds:
-    m_Center: {x: 3.6406133, y: -0.7554178, z: 0}
-    m_Extent: {x: 0.99474216, y: 0.3702737, z: 0}
+    m_Center: {x: 3.6406152, y: -0.7554178, z: 0}
+    m_Extent: {x: 0.99474025, y: 0.37027323, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -738,8 +738,8 @@ MonoBehaviour:
   - {fileID: 6237134309444293942}
   - {fileID: 6237134309630355321}
   m_Bounds:
-    m_Center: {x: 3.5363472, y: -0.76440334, z: 0}
-    m_Extent: {x: 0.88016677, y: 1.9679449, z: 0}
+    m_Center: {x: 3.5363462, y: -0.764403, z: 0}
+    m_Extent: {x: 0.8801658, y: 1.9679455, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -845,8 +845,8 @@ MonoBehaviour:
   - {fileID: 6237134308599704058}
   - {fileID: 6237134309980817099}
   m_Bounds:
-    m_Center: {x: 3.6283965, y: -0.75882506, z: 0}
-    m_Extent: {x: 0.74867964, y: 0.9198675, z: 0}
+    m_Center: {x: 3.6283946, y: -0.75882477, z: 0}
+    m_Extent: {x: 0.74867964, y: 0.91986734, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -984,8 +984,8 @@ MonoBehaviour:
   - {fileID: 6237134308837350686}
   - {fileID: 6237134309584485507}
   m_Bounds:
-    m_Center: {x: 3.6441038, y: -0.7675451, z: 0}
-    m_Extent: {x: 1.1280005, y: 1.3720082, z: 0}
+    m_Center: {x: 3.6441057, y: -0.76754475, z: 0}
+    m_Extent: {x: 1.1280005, y: 1.3720078, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -1219,7 +1219,7 @@ MonoBehaviour:
   - {fileID: 6237134308314016900}
   - {fileID: 6237134309584485507}
   m_Bounds:
-    m_Center: {x: 3.651258, y: -0.759459, z: 0}
+    m_Center: {x: 3.6512542, y: -0.75945854, z: 0}
     m_Extent: {x: 1.7630316, y: 1.3205478, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   - {fileID: 6237134309035966122}
   - {fileID: 6237134308795155367}
   m_Bounds:
-    m_Center: {x: 3.6371603, y: -0.75957483, z: 0}
+    m_Center: {x: 3.6371603, y: -0.75957435, z: 0}
     m_Extent: {x: 0.93664837, y: 0.49239856, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1600,7 +1600,7 @@ MonoBehaviour:
   - {fileID: 6237134309444293942}
   - {fileID: 6237134308699641484}
   m_Bounds:
-    m_Center: {x: 3.5771544, y: -0.7707696, z: 0}
+    m_Center: {x: 3.5771525, y: -0.7707696, z: 0}
     m_Extent: {x: 1.2594221, y: 2.1817346, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1880,8 +1880,8 @@ MonoBehaviour:
   - {fileID: 6237134309896762205}
   - {fileID: 6237134308736339307}
   m_Bounds:
-    m_Center: {x: 3.6401916, y: -0.7602623, z: 0}
-    m_Extent: {x: 0.93160164, y: 0.58352345, z: 0}
+    m_Center: {x: 3.6401916, y: -0.7602627, z: 0}
+    m_Extent: {x: 0.93160164, y: 0.58352387, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -2021,8 +2021,8 @@ MonoBehaviour:
   - {fileID: 6237134309055271040}
   - {fileID: 6237134308751490132}
   m_Bounds:
-    m_Center: {x: 3.6471536, y: -0.7071059, z: 0}
-    m_Extent: {x: 1.0993426, y: 1.4192421, z: 0}
+    m_Center: {x: 3.6471558, y: -0.7071059, z: 0}
+    m_Extent: {x: 1.0993466, y: 1.4192421, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -2374,8 +2374,8 @@ MonoBehaviour:
   - {fileID: 6237134309980817099}
   - {fileID: 6237134308837350686}
   m_Bounds:
-    m_Center: {x: 3.6386995, y: -0.75030243, z: 0}
-    m_Extent: {x: 0.86614084, y: 0.92535985, z: 0}
+    m_Center: {x: 3.6386995, y: -0.7503019, z: 0}
+    m_Extent: {x: 0.86614084, y: 0.9253599, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -2517,13 +2517,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6237134310020984972}
   - component: {fileID: 6237134310020984973}
-  - component: {fileID: 6237134310020984974}
   - component: {fileID: 6237134310020984975}
   - component: {fileID: 6237134310020984960}
   - component: {fileID: 6237134310020984961}
   - component: {fileID: 6237134310020984962}
   - component: {fileID: 6237134310020984963}
   - component: {fileID: 6237134310020984964}
+  - component: {fileID: 8521868554352593941}
   m_Layer: 9
   m_Name: SamplePlayer
   m_TagString: Player
@@ -2565,9 +2565,10 @@ MonoBehaviour:
   maxSpeed: 30
   moveAccel: 200
   canMove: 1
-  TestSpeed: 0
   jumpSpeed: 30
   maxFallSpeed: 40
+  maxJumpSpeedX: 15
+  maxJumpSpeedY: 15
   dashSpeed: 60
   dashTime: 0.5
   isDashing: 0
@@ -2575,47 +2576,12 @@ MonoBehaviour:
   SlipSpeed: 1
   playerAnimator: {fileID: 6237134309670393126}
   GFX: {fileID: 6237134309928157574}
+  attackParticle: []
   isAttack: 0
-  attackEffectPrefabs: {fileID: 1802444699524859951, guid: cb800879abf9dff41bf4d4f12fd807ec, type: 3}
   attackTest: {fileID: 6237134308564043573}
   isDead: 0
   currentAttackCount: 0
   comboResetTime: 1.5
---- !u!114 &6237134310020984974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6237134310020984965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d09a550f8f8344cbdc3d00d4bbc13d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameObjectRotationPoint: {fileID: 6237134310020984965}
-  curState: 0
-  coll: {fileID: 6237134310020984975}
-  maxSpeed: 30
-  moveAccel: 200
-  canMove: 1
-  TestSpeed: 0
-  jumpSpeed: 30
-  maxFallSpeed: 40
-  dashSpeed: 60
-  dashTime: 0.5
-  isDashing: 0
-  canDash: 1
-  SlipSpeed: 1
-  playerAnimator: {fileID: 6237134309670393126}
-  GFX: {fileID: 6237134309928157574}
-  isAttack: 0
-  attackEffectPrefabs: {fileID: 0}
-  attackTest: {fileID: 6237134308564043573}
-  isDead: 0
-  currentAttackCount: 0
-  comboResetTime: 1.5
-  cameraController: {fileID: 0}
 --- !u!114 &6237134310020984975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2754,6 +2720,41 @@ MonoBehaviour:
   - {fileID: 6237134309344073862}
   - {fileID: 6237134309896762206}
   - {fileID: 6237134308736339308}
+--- !u!114 &8521868554352593941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6237134310020984965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a6b644910f60a4292400ab9665ac8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectRotationPoint: {fileID: 0}
+  curState: 0
+  coll: {fileID: 0}
+  maxSpeed: 10
+  moveAccel: 30
+  canMove: 1
+  jumpSpeed: 15
+  maxFallSpeed: 10
+  maxJumpSpeedX: 15
+  maxJumpSpeedY: 15
+  dashSpeed: 25
+  dashTime: 0.4
+  isDashing: 0
+  canDash: 1
+  SlipSpeed: 1
+  playerAnimator: {fileID: 0}
+  GFX: {fileID: 0}
+  attackParticle: []
+  isAttack: 0
+  attackTest: {fileID: 0}
+  isDead: 0
+  currentAttackCount: 0
+  comboResetTime: 1.5
 --- !u!1 &6237134310104505284
 GameObject:
   m_ObjectHideFlags: 0

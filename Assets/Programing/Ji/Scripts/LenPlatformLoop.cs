@@ -6,8 +6,8 @@ using UnityEngine;
 /// </summary>
 public class LenPlatformLoop : MonoBehaviour
 {
-    // PatternController에서 현재 라인의 상승, 하강여부를 판별하기 위해 필요
-    [SerializeField] PatternController patternController;
+    // MoveLenPlatform에서 현재 라인의 상승, 하강여부를 판별하기 위해 필요
+    [SerializeField] MoveLenPlatform moveLenPlatform;
     // 자식오브젝트로 생성한 발판의 갯수(num)와 지정했던 간격(space)으로 오브젝트의 위치를 지정하기 위해 필요
     [SerializeField] CreatePlatform createPlatform;
     [SerializeField] Transform ciling; // 천장 - 배경이미지보다 더 넓게 설정할 것
@@ -26,7 +26,7 @@ public class LenPlatformLoop : MonoBehaviour
     private void Update()
     {
         // 상승중
-        if (patternController.isUpMove)
+        if (moveLenPlatform.isUpMove)
         {
             // 천장의 y값보다 오브젝트의 y 값이 높아지면
             if (gameObject.transform.position.y > ciling.transform.position.y)
@@ -37,7 +37,7 @@ public class LenPlatformLoop : MonoBehaviour
             }
         }
         // 하강중
-        if (!patternController.isUpMove)
+        if (!moveLenPlatform.isUpMove)
         {
             // 바닥의 y값보다 오브젝트의 y값이 낮아지면
             if (gameObject.transform.position.y < dCiling.transform.position.y)
