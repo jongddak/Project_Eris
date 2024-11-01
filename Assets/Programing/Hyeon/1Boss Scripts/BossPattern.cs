@@ -21,8 +21,10 @@ public class BossPattern : MonoBehaviour
     [SerializeField] GameObject bossTacklePoint;
     // 파이어볼 생성 좌표
     [SerializeField] Transform fireBallPoint;
-    // 파이어볼 프리펩
-    [SerializeField] GameObject fireBallPre;
+    // 파이어볼 오른쪽 프리펩
+    [SerializeField] GameObject fireBallRightPre;
+    // 파이어볼 왼쪽 프리펩
+    [SerializeField] GameObject fireBallLeftPre;
 
     //화염기둥 생성 좌표
     [SerializeField] Transform fireWallPoint;
@@ -267,11 +269,12 @@ public class BossPattern : MonoBehaviour
         // 점프 동작 
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.7f);
+        bossRigid.gravityScale = 5;
         // 보스 팔쪽 콜라이더만 피격판정
         SlashEffect();
         // 점프 공격 패턴 동안 대기 (3초 후 Idle 상태로 변경)
-        yield return new WaitForSeconds(2.3f);       
-
+        yield return new WaitForSeconds(1f);
+        bossRigid.gravityScale = 1;
         // 위쪽 힘만 가하면 느리게 올라가서 느리게 떨어짐
         // 나중에 기획에 피드백 받고 의도와 맞는지 QnA
     }
@@ -282,16 +285,17 @@ public class BossPattern : MonoBehaviour
 
         // 화염구 발사 애니메이션
         animator.Play("boss1 2 SponFireBall");
+        FireBallFire();
         // 애니메이션 재생시간
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(2.3f);
 
         // 화염구 프리펩 생성
-        FireBallFire();
+        
         // 화염구가 생성되는 1.3 초동안 먼 사거리에서 빠르게 보스 뒤로 이동하면 화염구가 보스뒤로 이동하는 문제 발생
         // 플레이어가 1.3초 동안 먼 거리에서 보스뒤로 가기 불가능 하다고 판단. 이 문제는 알아두기만 하자
 
         // 불 발사 패턴 동안 대기 (1.5초 후 Idle 상태로 변경)
-        yield return new WaitForSeconds(1f);
+
 
     }
     private IEnumerator FireBarrier()
@@ -306,7 +310,7 @@ public class BossPattern : MonoBehaviour
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
         // 올라가고 차징하는 애니메이션
         animator.Play("boss1 2 FireBarrier");
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.7f);
         // 보스의 위치 고정
         bossRigid.velocity = Vector2.zero;
         bossRigid.bodyType = RigidbodyType2D.Kinematic;
@@ -317,7 +321,7 @@ public class BossPattern : MonoBehaviour
         FireWallInstant();
 
         // 불기둥 생성 패턴 동안 대기
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         bossRigid.bodyType = RigidbodyType2D.Dynamic;
         bossRigid.gravityScale = 5;
@@ -358,7 +362,17 @@ public class BossPattern : MonoBehaviour
     // 화염구 발사 
     public void FireBallFire()
     {
-        GameObject fireBall = Instantiate(fireBallPre, fireBallPoint.position, fireBallPoint.rotation);
+        if (player.transform.position.x < bossObject.transform.position.x)
+        {
+            // 보스가 왼쪽을 바라보도록 함
+            GameObject fireBall = Instantiate(fireBallLeftPre, fireBallPoint.position, fireBallPoint.rotation);
+        }
+        else
+        {
+            // 보스가 오른쪽을 바라보도록 함
+            GameObject fireBall = Instantiate(fireBallRightPre, fireBallPoint.position, fireBallPoint.rotation);
+        }
+        
     }
 
     public void FireWallInstant()
@@ -374,14 +388,14 @@ public class BossPattern : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // 벽과 충돌했는지 확인 Test => wall로 교체
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
         {
             isWall = true;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
         {
             isWall = false;
         }

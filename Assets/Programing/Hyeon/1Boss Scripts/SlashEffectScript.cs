@@ -6,6 +6,6 @@ public class SlashEffectScript : MonoBehaviour
 {
     private void Start()
     {
-        Destroy(gameObject, 1.5f);
+        Destroy(gameObject, 0.8f);
     }
 }
