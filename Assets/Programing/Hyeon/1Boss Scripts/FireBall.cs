@@ -14,21 +14,21 @@ public class FireBall : MonoBehaviour
     private Vector2 direction;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    private Collider2D collider2D;
+    public Collider2D fireBallCollider;
 
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        collider2D = GetComponent<Collider2D>();
+        fireBallCollider = GetComponent<Collider2D>();
 
         // 파이어볼과 플레이어 사이의 방향 계산
         direction = new Vector2((player.transform.position.x - transform.position.x), 0).normalized;
 
         // SpriteRenderer와 Collider를 비활성화
         spriteRenderer.enabled = false;
-        collider2D.enabled = false;
+        fireBallCollider.enabled = false;
        
         
         /* 나중에 플레이어 방향 계산해서 반전시킬때 또 쓰자
@@ -52,7 +52,7 @@ public class FireBall : MonoBehaviour
 
         // SpriteRenderer와 Collider를 활성화
         spriteRenderer.enabled = true;
-        collider2D.enabled = true;
+        fireBallCollider.enabled = true;
 
         // 이동 시작
         rb.velocity = direction * fireBallSpeed;

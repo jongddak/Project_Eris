@@ -1760,9 +1760,15 @@ MonoBehaviour:
   player: {fileID: 0}
   bossRigid: {fileID: 0}
   swordAura: {fileID: 4965152600031193644, guid: 575388d3639c27d43916ccb1410ed174, type: 3}
+  bash: {fileID: 0}
+  footWarkPre01: {fileID: 7371584410195539576, guid: 74776428b12c4bf41a1498f5f968fecc, type: 3}
+  footWarkPre02: {fileID: 5698565380114106586, guid: 30c41396f3c685f449262c4404342f25, type: 3}
   swordAuraPoint: {fileID: 4239721308000507395}
+  bosswarp01: {fileID: 0}
+  bosswarp02: {fileID: 0}
+  bosswarp03: {fileID: 0}
   bossHP: 10
-  attackRange: 50
+  attackRange: 20
   bossSpeed: 10
 --- !u!1 &4578098616105516762
 GameObject:

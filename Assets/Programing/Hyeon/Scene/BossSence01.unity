@@ -583,6 +583,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &704634184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 704634185}
+  m_Layer: 0
+  m_Name: bosswarp03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &704634185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704634184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 126.1, y: -8.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &991496935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -596,11 +627,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3312769272681891426, guid: 269dc2fb15a1b08469a4f0085e72e2e2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.1651745
+      value: -45.6
       objectReference: {fileID: 0}
     - target: {fileID: 3312769272681891426, guid: 269dc2fb15a1b08469a4f0085e72e2e2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.3272972
+      value: -5.1
       objectReference: {fileID: 0}
     - target: {fileID: 3312769272681891426, guid: 269dc2fb15a1b08469a4f0085e72e2e2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -634,12 +665,63 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4239721308153020350, guid: 269dc2fb15a1b08469a4f0085e72e2e2, type: 3}
+      propertyPath: bosswarp01
+      value: 
+      objectReference: {fileID: 1891798199}
+    - target: {fileID: 4239721308153020350, guid: 269dc2fb15a1b08469a4f0085e72e2e2, type: 3}
+      propertyPath: bosswarp02
+      value: 
+      objectReference: {fileID: 1214107987}
+    - target: {fileID: 4239721308153020350, guid: 269dc2fb15a1b08469a4f0085e72e2e2, type: 3}
+      propertyPath: bosswarp03
+      value: 
+      objectReference: {fileID: 704634185}
+    - target: {fileID: 4239721308153020350, guid: 269dc2fb15a1b08469a4f0085e72e2e2, type: 3}
+      propertyPath: attackRange
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4409388862024179201, guid: 269dc2fb15a1b08469a4f0085e72e2e2, type: 3}
       propertyPath: m_Name
       value: Samurai
       objectReference: {fileID: 0}
+    - target: {fileID: 4409388862024179201, guid: 269dc2fb15a1b08469a4f0085e72e2e2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 269dc2fb15a1b08469a4f0085e72e2e2, type: 3}
+--- !u!1 &1214107986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1214107987}
+  m_Layer: 0
+  m_Name: bosswarp02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1214107987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214107986}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 47.6, y: -8.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1489095107
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +855,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!1 &1891798198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1891798199}
+  m_Layer: 0
+  m_Name: bosswarp01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1891798199
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891798198}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -46.4, y: -8.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4546730247769173511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -902,11 +1015,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4546730247487622204, guid: f3264a5a0090d534c902259215b5e9ef, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.1
+      value: 60.2
       objectReference: {fileID: 0}
     - target: {fileID: 4546730247487622204, guid: f3264a5a0090d534c902259215b5e9ef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.9
+      value: 18.9
       objectReference: {fileID: 0}
     - target: {fileID: 4546730247487622204, guid: f3264a5a0090d534c902259215b5e9ef, type: 3}
       propertyPath: m_LocalPosition.z
@@ -947,6 +1060,10 @@ PrefabInstance:
     - target: {fileID: 4546730247487622205, guid: f3264a5a0090d534c902259215b5e9ef, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546730247487622205, guid: f3264a5a0090d534c902259215b5e9ef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4754991978774902165, guid: f3264a5a0090d534c902259215b5e9ef, type: 3}
       propertyPath: m_Layer
