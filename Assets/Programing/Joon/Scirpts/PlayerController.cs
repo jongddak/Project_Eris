@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject gameObjectRotationPoint;
 
     //플레이어가 가질 수 있는 상태
-    public enum PlayerState { Idle, Run, Jump, Fall, Grab, GrabJump, Dash, Attack, Die };
+    public enum PlayerState { Idle, Run, Jump, Fall, Grab, GrabJump, 
+        Dash, Attack, DashAttack, Die };
     [SerializeField] public PlayerState curState;     // 플레이어의 현재 상태
 
     private Rigidbody2D rb;
@@ -66,15 +67,16 @@ public class PlayerController : MonoBehaviour
     private static int attack2Hash = Animator.StringToHash("Attack2");
     private static int attack3Hash = Animator.StringToHash("Attack3");
     private static int dashHash = Animator.StringToHash("Dash");
+    private static int dashAttackHash = Animator.StringToHash("DashAttack");
     private static int landingHash = Animator.StringToHash("Landing");
     private static int dieHash = Animator.StringToHash("Die");
 
     [Header("AttackInfo")]
     //[SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
-    //[SerializeField] private GameObject attackEffectPrefabs;   //공격 이펙트
+    //[SerializeField] private GameObject attackEffectPrefabs; //공격 이펙트
     [SerializeField] AttackTest attackTest;                    //공격 범위 판정       
-    [SerializeField] private bool isDead = false;              //플레이어의 죽음 판별
-    [SerializeField] private int currentAttackCount = 0;       //현재 공격 횟수
+    [SerializeField] bool isDead = false;                      //플레이어의 죽음 판별
+    [SerializeField] int currentAttackCount = 0;               //현재 공격 횟수
     private float lastAttackTime;                              //마지막 공격 시간
     public float comboResetTime = 1.5f;                        //공격 콤보가 초기화 되는 시간
 
@@ -122,6 +124,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerState.Attack:
                 AttackUpdate();
+                break;
+            case PlayerState.DashAttack:
+                DashAttackUpdate();
                 break;
             case PlayerState.Die:
                 DieUpdate();
@@ -244,6 +249,7 @@ public class PlayerController : MonoBehaviour
             }
             Dash();
         }
+
         if (Input.GetKeyDown(KeyCode.X))
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
@@ -265,7 +271,6 @@ public class PlayerController : MonoBehaviour
         {
             Grab();
         }
-
 
         if (Input.GetKeyDown(KeyCode.Z) && canDash)
         {
@@ -316,18 +321,6 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        /*if (Input.GetKeyUp(KeyCode.C))
-        {
-            if (jumpCoroutine != null)
-            {
-                StopCoroutine(jumpCoroutine);
-            }
-            if (rb.velocity.y > 0)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-            }
-        }*/
-
 
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
@@ -362,19 +355,22 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = 5f;
             curState = PlayerState.Fall;  // 대시 종료 후 낙하 상태로 전환
         }
-    }
 
-    private void ComboUpdate()
-    {
-        if (Time.time - lastAttackTime > comboResetTime)
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            currentAttackCount = 0;
+            StartCoroutine(DashAttack());
         }
     }
 
-
-
     private void AttackUpdate()
+    {
+        if (coll.onGround || coll.onPlatform)
+        {
+            curState = PlayerState.Idle;
+            canDash = true;
+        }
+    }
+    private void DashAttackUpdate()
     {
 
     }
@@ -383,7 +379,13 @@ public class PlayerController : MonoBehaviour
     {
 
     }
-
+    private void ComboUpdate()
+    {
+        if (Time.time - lastAttackTime > comboResetTime)
+        {
+            currentAttackCount = 0;
+        }
+    }
     private void Move()
     {
         float xInput = Input.GetAxisRaw("Horizontal");
@@ -556,6 +558,15 @@ public class PlayerController : MonoBehaviour
         curState = PlayerState.Idle;
     }
 
+    private IEnumerator DashAttack()
+    {
+        curState = PlayerState.DashAttack;
+        yield return new WaitForSeconds(dashTime);
+
+        rb.gravityScale = 5f;
+        curState = PlayerState.Fall;
+    }
+
     public void Die()
     {
         isDead = true;
@@ -622,6 +633,11 @@ public class PlayerController : MonoBehaviour
                     temp = attack3Hash;
                     break;
             }
+        }
+
+        if(curState == PlayerState.DashAttack)
+        {
+            temp = dashAttackHash;
         }
 
         if (curState == PlayerState.Die)
