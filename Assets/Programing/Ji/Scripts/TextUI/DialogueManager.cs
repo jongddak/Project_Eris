@@ -25,6 +25,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] string unitId_Boss; // .csv파일의 보스의 unitId를 인스펙터창에서 입력
     [SerializeField] string unitId_Player; // .csv파일의 플레이어의 unitId를 인스펙터창에서 입력
 
+    [Header("Status")]
+    [SerializeField] float typingSpace; // 타이핑 출력 간격
+
+
     [Header("UI")]
     [SerializeField] private GameObject uiBoss; // 보스 캐릭터의 대화 시 출력 오브젝트
     [SerializeField] private GameObject uiPlayer; // 플레이어 캐릭터의 대화 시 출력 오브젝트
@@ -40,7 +44,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private SpriteRenderer imgBoss; // 보스 캐릭터의 대화 시 출력 이미지
     [SerializeField] private SpriteRenderer imgPlayer; // 플레이어 캐릭터의 대화 시 출력 이미지
 
-    [SerializeField] private bool isTyping = false; // 대사의 타이핑이 끝나는 것을 판단하여 다음 대사로 넘어가도록 제어하는 변수
+    private bool isTyping = false; // 대사의 타이핑이 끝나는 것을 판단하여 다음 대사로 넘어가도록 제어하는 변수
 
     int count = 0; // nowDialogue[count]로 사용
     int num = 0; // nowDialogue[count].contexts[num] 으로 사용
@@ -133,9 +137,13 @@ public class DialogueManager : MonoBehaviour
             {
                 context = context.Replace('*', ',');
             }
+            if (context.Contains('@'))
+            {
+                context = context.Replace('@', '\n');
+            }
             textContext.text = context.Substring(0, i).ToString();
             // Substring(시작지점, 끝지점)을 지정하여 문장의 하나씩 출력되는 기능
-            yield return new WaitForSeconds(0.05f); // 출력딜레이 시간
+            yield return new WaitForSeconds(typingSpace); // 출력딜레이 시간
         }
         isTyping = false;
     }

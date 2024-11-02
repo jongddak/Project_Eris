@@ -98,7 +98,6 @@ GameObject:
   m_Component:
   - component: {fileID: 557315470264386321}
   - component: {fileID: 557315470264386322}
-  - component: {fileID: 557315470264386320}
   m_Layer: 0
   m_Name: RPlayCam
   m_TagString: Untagged
@@ -160,21 +159,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 557315471432106743}
---- !u!114 &557315470264386320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 557315470264386323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BoundingShape2D: {fileID: 557315471410304936}
-  m_Damping: 0.5
-  m_MaxWindowSize: -1
 --- !u!1 &557315471211133667
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 557315471217130882}
   - component: {fileID: 557315471217130883}
-  - component: {fileID: 557315471217130881}
+  - component: {fileID: 6884637704866477086}
   m_Layer: 0
   m_Name: LPlayCam
   m_TagString: Untagged
@@ -366,7 +350,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 557315470188091854}
---- !u!114 &557315471217130881
+--- !u!114 &6884637704866477086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -378,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BoundingShape2D: {fileID: 557315471410304936}
+  m_BoundingShape2D: {fileID: 1252896777766606276}
   m_Damping: 0.5
   m_MaxWindowSize: -1
 --- !u!1 &557315471410304937
@@ -390,7 +374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 557315471410304935}
-  - component: {fileID: 557315471410304936}
+  - component: {fileID: 1252896777766606276}
   m_Layer: 0
   m_Name: CamSize
   m_TagString: Untagged
@@ -413,7 +397,7 @@ Transform:
   m_Father: {fileID: 557315471619579670}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &557315471410304936
+--- !u!60 &1252896777766606276
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -438,13 +422,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 76.551636, y: 23.842407}
-      - {x: -0.827373, y: 23.836887}
-      - {x: -92.190605, y: 23.834862}
-      - {x: -92.19162, y: -53.029343}
-      - {x: -0.81879234, y: -53.03219}
-      - {x: 0.20480108, y: -53.023403}
-      - {x: 76.55274, y: -53.03127}
+    - - {x: 0, y: 1}
+      - {x: -0.95105654, y: 0.30901697}
+      - {x: -0.5877852, y: -0.80901706}
+      - {x: 0.58778536, y: -0.80901694}
+      - {x: 0.9510565, y: 0.30901712}
 --- !u!1 &557315471432106744
 GameObject:
   m_ObjectHideFlags: 0

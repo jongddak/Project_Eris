@@ -22,10 +22,15 @@ public class PatternController : MonoBehaviour
     // 보스가 공격하는 패턴을 보스의 개별 스크립트에서 받아서 사용하도록 수정이 필요
     public bool isAttackP; // 패턴 변경 공격 상태 여부
 
-    // [SerializeField] Boss3Manager bossManager; // 현재 보스의 상태와 공격패턴을 불러오기 위해 인스펙터에서 선언
+    GameObject[] lines; // 자식오브젝트들을 받아오는 배열 생성
 
-    [SerializeField] GameObject[] lines; // 자식오브젝트들을 받아오는 배열 생성
-
+    // 인스펙터창에서 수정하기 쉽게 PatternController.cs에서 스피드를 설정하고
+    // 실제 사용은 MoveLenPlatform.cs에서 사용됨
+    [SerializeField] public float moveSpeed;
+    // 인스펙터창에서 수정하기 쉽게 PatternController.cs에서 플랫폼이 생성되고 사라질 천장과 바닥을 설정하고
+    // 실제 사용은 LenPlatformLoop.cs에서 사용됨
+    [SerializeField] public Transform pCiling; // 천장 - 배경이미지보다 더 넓게 설정할 것
+    [SerializeField] public Transform pGround; // 바닥 - 배경이미지보다 더 넓게 설정할 것
 
     private void Awake()
     {
