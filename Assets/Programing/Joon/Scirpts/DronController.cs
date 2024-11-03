@@ -14,6 +14,7 @@ public class DronController : MonoBehaviour
     //private static int dronIdleHash = Animator.StringToHash("DroneIdle");
     //private static int dronAttackHash = Animator.StringToHash("DroneAttack");
     [SerializeField] Coroutine FireCoroutine;
+    [SerializeField] GameObject GFX;
     private void Awake()
     {
         // 같은 GameObject에 있는 Animator를 자동으로 할당
@@ -32,12 +33,15 @@ public class DronController : MonoBehaviour
             if (isFiring)
             {
                 FireCoroutine = StartCoroutine(FireBullets());
-                DronAnimator.Play("DroneAttack");//임시 수정 필요
+                DronAnimator.SetBool("IsAttacking", true); // 공격 애니메이션 시작
             }
             else
             {
-                StopCoroutine(FireBullets());
-                DronAnimator.Play("DronIdle");
+                if (FireCoroutine != null)
+                {
+                    StopCoroutine(FireCoroutine);
+                }
+                DronAnimator.SetBool("IsAttacking", false); // Idle 애니메이션으로 돌아감
             }
         }
     }
@@ -45,6 +49,7 @@ public class DronController : MonoBehaviour
     // 총알 발사 코루틴
     private IEnumerator FireBullets()
     {
+
         while (isFiring)
         {
             for (int i = 0; i < 3; i++)
@@ -62,10 +67,19 @@ public class DronController : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
 
         BulletController bulletScript = bullet.GetComponent<BulletController>();
+        
+        Vector2 bulletdirection = Vector2.zero;   //총알 방향을 가르키는 변수(초기화)
         if (bulletScript != null)
         {
-            Vector2 direction = bulletSpawnPoint.right; // 오른쪽 방향
-            bulletScript.SetSpeed(direction * bulletSpeed); // 총알 속도 설정
+            if (GFX.transform.localScale.x == 1f) // 오른쪽을 바라볼 때
+            {
+                bulletdirection = Vector2.right;
+            }
+            else if (GFX.transform.localScale.x == -1f) // 왼쪽을 바라볼 때
+            {
+                bulletdirection = Vector2.left;
+            }
+            bulletScript.SetSpeed(bulletdirection * bulletSpeed); // 총알 속도 설정
         }
     }
 }

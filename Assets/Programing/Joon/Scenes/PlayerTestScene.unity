@@ -267,6 +267,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &933627180 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3341882128399340976, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+  m_PrefabInstance: {fileID: 3341882127986797265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1218073892
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,6 +802,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3341882126592847889, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341882126592847891, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: GFX
+      value: 
+      objectReference: {fileID: 933627180}
+    - target: {fileID: 3341882126592847891, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: DronAnimator
+      value: 
+      objectReference: {fileID: 3341882127986797267}
     - target: {fileID: 3341882128380162230, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: m_Name
       value: Player
@@ -847,3 +864,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+--- !u!95 &3341882127986797267 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3341882126592847888, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+  m_PrefabInstance: {fileID: 3341882127986797265}
+  m_PrefabAsset: {fileID: 0}
