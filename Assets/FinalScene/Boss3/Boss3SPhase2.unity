@@ -2750,7 +2750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 557315471619579671, guid: 0a31cf07078a20245a1574a6274ae5be, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1252896777766606276, guid: 0a31cf07078a20245a1574a6274ae5be, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
@@ -4414,7 +4414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &922897803
 Transform:
   m_ObjectHideFlags: 0
@@ -4636,7 +4636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &970067748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5035,7 +5035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3341882128380162230, guid: e7492845b0bc4474f98c7c313ac4362c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3341882128380162238, guid: e7492845b0bc4474f98c7c313ac4362c, type: 3}
       propertyPath: m_RootOrder
@@ -5500,7 +5500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1047519735
 Transform:
   m_ObjectHideFlags: 0
@@ -9103,7 +9103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1731877749
 Transform:
   m_ObjectHideFlags: 0
@@ -10185,7 +10185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1970185833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10395,7 +10395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPoolList: []
   size: 30
-  prefab: {fileID: 3802243648671394846, guid: 717992836b660d34aa22d44ccb121c0a, type: 3}
+  prefab: {fileID: 3802243648671394846, guid: affc2328d1fa0144784adc38aa033eb9, type: 3}
   point: {fileID: 3802243648671394848, guid: 717992836b660d34aa22d44ccb121c0a, type: 3}
 --- !u!1 &1999222004
 GameObject:
@@ -11190,7 +11190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4149657841464918913, guid: b5d679b4add6c0a42a42e616ea13ca15, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4149657841464918918, guid: b5d679b4add6c0a42a42e616ea13ca15, type: 3}
       propertyPath: m_RootOrder
