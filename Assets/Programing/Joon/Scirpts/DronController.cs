@@ -55,6 +55,7 @@ public class DronController : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 FireSingleBullet();
+                //SoundManager.Instance.DronAttackSound();
                 yield return new WaitForSeconds(fireGap); // 발사 간격
             }
             yield return new WaitForSeconds(1f); // 세 발 발사 후 재발사 대기 시간
