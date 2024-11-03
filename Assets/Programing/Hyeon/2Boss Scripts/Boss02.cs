@@ -60,7 +60,7 @@ public class Boss02 : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         bossRigid = GetComponent<Rigidbody2D>();
         bossNowHP = bossHP;
-        transform.position = bosswarp03.position;
+        transform.position = bosswarp02.position;
         Mirrored();
     }
 
@@ -146,7 +146,7 @@ public class Boss02 : MonoBehaviour
         skillStart = true;
         yield return new WaitForSeconds(1f);
         // 공격 상태
-        bossPatternNum = 3;
+        bossPatternNum = 1;
         switch (bossPatternNum)
         {
             case 1:
@@ -174,7 +174,9 @@ public class Boss02 : MonoBehaviour
         // 베는 애니메이션
 
         // 이펙트 프리펩 생성
-        GameObject swordSopn = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation);
+        GameObject swordSopn01 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation);
+        yield return new WaitForSeconds(0.4f);
+        GameObject swordSopn02 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation * Quaternion.Euler(0, 0, 90));
         yield return new WaitForSeconds(2f);
     }
     private IEnumerator FootWork()
