@@ -36,7 +36,7 @@ public class Collision : MonoBehaviour
         onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, wallLayer);
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, wallLayer);
 
-        onCeiling = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
+        onCeiling = Physics2D.OverlapCircle((Vector2)transform.position + topOffset, collisionRadius, groundLayer);
 
         //오른쪽벽이나 왼쪽벽 둘 중 하나만 닿아도 벽에 닿은 것으로 판별
         onWall = onRightWall || onLeftWall;
