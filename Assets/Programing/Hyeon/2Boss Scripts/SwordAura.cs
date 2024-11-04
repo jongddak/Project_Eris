@@ -10,6 +10,9 @@ public class SwordAura : MonoBehaviour
     // 검기의 스피드
     [SerializeField] float swordAuraSpeed;
 
+    [SerializeField] float swordAuraDamage;
+    private bool spendDamage = false;
+
     // 발사 방향
     public int direction;
     
@@ -26,8 +29,20 @@ public class SwordAura : MonoBehaviour
       
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Player") && !spendDamage)
+        {
+            // 플레이어에게 데미지를 주는 로직
+            PlayerRPG playerRPG = collision.GetComponent<PlayerRPG>();
+            if (playerRPG != null)
+            {
+                playerRPG.TakeDamage(swordAuraDamage);
+                Debug.Log($"플레이어에게 {swordAuraDamage} 데미지를 입혔습니다.");
+            }
+            spendDamage = true;
+        }
+
         if (collision.gameObject.CompareTag("Ground"))
         {
             // 소멸 애니메이션 적용 가능

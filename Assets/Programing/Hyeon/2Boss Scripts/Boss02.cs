@@ -298,7 +298,7 @@ public class Boss02 : MonoBehaviour
     public void TakeDamage(float damage)
     {
         bossNowHP -= damage;
-
+        Debug.Log($"현재 체력 : {bossNowHP}");
         // 보스의 체력이 0 이하가 되면 상태를 Die로 변경
         if (bossNowHP <= 0)
         {

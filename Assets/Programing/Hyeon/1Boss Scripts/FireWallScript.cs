@@ -8,7 +8,7 @@ public class FireWallScript : MonoBehaviour
     bool spendDamage = false;
     // 플레이어 프리펩
     [SerializeField] GameObject player;
-
+    [SerializeField] float fireWallDamage;
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
@@ -20,10 +20,12 @@ public class FireWallScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            PlayerRPG playerRPG = collision.gameObject.GetComponent<PlayerRPG>();
             if (!spendDamage)
             {
                 // 플레이어에게 데미지를 주는 로직 
-
+                playerRPG.TakeDamage(fireWallDamage);
+                Debug.Log($"플레이어에게 {fireWallDamage} 데미지를 입혔습니다.");
                 // 한번만 데미지를 주기위해 spendDamage로 데미지 판정
             }
             spendDamage = true;

@@ -51,6 +51,10 @@ PrefabInstance:
       propertyPath: swordAuraSpeed
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 3542797155827208821, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
+      propertyPath: swordAuraDamage
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8497372156888620136, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
       propertyPath: m_RootOrder
       value: 0

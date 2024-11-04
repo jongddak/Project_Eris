@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class BossPattern : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class BossPattern : MonoBehaviour
     // 보스 스탯
     // 보스 HP
     public float bossHP = 10;
+    public float bossNowHP;
     // 보스 스피드
     [SerializeField] float bossSpeed;
 
@@ -335,10 +337,10 @@ public class BossPattern : MonoBehaviour
     // bossPattern.TakeDamage(데미지);로 데미지를 줄 수 있음
     public void TakeDamage(float damage)
     {
-        bossHP -= damage;
-
+        bossNowHP -= damage;
+        Debug.Log($"현재 체력 : {bossNowHP}");
         // 보스의 체력이 0 이하가 되면 상태를 Die로 변경
-        if (bossHP <= 0)
+        if (bossNowHP <= 0)
         {
             state = BossState.Die;
         }
