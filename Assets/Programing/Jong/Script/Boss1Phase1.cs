@@ -451,6 +451,7 @@ public class Boss1Phase1 : MonoBehaviour
         if (bossHP <= 0)
         {
             state = BossState.Die;
+            Die();
         }
     }
 
