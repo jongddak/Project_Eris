@@ -34,7 +34,7 @@ public class ShootManager : MonoBehaviour
         // 시작하자마자 생성되는 리스트를 가져오기
         fireBulletPool = GameObject.Find("BulletPool").GetComponent<BulletPool>().bulletPoolList;
     }
-
+    /*
     // 보스의 상태가 상태에 따라서 패턴을 출력하도록 수정이 필요
     // 총알을 지정한 개수만큼 발사
     // 단, 회전을 360중 랜덤하게 발사
@@ -45,8 +45,14 @@ public class ShootManager : MonoBehaviour
             StartCoroutine(timerCounter());
         }
     }
+    */
 
-    // 일정시간(shootTimer)동안 일정간격(spaceTime)으로 출력하기
+    public void Shooting()
+    {
+        StartCoroutine(timerCounter());
+    }
+
+        // 일정시간(shootTimer)동안 일정간격(spaceTime)으로 출력하기
     IEnumerator timerCounter()
     {
         nowShootTimer = shootTimer; // 시간을 세팅

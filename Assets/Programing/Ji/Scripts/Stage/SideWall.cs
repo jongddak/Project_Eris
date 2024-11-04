@@ -38,7 +38,8 @@ public class SideWall : MonoBehaviour
         {
             playerRpg.TakeDamage(poisionDamage); // PlayerRPG의 TakeDamage로 플레이어 체력 감소
             // 플레이어의 체력 감소
-            yield return new WaitForSeconds(poisionDebuffTime*Time.deltaTime); // 일정 시간 멈춤
+            yield return new WaitForSeconds(poisionDebuffTime); // 일정 시간 멈춤
+            //yield return new WaitForSeconds(poisionDebuffTime*Time.deltaTime); // 일정 시간 멈춤
         }
     }
 }
