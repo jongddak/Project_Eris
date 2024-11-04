@@ -17,19 +17,22 @@ public class TestChara : MonoBehaviour
     [Range(0, 1)]
     [SerializeField] float BgmVol;
 
+
+    // 데이터 저장 및 불러오기 예시 , 데이터를 저장 및 불러오기를 하려면 LoadGameData() , SaveGameData();  가 선행 되어야 함 
+    // 저장이 필요한 타이밍에 아래와 비슷하게 작성해서 저장 및 불러오기를 해야함 
     private void Start()
     {
-        SaveTest.Instance.LoadGameData();
+        SaveTest.Instance.LoadGameData(); // 불러오기
         Loading();
     }
 
     private void OnApplicationQuit()
     {
         Saving();
-        SaveTest.Instance.SaveGameData();
+        SaveTest.Instance.SaveGameData(); // 저장하기 
     }
 
-    public void Saving() 
+    public void Saving() // 씬에 있는 인스턴스로 데이터 전달 
     {
         SaveTest.Instance.data.isUnlock[0] = firstStage;
         SaveTest.Instance.data.isUnlock[1] = secondStage;
@@ -43,7 +46,7 @@ public class TestChara : MonoBehaviour
         SaveTest.Instance.data.dash = ondash;
         SaveTest.Instance.data.hover = onhover;
     }
-    public void Loading() 
+    public void Loading() // json 데이터 파일에서 불러온 데이터를 뽑아옴 
     {
         firstStage = SaveTest.Instance.data.isUnlock[0];
         secondStage = SaveTest.Instance.data.isUnlock[1];

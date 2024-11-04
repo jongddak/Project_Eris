@@ -7,7 +7,7 @@ public class SaveTest : MonoBehaviour
 {
     
    
-
+     // 데이터 매니저 클래스 
     static GameObject container;
 
     // ---싱글톤으로 선언--- //
@@ -35,7 +35,7 @@ public class SaveTest : MonoBehaviour
 
 
     // 불러오기
-    public void LoadGameData()
+    public void LoadGameData()//불러오기 :  씬에  인스턴스가 생성될 때  data 클래스의 형태의 데이터들을 불러옴 
     {
         string filePath = Application.persistentDataPath + "/" + GameDataFileName;
 
@@ -50,7 +50,7 @@ public class SaveTest : MonoBehaviour
     }
 
 
-    // 저장하기
+    // 저장하기 :  씬에 생성된 인스턴스에 data 클래스의 형태의 데이터들을 저장 
     public void SaveGameData()
     {
         // 클래스를 Json 형식으로 전환 (true : 가독성 좋게 작성)
@@ -60,7 +60,7 @@ public class SaveTest : MonoBehaviour
         // 이미 저장된 파일이 있다면 덮어쓰고, 없다면 새로 만들어서 저장
         File.WriteAllText(filePath, ToJsonData);
 
-        // 올바르게 저장됐는지 확인 (자유롭게 변형)
+        // 저장된 데이터 출력(확인용임 없어도 무방) 
         print("저장 완료");
         for (int i = 0; i < data.isUnlock.Length; i++)
         {
