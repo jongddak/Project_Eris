@@ -18,15 +18,24 @@ public class FireWallScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!spendDamage)
         {
-            PlayerRPG playerRPG = collision.gameObject.GetComponent<PlayerRPG>();
-            if (!spendDamage)
+            if (collision.CompareTag("Player") && !spendDamage)
             {
-                // 플레이어에게 데미지를 주는 로직 
-                playerRPG.TakeDamage(fireWallDamage);
-                Debug.Log($"플레이어에게 {fireWallDamage} 데미지를 입혔습니다.");
-                // 한 번만 데미지를 주기 위해 spendDamage로 데미지 판정
+                PlayerRPG playerRPG = collision.GetComponent<PlayerRPG>();
+                if (playerRPG == null)
+                {
+                    Debug.Log("안들어옴");
+                    return;
+                }
+                // 데미지 안 받았다면
+                if (!spendDamage)
+                {
+                    // 플레이어에게 데미지를 주는 로직
+                    playerRPG.TakeDamage(fireWallDamage);
+                    Debug.Log($"플레이어에게 {fireWallDamage} 데미지를 입혔습니다.");
+                }
+                // 한번만 데미지를 주기 위해 spendDamage로 데미지 판정
                 spendDamage = true;
             }
         }
