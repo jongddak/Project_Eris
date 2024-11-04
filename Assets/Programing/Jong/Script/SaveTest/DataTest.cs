@@ -11,10 +11,9 @@ public class Data  // 데이터 클래스
 
     // 저장할 데이터 자유롭게 추가 가능
     public float vol;
-    public float atk;
-    public float speed;
-
     public bool dash;
     public bool hover;
+
+
 }
 

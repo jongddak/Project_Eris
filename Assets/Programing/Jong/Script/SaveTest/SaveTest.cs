@@ -67,8 +67,7 @@ public class SaveTest : MonoBehaviour
             print($"{i}번 챕터 잠금 해제 여부 : " + data.isUnlock[i]);
         }
         print($"볼륨{data.vol}");
-        print($"공격력{data.atk}");
-        print($"스피드{data.speed}");
+
         print($"호버링{data.hover}");
         print($"대쉬{data.dash}");
     }

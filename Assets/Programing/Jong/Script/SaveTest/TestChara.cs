@@ -40,8 +40,7 @@ public class TestChara : MonoBehaviour
 
 
         SaveTest.Instance.data.vol = BgmVol;
-        SaveTest.Instance.data.atk = Atk;
-        SaveTest.Instance.data.speed = moveSpeed;
+   
 
         SaveTest.Instance.data.dash = ondash;
         SaveTest.Instance.data.hover = onhover;
@@ -54,8 +53,7 @@ public class TestChara : MonoBehaviour
 
 
         BgmVol = SaveTest.Instance.data.vol;
-        Atk = SaveTest.Instance.data.atk;
-        moveSpeed = SaveTest.Instance.data.speed;
+     
 
         ondash = SaveTest.Instance.data.dash;
         onhover = SaveTest.Instance.data.hover;
