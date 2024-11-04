@@ -23,6 +23,6 @@ public class Laser : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector2.right * 10f * Time.deltaTime);
+        transform.Translate(Vector2.right * 30f * Time.deltaTime);
     } 
 }

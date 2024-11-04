@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using static PatternController;
 
 public class Boss3Controller : MonoBehaviour
@@ -10,19 +11,16 @@ public class Boss3Controller : MonoBehaviour
     [SerializeField] GameObject[] lineRender;
     [SerializeField] GameObject player;
 
-    [SerializeField] SpriteRenderer boss;
-    [SerializeField] SpriteRenderer backGroundimg;
-    [SerializeField] SpriteRenderer mid;
+    [SerializeField] GameObject dealTimePlatform;
 
-    // 변경용 이미지 
-    [SerializeField] Sprite bossPhase2img;
-    [SerializeField] Sprite bossPhase2backimg;
+
+    public UnityEvent bulletShooting;
 
 
     // 발사용 프리팹
     [SerializeField] GameObject laserPrefab;
     [SerializeField] GameObject missilePrefab;
-    [SerializeField] GameObject bulletPrefab;
+   
 
 
 
@@ -34,7 +32,7 @@ public class Boss3Controller : MonoBehaviour
 
     [SerializeField] float laserTerm = 0.7f; // 레이저 발사 간격
     [SerializeField] int missileQty = 3; // 미사일 갯수(최대 4)
-    [SerializeField] bool onPhaseChange = false; // 페이즈 바뀌면 true
+   // [SerializeField] bool onPhaseChange = false; // 페이즈 바뀌면 true
     Coroutine curCoroutine;
     private void Start()
     {
@@ -44,11 +42,8 @@ public class Boss3Controller : MonoBehaviour
     }
     private void Update()
     {
-        if (bossHp <= 5)
-        {
-            PhaseChange();
-        }
-        else if (bossHp <= 0) 
+       
+        if (bossHp <= 0) 
         {
             Debug.Log("보스 사망");
             StopCoroutine("BossDo");
@@ -66,6 +61,7 @@ public class Boss3Controller : MonoBehaviour
             {
                 //  패턴을 3번 수행하면 딜타임(중앙 발판 생성)
                 Debug.Log("딜타임");
+                dealTimePlatform.SetActive(true);
                 patternCount = 0;
             }
             else
@@ -76,7 +72,7 @@ public class Boss3Controller : MonoBehaviour
 
                     case 0:
                         Debug.Log("중앙 총알");
-                        
+                        bulletShooting?.Invoke();
                         break;
                     case 1:
                         Debug.Log("발판 이동");
@@ -111,7 +107,7 @@ public class Boss3Controller : MonoBehaviour
             lineRender[rand].SetActive(false);
 
             GameObject obj = Instantiate(laserPrefab, shootingPoints[rand].position, shootingPoints[rand].rotation);
-            Destroy(obj,5f);
+            Destroy(obj,20f);
             yield return new WaitForSeconds(laserTerm);
         }
 
@@ -150,21 +146,21 @@ public class Boss3Controller : MonoBehaviour
             Instantiate(missilePrefab, shootingPoints[pickNum[i]].position, shootingPoints[pickNum[i]].rotation);
         }
     }
-    private void PhaseChange() // 일정 체력 이하면 페이즈 변경 , 보스 패턴변경 및 이미지 변경 
-    {
-        if (onPhaseChange == false) 
-        {
-            Debug.Log("페이즈 변경");
-            patternTerm = 4f; // 기본 6초 
-            laserTerm = 0.3f; // 기본 1초 
-            missileQty = 4;  // 기본 3개 
-            onPhaseChange =true;
+    //private void PhaseChange() // 일정 체력 이하면 페이즈 변경 , 보스 패턴변경 및 이미지 변경 
+    //{
+    //    if (onPhaseChange == false) 
+    //    {
+    //        Debug.Log("페이즈 변경");
+    //        patternTerm = 4f; // 기본 6초 
+    //        laserTerm = 0.3f; // 기본 1초 
+    //        missileQty = 4;  // 기본 3개 
+    //        onPhaseChange =true;
 
-            boss.sprite = bossPhase2img;
-            backGroundimg.sprite = bossPhase2backimg;
-            mid.color = new Color(1f, 0.698f, 0.698f, 1f);
-        }
-    }
+    //        boss.sprite = bossPhase2img;
+    //        backGroundimg.sprite = bossPhase2backimg;
+    //        mid.color = new Color(1f, 0.698f, 0.698f, 1f);
+    //    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
