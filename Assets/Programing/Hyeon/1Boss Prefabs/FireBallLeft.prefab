@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 306540595
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d5eb05796ae22914cb242561183b1b72, type: 3}
   m_Color: {r: 0.9056604, g: 0.2666359, b: 0.13243146, a: 1}
@@ -103,6 +103,7 @@ MonoBehaviour:
   player: {fileID: 0}
   fireBallSpeed: 80
   fireBallCollider: {fileID: 0}
+  fireBallDamage: 0
 --- !u!58 &6370675487758921577
 CircleCollider2D:
   m_ObjectHideFlags: 0

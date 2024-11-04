@@ -62,7 +62,7 @@ public class Boss02 : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         bossRigid = GetComponent<Rigidbody2D>();
         bossNowHP = bossHP;
-        transform.position = bosswarp02.position;
+        transform.position = bosswarp03.position;
         Mirrored();
     }
 
@@ -149,6 +149,7 @@ public class Boss02 : MonoBehaviour
         yield return new WaitForSeconds(2f);
         // 공격 상태
         bossPatternNum = 3;
+
         Mirrored();
         switch (bossPatternNum)
         {
