@@ -188,16 +188,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
---- !u!1 &1564358949 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3932490648116218092, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
-  m_PrefabInstance: {fileID: 1988909819}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1564358958 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3932490648116218011, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
-  m_PrefabInstance: {fileID: 1988909819}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1988909819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -261,6 +251,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7331463134037450547, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331463134037450556, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: maxHp
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
 --- !u!1001 &345921605468617438
@@ -281,7 +279,7 @@ PrefabInstance:
     - target: {fileID: 249684426181989434, guid: 28223278a14bcf246938fa8d940490d0, type: 3}
       propertyPath: m_Follow
       value: 
-      objectReference: {fileID: 1564358958}
+      objectReference: {fileID: 0}
     - target: {fileID: 249684426181989435, guid: 28223278a14bcf246938fa8d940490d0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.214489
@@ -293,7 +291,7 @@ PrefabInstance:
     - target: {fileID: 249684426316412588, guid: 28223278a14bcf246938fa8d940490d0, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1564358949}
+      objectReference: {fileID: 0}
     - target: {fileID: 249684426316412590, guid: 28223278a14bcf246938fa8d940490d0, type: 3}
       propertyPath: m_Name
       value: StageCam
@@ -353,7 +351,7 @@ PrefabInstance:
     - target: {fileID: 249684427143113387, guid: 28223278a14bcf246938fa8d940490d0, type: 3}
       propertyPath: m_Follow
       value: 
-      objectReference: {fileID: 1564358958}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28223278a14bcf246938fa8d940490d0, type: 3}
 --- !u!114 &557315470628195442 stripped
@@ -3420,31 +3418,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb5f3c7f4830d146991600cc5c9f0f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectRotationPoint: {fileID: 3341882127887948859}
-  curState: 0
-  coll: {fileID: 3341882127887948849}
-  maxSpeed: 10
-  moveAccel: 30
-  canMove: 1
-  jumpSpeed: 30
-  maxFallSpeed: 10
-  jumpRemainTime: 0
-  maxJumpUpTime: 0.5
-  isJumping: 0
-  dashSpeed: 25
-  dashTime: 0.4
-  canDash: 1
-  SlipSpeed: 1
-  isGrabJumping: 0
-  playerAnimator: {fileID: 3341882127297486078}
-  GFX: {fileID: 3341882127835183421}
-  attackParticle: []
-  attackTest: {fileID: 0}
-  isDead: 0
-  currentAttackCount: 0
-  comboResetTime: 1.5
-  isAttacking: 0
-  hoverForce: 10
-  canUseDashAttack: 0
-  canUseHovering: 0
-  CameraController: {fileID: 557315470628195442}

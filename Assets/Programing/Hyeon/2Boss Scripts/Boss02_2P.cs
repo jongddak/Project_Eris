@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Boss02_2P : MonoBehaviour
 {
@@ -77,7 +78,7 @@ public class Boss02_2P : MonoBehaviour
                 // 패턴 중에는 다른 동작을 하지 않도록 함
                 break;
             case BossState.Die:
-                Die();
+                StartCoroutine(Die());
                 break;
             case BossState.win:
                 Win();
@@ -306,15 +307,20 @@ public class Boss02_2P : MonoBehaviour
             state = BossState.Die;
         }
     }
-    private void Die()
+    private IEnumerator Die()
     {
         // hp 전부 소모 시 사망 애니메이션 송출 후 프리펩 소멸
         
         // 사망 애니메이션 
         bossAnimator.Play("boss2 die");
-
+        DataManager.Instance.data.isUnlock[0] = true;
+       
         // 오브젝트 삭제 처리
         Destroy(gameObject, 4f);
+        yield return new WaitForSeconds(4f);
+        // 스킬 언락
+        // 1보스 엔드 씬 불러오기
+        SceneManager.LoadScene("Boss1DEnd");
     }
     private void Win()
     {
@@ -322,6 +328,8 @@ public class Boss02_2P : MonoBehaviour
 
         // 승리 애니메이션
         bossAnimator.Play("boss1 2 win");
+        // 로비
+        //SceneManager.LoadScene("");
     }
     // 좌우반전
     private void Mirrored()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Boss02_1P : MonoBehaviour
 {
@@ -297,6 +298,9 @@ public class Boss02_1P : MonoBehaviour
 
         // 오브젝트 삭제 처리
         Destroy(gameObject, 4f);
+        // 1보스 1페이즈 중간 대화 씬 불러오기
+        SceneManager.LoadScene("Boss1DPhase");
+        
     }
     private void Win()
     {
@@ -304,6 +308,9 @@ public class Boss02_1P : MonoBehaviour
 
         // 승리 애니메이션
         bossAnimator.Play("boss1 2 win");
+
+        // 로비 이동
+        //SceneManager.LoadScene("");
     }
     // 좌우반전
     private void Mirrored()

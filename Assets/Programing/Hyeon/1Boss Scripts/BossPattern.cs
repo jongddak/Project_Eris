@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.VFX;
 
 public class BossPattern : MonoBehaviour
@@ -84,7 +85,7 @@ public class BossPattern : MonoBehaviour
                 // 패턴 중에는 다른 동작을 하지 않도록 함
                 break;
             case BossState.Die:
-                Die();
+                StartCoroutine(Die());
                 break;
             case BossState.win:
                 Win();
@@ -206,15 +207,19 @@ public class BossPattern : MonoBehaviour
         yield return new WaitForSeconds(1f);
         
     }
-    private void Die()
+    private IEnumerator Die()
     {
         // hp 전부 소모 시 사망 애니메이션 송출 후 프리펩 소멸
 
         // 사망 애니메이션 
         animator.Play("boss1 2 die");
-        
+        DataManager.Instance.data.isUnlock[1] = true;
         // 오브젝트 삭제 처리
         Destroy(gameObject, 4f);
+        yield return new WaitForSeconds(4f);
+        // 스킬 언락
+        // 2보스 사망 이야기 씬 이동 이동 
+        SceneManager.LoadScene("Boss2DEnd");
     }
 
     private void Win()
