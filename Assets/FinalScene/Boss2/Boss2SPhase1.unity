@@ -183,7 +183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436992632779268335, guid: cb0855e5d3d28ee4a9fa6d74748a1293, type: 3}
       propertyPath: m_Name
-      value: NewBoss Variant
+      value: Boss2_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb0855e5d3d28ee4a9fa6d74748a1293, type: 3}
