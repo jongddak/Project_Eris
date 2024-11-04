@@ -15,13 +15,4 @@ public class AttackTest : MonoBehaviour
             Debug.Log("보스가 공격 범위에 들어왔습니다.");
         }
     }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Boss")) // 보스가 범위 밖으로 나가면 상태를 초기화
-        {
-            IsBossInRange = false;
-            Debug.Log("보스가 공격 범위에서 벗어났습니다.");
-        }
-    }
 }
