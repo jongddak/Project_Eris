@@ -1321,10 +1321,10 @@ GameObject:
   - component: {fileID: 3377985459186236470}
   - component: {fileID: 4165501913496749555}
   - component: {fileID: 4165501913496749548}
+  - component: {fileID: 4165501913496749549}
   - component: {fileID: 6102832660533862151}
-  - component: {fileID: 4039909085971949759}
   m_Layer: 3
-  m_Name: Boss2_2
+  m_Name: Boss1_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1408,6 +1408,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 11.699627, y: 30.605766}
   m_EdgeRadius: 0
+--- !u!114 &4165501913496749549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4479140116709876821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bedfb3f99187b5408ce4010e2d8ecd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossObject: {fileID: 4479140116709876821}
+  player: {fileID: 0}
+  bossRigid: {fileID: 0}
+  bossAnimator: {fileID: 6102832660533862151}
+  swordAura: {fileID: 4965152600031193644, guid: b7a4e8fc0f5583e4d8e928ad8ec1c515, type: 3}
+  bash: {fileID: 5675702017995866896, guid: 7deab8d919a4622409020b90995637b0, type: 3}
+  footWarkPre01: {fileID: 7371584410195539576, guid: 74776428b12c4bf41a1498f5f968fecc, type: 3}
+  footWarkPre02: {fileID: 5698565380114106586, guid: 30c41396f3c685f449262c4404342f25, type: 3}
+  SwordSlashPre: {fileID: 4344972417151175817, guid: 476fba96477712b4e9e835d3b3508fe9, type: 3}
+  swordAuraPoint: {fileID: 4165501913192849158}
+  bosswarp01: {fileID: 0}
+  bosswarp02: {fileID: 0}
+  bosswarp03: {fileID: 0}
+  bossHP: 100
+  attackRange: 20
+  bossSpeed: 10
 --- !u!95 &6102832660533862151
 Animator:
   serializedVersion: 5
@@ -1429,34 +1457,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4039909085971949759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4479140116709876821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 961738b0e14c923439811944cdd93895, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossObject: {fileID: 4479140116709876821}
-  player: {fileID: 0}
-  bossRigid: {fileID: 0}
-  bossAnimator: {fileID: 6102832660533862151}
-  swordAura: {fileID: 4965152600031193644, guid: b7a4e8fc0f5583e4d8e928ad8ec1c515, type: 3}
-  bash: {fileID: 5675702017995866896, guid: 7deab8d919a4622409020b90995637b0, type: 3}
-  footWarkPre01: {fileID: 7371584410195539576, guid: 74776428b12c4bf41a1498f5f968fecc, type: 3}
-  footWarkPre02: {fileID: 5698565380114106586, guid: 30c41396f3c685f449262c4404342f25, type: 3}
-  SwordSlashPre: {fileID: 4344972417151175817, guid: 476fba96477712b4e9e835d3b3508fe9, type: 3}
-  swordAuraPoint: {fileID: 4165501913192849158}
-  bosswarp01: {fileID: 0}
-  bosswarp02: {fileID: 0}
-  bosswarp03: {fileID: 0}
-  bossHP: 100
-  attackRange: 20
-  bossSpeed: 10
 --- !u!1 &4874728356808449364
 GameObject:
   m_ObjectHideFlags: 0
