@@ -29,6 +29,7 @@ public class DealPlatform : MonoBehaviour
     private void OnEnable()
     {
         nowtTimer = timer;
+        spriteRenderer.color = new Color(1, 1, 1, 1f); // 이미지의 투명도 100% 설정
     }
     private void Update()
     {
