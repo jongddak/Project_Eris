@@ -656,7 +656,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 917207870}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 107.9, y: -12.3, z: 0}
+  m_LocalPosition: {x: 78.5, y: -12.3, z: 0}
   m_LocalScale: {x: 10, y: 2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1190,13 +1190,21 @@ PrefabInstance:
       propertyPath: CameraController
       value: 
       objectReference: {fileID: 1225285095}
+    - target: {fileID: 3952373304773578613, guid: 93722377565e70748aa158637d9ac294, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952373304947465131, guid: 93722377565e70748aa158637d9ac294, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3952373305125218977, guid: 93722377565e70748aa158637d9ac294, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3952373305125218977, guid: 93722377565e70748aa158637d9ac294, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 109
+      value: 76.3
       objectReference: {fileID: 0}
     - target: {fileID: 3952373305125218977, guid: 93722377565e70748aa158637d9ac294, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1732,7 +1740,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!4 &148617247546136465
 Transform:
   m_ObjectHideFlags: 0
@@ -1954,7 +1964,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!4 &307775027529212793
 Transform:
   m_ObjectHideFlags: 0
@@ -2268,7 +2280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &804116296641094967
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -2345,7 +2359,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!4 &1089363245273995741
 Transform:
   m_ObjectHideFlags: 0
@@ -2601,7 +2617,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!4 &1511749456183154833
 Transform:
   m_ObjectHideFlags: 0
@@ -2744,7 +2762,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &2051666977794968769
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -3011,7 +3031,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!4 &2474014247611430145
 Transform:
   m_ObjectHideFlags: 0
@@ -3318,7 +3340,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &2808414612301617285
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -3540,7 +3564,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &3230293642064292465
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -3632,7 +3658,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &3251075693272367845
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -3933,7 +3961,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!4 &3448382622154607849
 Transform:
   m_ObjectHideFlags: 0
@@ -4285,7 +4315,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!114 &3990482760676434232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4428,7 +4460,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &3990482761501311733
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -4650,7 +4684,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &4386002784365728801
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -4821,7 +4857,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!4 &4486545521120237209
 Transform:
   m_ObjectHideFlags: 0
@@ -5024,7 +5062,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &4679165385906009987
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -5246,7 +5286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &4719121773938774947
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -5557,7 +5599,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &4788138989407426295
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5649,7 +5693,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &4879801822204280419
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6008,7 +6054,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &5564674310156165359
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -6257,7 +6305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &5763631613757689135
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6356,7 +6406,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &5829281450195978707
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -6578,7 +6630,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &5870381609426955763
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -6759,7 +6813,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &6031148244216938547
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7022,7 +7078,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &6541747143814970151
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -7367,7 +7425,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &6801839180413867871
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7596,7 +7656,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &6938206807464292195
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -7784,7 +7846,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &6949886612852935731
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -8033,7 +8097,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &7113379168413491699
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8151,7 +8217,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!4 &7224913541641050760
 Transform:
   m_ObjectHideFlags: 0
@@ -8448,7 +8516,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &7386243349230542053
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -8819,7 +8889,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &7551228660200626431
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8945,7 +9017,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &7632635387407637335
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9140,7 +9214,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &7721888669810210455
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -9362,7 +9438,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &7882207053043729023
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -9611,7 +9689,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &8045117967473881023
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9970,7 +10050,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &8201339200038057235
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -10151,7 +10233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &8292317873882634451
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10407,7 +10491,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &8300055439511993219
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10523,7 +10609,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &8581963034495305365
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -10849,7 +10937,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &8679814900347306279
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11167,7 +11257,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &8742382623711281807
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11430,7 +11522,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!251 &8905330646658805583
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -11515,7 +11609,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17cecafc82360045a5abdd284305176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCollison: 0
+  velocity: 0
+  playerRigidbody: {fileID: 0}
+  isLeft: 0
 --- !u!61 &9096836882997622223
 BoxCollider2D:
   m_ObjectHideFlags: 0

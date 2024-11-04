@@ -2,18 +2,25 @@ using UnityEngine;
 
 public class MoveLenPlatform : MonoBehaviour
 {
-    // 일정한 속도로
-    [SerializeField] public float moveSpeed;
-    // LenPlatfomeLoop.cs를 가지고 있는 각 벽에서 사용할 수치이나, 설정을 쉽게 하기 위해 MoveLenPlatform에 사용
-    [SerializeField] public Transform ciling; // 천장 - 배경이미지보다 더 넓게 설정할 것
-    [SerializeField] public Transform dCiling; // 바닥 - 배경이미지보다 더 넓게 설정할 것
+    // PatternController.cs에서 선언하고 가져오기
+    PatternController patternController;
+    public float moveSpeed;
+   
+    // patternController.cs에서 선언하고 MoveLenPlatform.cs을 거쳐 LenPlatformLoop.cs에서 사용
+    public Transform pCiling; // 천장 - 배경이미지보다 더 넓게 설정할 것
+    public Transform pGround; // 바닥 - 배경이미지보다 더 넓게 설정할 것
     // 방향별로 이동
-    // PlatformAttackPattern에서 라인별로 받아오도록 구현하기
-    // [SerializeField] PatternController patternController;
-    [SerializeField] public bool isUpMove;
+    public bool isUpMove;
 
+    private void Awake()
+    {
+        patternController = transform.parent.GetComponent<PatternController>();
+        pCiling = patternController.pCiling;
+        pGround = patternController.pGround;
+    }
     private void Start()
     {
+        moveSpeed = patternController.moveSpeed;
         int num = Random.Range(0, 2);
         switch (num)
         {

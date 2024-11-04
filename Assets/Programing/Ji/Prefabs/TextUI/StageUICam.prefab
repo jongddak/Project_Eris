@@ -315,7 +315,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5816673177575402185}
   - component: {fileID: 5816673177575402187}
-  - component: {fileID: 5816673177575402184}
   m_Layer: 0
   m_Name: DialogueCam
   m_TagString: Untagged
@@ -377,18 +376,3 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 5816673176947151551}
---- !u!114 &5816673177575402184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5816673177575402198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BoundingShape2D: {fileID: 5816673176496123406}
-  m_Damping: 0.75
-  m_MaxWindowSize: -1
