@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6946967502086764827}
+  - component: {fileID: -6875699733131022709}
   m_Layer: 0
   m_Name: SwordAuraEffect
   m_TagString: Untagged
@@ -32,6 +33,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6875699733131022709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4965152600031193644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15cbb55689b869647af91a4c0f1d16c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destorytime: 2
+  effectDamage: 0
 --- !u!1001 &1524638554173239976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39,18 +54,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6946967502086764827}
     m_Modifications:
-    - target: {fileID: 3542797155827208821, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
-      propertyPath: mainPre
-      value: 
-      objectReference: {fileID: 4965152600031193644}
-    - target: {fileID: 3542797155827208821, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
-      propertyPath: basetransform
-      value: 
-      objectReference: {fileID: 6946967502086764827}
-    - target: {fileID: 3542797155827208821, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
-      propertyPath: swordAuraSpeed
-      value: 120
-      objectReference: {fileID: 0}
     - target: {fileID: 8497372156888620136, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -114,3 +117,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8497372156888620136, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
   m_PrefabInstance: {fileID: 1524638554173239976}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6972733699632164549 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8497372156888620141, guid: 466a4801804abe448af1ccc65bd599dd, type: 3}
+  m_PrefabInstance: {fileID: 1524638554173239976}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6864709892735535220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972733699632164549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb99864c09828f841a0aef82e75886cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  mainPre: {fileID: 4965152600031193644}
+  swordAuraSpeed: 120
+  swordAuraDamage: 15
+  direction: 0

@@ -6,6 +6,8 @@ using UnityEngine;
 public class Bashscript : MonoBehaviour
 {
     public GameObject[] Colliders;
+    [SerializeField] float bashDamage;
+    private bool spendDamage = false;
 
     private void Start()
     {
@@ -22,5 +24,20 @@ public class Bashscript : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Colliders[2].SetActive(true);
         Colliders[1].SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && !spendDamage)
+        {
+            // 플레이어에게 데미지를 주는 로직
+            PlayerRPG playerRPG = collision.GetComponent<PlayerRPG>();
+            if (playerRPG != null)
+            {
+                playerRPG.TakeDamage(bashDamage);
+                Debug.Log($"플레이어에게 {bashDamage} 데미지를 입혔습니다.");
+            }
+            spendDamage = true;
+        }
     }
 }

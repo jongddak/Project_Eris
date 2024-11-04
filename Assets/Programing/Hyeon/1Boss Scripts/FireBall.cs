@@ -15,6 +15,7 @@ public class FireBall : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     public Collider2D fireBallCollider;
+    [SerializeField] float fireBallDamage;
 
     private void Start()
     {
@@ -62,22 +63,23 @@ public class FireBall : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !spendDamage)
         {
+            PlayerRPG playerRPG = collision.GetComponent<PlayerRPG>();
             // 데미지 안 받았다면
             if (!spendDamage)
             {
                 // 플레이어에게 데미지를 주는 로직
+                playerRPG.TakeDamage(fireBallDamage);
+                Debug.Log($"플레이어에게 {fireBallDamage} 데미지를 입혔습니다.");
             }
             // 한번만 데미지를 주기 위해 spendDamage로 데미지 판정
             spendDamage = true;
         }
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
         if (collision.gameObject.CompareTag("Ground"))
         {
             // 소멸 애니메이션 적용 가능 (필요 시)
             Destroy(gameObject); // 애니메이션 후 소멸
         }
     }
+
 }
