@@ -146,9 +146,10 @@ public class Boss02 : MonoBehaviour
     private IEnumerator ExecuteAttackPattern()
     {
         skillStart = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         // 공격 상태
-        bossPatternNum = 1;
+        bossPatternNum = 3;
+        Mirrored();
         switch (bossPatternNum)
         {
             case 1:
@@ -174,13 +175,14 @@ public class Boss02 : MonoBehaviour
         bosscount += 1;
         Debug.Log("베어가르기!");
         // 베는 애니메이션
-        bossAnimator.Play("boss2_attack2");
-        yield return new WaitForSeconds(0.4f);
+        bossAnimator.Play("boss1_attack2");
+        yield return new WaitForSeconds(2f);
         // 이펙트 프리펩 생성
         GameObject swordSopn01 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation);
         yield return new WaitForSeconds(0.4f);
         GameObject swordSopn02 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation * Quaternion.Euler(0, 0, 90));
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.5f);
+        bossAnimator.Play("boss2 idle");
     }
     private IEnumerator FootWork()
     {
@@ -189,9 +191,10 @@ public class Boss02 : MonoBehaviour
         // 1,2 중간과 2,3 중간에 들어갈 베기 프리펩(FootWorkEffect01), 1과 3사이에 들어갈 일반 베기보다 두배 긴 베기 프리펩(FootWorkEffect02)
         // 1,2,3 세 구간이 있음
         Mirrored();
-        yield return new WaitForSeconds(1f);
+        bossAnimator.Play("boss1_attack1");
+        yield return new WaitForSeconds(2f);
         // 검뽑는 애니메이션 실행
-        bossAnimator.Play("boss2_attack1");
+        
         // 현재 보스 위치를 확인하고 플레이어의 위치에 따라 순간이동
         // 보스 의 위치가 bosswarp01.position.x 근처일때
         if (Mathf.Abs(transform.position.x - bosswarp01.position.x) <= 10f)
@@ -261,32 +264,34 @@ public class Boss02 : MonoBehaviour
         float bossJumpPower = 110f;
 
         // animator.Play("공중 점프 애니메이션");     
-
+        bossAnimator.Play("boss1_attack3");
+        yield return new WaitForSeconds(1f);
         bossRigid.bodyType = RigidbodyType2D.Dynamic;
         bossRigid.velocity = Vector2.zero;
         // 보스가 위로 올라감
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
         // 슬레쉬 프리펩 생성
         GameObject swordSopn = Instantiate(SwordSlashPre, swordAuraPoint.position, swordAuraPoint.rotation);
-        // 올라가고 차징하는 애니메이션
-        //animator.Play("boss1 2 FireBarrier");
 
         // 애니메이션 및 올라가는 시간을 위한 대기시간
         yield return new WaitForSeconds(0.2f);
         // 보스의 위치 고정
         bossRigid.velocity = Vector2.zero;
         bossRigid.bodyType = RigidbodyType2D.Kinematic;
-        bossAnimator.Play("boss2_attack3");
+        bossAnimator.speed = 0.5f;
+        yield return new WaitForSeconds(2.2f);
         // 보스가 뿌리는 검기 생성
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
             Mirrored();
             SwordAuraSpon();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.4f);
         }
-
+        bossAnimator.speed = 1f;
         bossRigid.bodyType = RigidbodyType2D.Dynamic;
         bossRigid.gravityScale = 10;
+        yield return new WaitForSeconds(0.7f);
+        bossAnimator.Play("boss2 idle");
         yield return new WaitForSeconds(2f);
         bossRigid.gravityScale = 1;
     }
@@ -323,11 +328,11 @@ public class Boss02 : MonoBehaviour
         // 플레이어가 보스의 왼쪽에 있으면 보스를 왼쪽으로, 오른쪽에 있으면 오른쪽을 바라보게 설정
         if (player.transform.position.x < bossObject.transform.position.x)
         {
-            bossObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            bossObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
-            bossObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            bossObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
