@@ -65,11 +65,21 @@ public class DronController : MonoBehaviour
     // 단일 총알 발사
     private void FireSingleBullet()
     {
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        Quaternion bulletRotation = Quaternion.identity;
+        if (GFX.transform.localScale.x == 1f) // 오른쪽을 바라볼 때
+        {
+            bulletRotation = Quaternion.identity;
+        }
+        else if (GFX.transform.localScale.x == -1f) // 왼쪽을 바라볼 때
+        {
+            bulletRotation = Quaternion.Euler(0f, 180f, 0f);
+        }
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletRotation);
 
         BulletController bulletScript = bullet.GetComponent<BulletController>();
         
         Vector2 bulletdirection = Vector2.zero;   //총알 방향을 가르키는 변수(초기화)
+
         if (bulletScript != null)
         {
             if (GFX.transform.localScale.x == 1f) // 오른쪽을 바라볼 때
