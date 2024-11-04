@@ -367,6 +367,7 @@ public class PlayerController : MonoBehaviour
 
     private void DashUpdate()
     {
+        //gameObject.layer = LayerMask.NameToLayer("무적");을 통해 대쉬 시 무적
         //벽의 닿아있고 그 벽의 방향으로 방향키를 입력하고 있을 때
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
