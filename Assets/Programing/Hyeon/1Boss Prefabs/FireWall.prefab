@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  fireWallDamage: 10
+  fireWallDamage: 2
 --- !u!61 &8023262460921523256
 BoxCollider2D:
   m_ObjectHideFlags: 0

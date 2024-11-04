@@ -40,7 +40,7 @@ public class Boss02 : MonoBehaviour
     
     // 보스 스탯
     // 보스 HP
-    [SerializeField] float bossHP = 10;
+    [SerializeField] float bossHP = 100;
     // 보스 현재 HP
     float bossNowHP;
     // 보스 근거리 공격
@@ -148,7 +148,6 @@ public class Boss02 : MonoBehaviour
         skillStart = true;
         yield return new WaitForSeconds(2f);
         // 공격 상태
-        bossPatternNum = 3;
 
         Mirrored();
         switch (bossPatternNum)
@@ -193,9 +192,10 @@ public class Boss02 : MonoBehaviour
         // 1,2,3 세 구간이 있음
         Mirrored();
         bossAnimator.Play("boss1_attack1");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         // 검뽑는 애니메이션 실행
-        
+        Mirrored();
+        yield return new WaitForSeconds(0.5f);
         // 현재 보스 위치를 확인하고 플레이어의 위치에 따라 순간이동
         // 보스 의 위치가 bosswarp01.position.x 근처일때
         if (Mathf.Abs(transform.position.x - bosswarp01.position.x) <= 10f)

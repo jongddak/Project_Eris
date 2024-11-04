@@ -46,7 +46,7 @@ public class BossPattern : MonoBehaviour
 
     // 보스 스탯
     // 보스 HP
-    public float bossHP = 10;
+    public float bossHP = 200;
     public float bossNowHP;
     // 보스 스피드
     [SerializeField] float bossSpeed;
@@ -68,6 +68,7 @@ public class BossPattern : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         bossRigid = GetComponent<Rigidbody2D>();
+        bossNowHP = bossHP;
     }
     private void Update()
     {
@@ -89,6 +90,7 @@ public class BossPattern : MonoBehaviour
                 Win();
                 break;
         }
+        BossHPSearch();
     }
 
     private void Idle()
@@ -234,7 +236,7 @@ public class BossPattern : MonoBehaviour
         bossTacklePoint.SetActive(true);
         // 애니메이션 재생
         animator.Play("boss1 2 BodyTackle");
-
+        
         yield return new WaitForSeconds(0.7f);
         // 돌진 목표 거리 설정
         float targetDistance = 80f; // 보스가 이동할 거리
@@ -257,7 +259,7 @@ public class BossPattern : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
         // 돌진 collider 비활성화
         bossTacklePoint.SetActive(false);
-        
+        isWall = false;
     }
     private IEnumerator JumpSlash()
     {
@@ -297,8 +299,6 @@ public class BossPattern : MonoBehaviour
         // 플레이어가 1.3초 동안 먼 거리에서 보스뒤로 가기 불가능 하다고 판단. 이 문제는 알아두기만 하자
 
         // 불 발사 패턴 동안 대기 (1.5초 후 Idle 상태로 변경)
-
-
     }
     private IEnumerator FireBarrier()
     {
@@ -390,17 +390,18 @@ public class BossPattern : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 벽과 충돌했는지 확인 Test => wall로 교체
-        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
+        // 벽과 충돌했는지 확인 Test => Boss 교체
+        if (collision.gameObject.CompareTag("Boss"))
         {
             isWall = true;
         }
     }
-    private void OnCollisionExit2D(Collision2D collision)
+    private void BossHPSearch()
     {
-        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground"))
+        if (bossNowHP <= 0)
         {
-            isWall = false;
+            bossNowHP = 0;
+            state = BossState.Die;
         }
     }
 }
