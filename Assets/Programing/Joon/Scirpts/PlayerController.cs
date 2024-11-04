@@ -89,10 +89,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public bool canUseDashAttack = false;     //1스테이지 클리어시 활성화
     [SerializeField] public bool canUseHovering = false;       //2스테이지 클리어시 활성화
 
-
     [Header("CameraInfo")]
     [SerializeField] CameraController CameraController;
 
+    [Header("AudioInfo")]
+    [SerializeField] PlayerSoundController PlayerSoundController;
 
     private void Start()
     {
@@ -181,15 +182,17 @@ public class PlayerController : MonoBehaviour
     private void RunUpdate()
     {
         Move();
-
+        PlayerSoundController.StartRunSound();
         //플레이어의 속도가 거의 0일 때
         if (rb.velocity.sqrMagnitude < 0.01f)
         {
             curState = PlayerState.Idle;
+            PlayerSoundController.StopRunSound();
         }
         if (rb.velocity.y < -0.01f && !coll.onGround)
         {
             curState = PlayerState.Fall;
+            PlayerSoundController.StopRunSound();
         }
 
         /*if (Input.GetKey(KeyCode.DownArrow) &&
@@ -201,15 +204,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.C))
         {
             jumpCoroutine = StartCoroutine(JumpRoutine());
+            PlayerSoundController.StopRunSound();
         }
 
         if (Input.GetKeyDown(KeyCode.Z) && canDash)
         {
             Dash();
+            PlayerSoundController.StopRunSound();
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
+            PlayerSoundController.StopRunSound();
         }
     }
 
@@ -275,6 +281,7 @@ public class PlayerController : MonoBehaviour
         {
             curState = PlayerState.Idle;
             canDash = true;
+            PlayerSoundController.PlayLandingSound();
         }
 
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
@@ -436,7 +443,7 @@ public class PlayerController : MonoBehaviour
         float ySpeed = Mathf.Max(rb.velocity.y, -maxFallSpeed);
 
         rb.velocity = new Vector2(xSpeed, ySpeed);
-        //SoundManager.Instance.PlayMoveSound();
+        //PlayerSoundController.PlayRunSound();
     }
 
     private IEnumerator JumpRoutine()
@@ -461,7 +468,7 @@ public class PlayerController : MonoBehaviour
     private void Grab()
     {
         curState = PlayerState.Grab;
-        //SoundManager.Instance.PlayGrabSound();
+        PlayerSoundController.PlayLandingSound();
         //그랩 시 플레이어의 속도를 빼서 위로 올라가는 현상 방지
         rb.velocity = Vector2.zero;
     }
@@ -537,7 +544,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = 0f; // 중력 제거
         }
-        //SoundManager.Instance.PlayDashSound();
+        PlayerSoundController.PlayDashSound();
         canDash = false;
     }
 
@@ -577,21 +584,21 @@ public class PlayerController : MonoBehaviour
             Debug.Log("보스에게 피해를 입힘");
         }
 
-        // @초 대기
-        yield return new WaitForSeconds(0.3f);
-
-        /*switch (currentAttackCount)
+        switch (currentAttackCount)
         {
             case 1:
-                SoundManager.Instance.PlayAttack1Sound();
+                PlayerSoundController.PlayAttack1Sound();
                 break;
             case 2:
-                SoundManager.Instance.PlayAttack2Sound();
-                break; 
-            case 3:
-                SoundManager.Instance.PlayAttack3Sound();
+                PlayerSoundController.PlayAttack2Sound();
                 break;
-        }*/
+            case 3:
+                PlayerSoundController.PlayAttack3Sound();
+                break;
+        }
+
+        // @초 대기
+        yield return new WaitForSeconds(0.3f);
 
         if (currentAttackCount >= 3)
         {
@@ -638,12 +645,14 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -hoverForce));
     }
 
-    public void Die()
+    public async void Die()
     {
         isDead = true;
         curState = PlayerState.Die;
-        //SoundManager.Instance.PlayDieSound();
         Debug.Log("쥬금");
+        await Utility.DelayAction(1.5f);
+        PlayerSoundController.PlayDieSound();
+        
     }
 
     public void StopMovement()
