@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public AudioSource bgmSource;
-    public AudioClip[] bgmClips; // 각 씬에 맞는 BGM 클립을 설정
+
     private bool isPaused = false;
 
     private void Awake()
@@ -23,31 +22,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-       
-    }
 
-    private void Update()
+    private void Update() // 테스트용 
     {
-        if (Input.GetKeyDown(KeyCode.Escape) == true) 
+        if (Input.GetKeyDown(KeyCode.Escape) == true)
         {
+            Debug.Log("일시 정지");
             PauseGame();
         }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    LoadSceneByName("ManagerTest2");
+        //}
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    LoadSceneByName("ManagerTest3");
+        //}
+        //if (Input.GetKeyDown(KeyCode.Y))
+        //{
+        //    LoadSceneByName("ManagerTest");
+        //}
+
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public void LoadSceneByName(string sceneName) // 씬 이름으로 불러오기 , 리로딩도 이름으로 불러오면 가능 
     {
-       
+            SceneManager.LoadScene(sceneName);
     }
 
-    public void ChangeScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    public void PauseGame()
+    public void PauseGame() // 일시정지 
     {
         if (!isPaused)
         {
@@ -59,10 +62,5 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             isPaused = false;
         }
-    }
-
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
