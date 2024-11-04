@@ -41,7 +41,7 @@ public class PatternController : MonoBehaviour
             lines[i] = gameObject.transform.GetChild(i).gameObject; // 각 라인을 배열로 만들어 사용
         }
     }
-
+    /*
     private void Update()
     {
         // test용으로 함수를 실행시키기 위한 조건으로 추후 if문에 보스의 체력상태를 넣어서 실행되도록 수정하여 사용
@@ -65,7 +65,7 @@ public class PatternController : MonoBehaviour
             }
         }
     }
-
+    */
     /// <summary>
     /// 보스의 기본 상태일 때 패턴이 움직이는 방향을 설정
     /// 한 개의 랜덤 숫자를 받아서 한 개의 라인만 기존의 이동 방향에서 반대로 설정
