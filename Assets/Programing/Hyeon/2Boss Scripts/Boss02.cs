@@ -148,7 +148,7 @@ public class Boss02 : MonoBehaviour
         skillStart = true;
         yield return new WaitForSeconds(2f);
         // 공격 상태
-        bossPatternNum = 3;
+
         Mirrored();
         switch (bossPatternNum)
         {
