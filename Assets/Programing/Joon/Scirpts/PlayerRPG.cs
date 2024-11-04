@@ -10,16 +10,19 @@ public class PlayerRPG : MonoBehaviour
     [SerializeField] public float maxHp;
 
     private PlayerController playerController;
+    private Collision coll;
 
     private void Awake()
     {
         curHp = maxHp;
         // PlayerController 컴포넌트 참조
         playerController = GetComponent<PlayerController>();
+        coll = GetComponent<Collision>();
     }
 
     private void Update()
     {
+        StampedeUpdate();
         //테스트용
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -39,6 +42,14 @@ public class PlayerRPG : MonoBehaviour
 
         // 플레이어의 체력이 0 이하가 되면 상태를 Die로 변경
         if (curHp <= 0)
+        {
+            playerController.Die();
+        }
+    }
+
+    public void StampedeUpdate()
+    {
+        if(coll.onPlatform && coll.onCeiling)
         {
             playerController.Die();
         }
