@@ -2409,6 +2409,10 @@ MonoBehaviour:
   attackDamage: 0
   curHp: 0
   maxHp: 5
+  Boss02: {fileID: 0}
+  Boss01_01: {fileID: 0}
+  Boss01_02: {fileID: 0}
+  Boss03: {fileID: 0}
 --- !u!61 &3341882127887948854
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3299,6 +3303,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7331463133497974904, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: m_Radius
+      value: 1.9383984
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331463133497974904, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.43839836
+      objectReference: {fileID: 0}
     - target: {fileID: 7331463134037450508, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: m_Name
       value: Player

@@ -72,9 +72,7 @@ public class PlayerController : MonoBehaviour
     private static int dieHash = Animator.StringToHash("Die");
 
     [Header("AttackInfo")]
-    //[SerializeField] private Collider2D attackSpot;          //공격이 진행된 곳
-    //[SerializeField] private GameObject attackEffectPrefabs; //공격 이펙트
-    [SerializeField] AttackTest attackTest;                    //공격 범위 판정       
+    [SerializeField] GameObject attackPoint;                   //공격을 진행할 곳
     [SerializeField] bool isDead = false;                      //플레이어의 죽음 판별
     [SerializeField] int currentAttackCount = 0;               //현재 공격 횟수
     private float lastAttackTime;                              //마지막 공격 시간
@@ -367,7 +365,7 @@ public class PlayerController : MonoBehaviour
 
     private void DashUpdate()
     {
-        //gameObject.layer = LayerMask.NameToLayer("무적");을 통해 대쉬 시 무적
+        gameObject.layer = LayerMask.NameToLayer("God");
         //벽의 닿아있고 그 벽의 방향으로 방향키를 입력하고 있을 때
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
@@ -383,6 +381,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = 5f;
             curState = PlayerState.Fall;  // 대시 종료 후 낙하 상태로 전환
+            gameObject.layer = LayerMask.NameToLayer("Player");
         }
 
         if (Input.GetKeyDown(KeyCode.X) && canUseDashAttack)
@@ -558,7 +557,7 @@ public class PlayerController : MonoBehaviour
         lastAttackTime = Time.time;
 
         // 공격 이펙트 생성 위치 설정
-        Vector2 effectPosition = attackTest.attackRangeCollider.transform.position;
+        Vector2 effectPosition = attackPoint.transform.position;
 
         // 이펙트 생성
         if (currentAttackCount <= attackParticle.Length)
@@ -578,11 +577,6 @@ public class PlayerController : MonoBehaviour
 
             GameObject attackEffect = Instantiate(attackParticle[currentAttackCount - 1], effectPosition, effectRotation);
             Destroy(attackEffect, 0.3f); // 일정 시간이 지난 후 파괴
-        }
-
-        if (attackTest.IsBossInRange)
-        {
-            Debug.Log("보스에게 피해를 입힘");
         }
 
         switch (currentAttackCount)
@@ -612,8 +606,9 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DashAttack()
     {
         curState = PlayerState.DashAttack;
+        gameObject.layer = LayerMask.NameToLayer("God");
         // 공격 이펙트 생성 위치 설정
-        Vector2 effectPosition = attackTest.attackRangeCollider.transform.position;
+        Vector2 effectPosition = attackPoint.transform.position;
         // 공격 이펙트 방향 설정
         Quaternion effectRotation = Quaternion.identity;
 
@@ -630,12 +625,8 @@ public class PlayerController : MonoBehaviour
         GameObject attackEffect = Instantiate(attackParticle[3], effectPosition, effectRotation);
         Destroy(attackEffect, 0.3f); // 일정 시간이 지난 후 파괴
 
-        if (attackTest.IsBossInRange)
-        {
-            Debug.Log("보스에게 피해를 입힘");
-        }
-
         yield return new WaitForSeconds(0.3f);
+        gameObject.layer = LayerMask.NameToLayer("Player");
 
         rb.gravityScale = 5f;
         curState = PlayerState.Fall;
