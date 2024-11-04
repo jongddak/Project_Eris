@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float dashTime = 0.4f;     // 대시 지속 시간
     private float dashTimeLeft;                 // 대시 남은 시간
     [SerializeField] bool canDash = true;       // 대시 가능 여부
+    [SerializeField] bool isinvincible = false; // 대시 동안 무적 여부
 
 
     [Header("GrapInfo")]
@@ -89,8 +90,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public bool canUseHovering = false;       //2스테이지 클리어시 활성화
 
 
-    //[Header("CameraInfo")]
-    //[SerializeField] CameraController CameraController;
+    [Header("CameraInfo")]
+    [SerializeField] CameraController CameraController;
 
 
     private void Start()
@@ -422,12 +423,12 @@ public class PlayerController : MonoBehaviour
         if (xInput > 0)
         {
             GFX.transform.localScale = new Vector3(1, 1, 1);
-            //CameraController.isLeft = false;
+            CameraController.isLeft = false;
         }
         else if (xInput < 0)
         {
             GFX.transform.localScale = new Vector3(-1, 1, 1);
-            //CameraController.isLeft = true;
+            CameraController.isLeft = true;
         }
 
         //float xSpeed = Mathf.Lerp(rb.velocity.x, xInput * maxSpeed, moveAccel);
