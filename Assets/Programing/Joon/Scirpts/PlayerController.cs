@@ -297,12 +297,13 @@ public class PlayerController : MonoBehaviour
 
     private void GrabUpdate()
     {
+        //플레이어의 발이 땅이나 플랫폼에 닿아 있을 때
         if (coll.onGround || coll.onPlatform)
         {
             curState = PlayerState.Idle;
             canDash = true;
         }
-
+        //벽의 닿아있고 그 벽의 방향으로 방향키를 입력하고 있을 때
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
             rb.AddForce(-Physics2D.gravity, ForceMode2D.Force);
@@ -340,7 +341,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-
+        //벽의 닿아있고 그 벽의 방향으로 방향키를 입력하고 있을 때
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
             Grab();
@@ -358,13 +359,13 @@ public class PlayerController : MonoBehaviour
 
     private void DashUpdate()
     {
-
+        //벽의 닿아있고 그 벽의 방향으로 방향키를 입력하고 있을 때
         if ((coll.onLeftWall && Input.GetKey(KeyCode.LeftArrow)) || (coll.onRightWall && Input.GetKey(KeyCode.RightArrow)))
         {
             Grab();
             rb.gravityScale = 5f;
         }
-
+        //대쉬 지속시간이 남아 있을 때
         if (dashTimeLeft > 0)
         {
             dashTimeLeft -= Time.deltaTime;
@@ -408,6 +409,7 @@ public class PlayerController : MonoBehaviour
 
     private void ComboUpdate()
     {
+        //마지막 공격시간이 콤보리셋 시간보다 길어지만 현재 공격 횟수 초기화
         if (Time.time - lastAttackTime > comboResetTime)
         {
             currentAttackCount = 0;
@@ -433,6 +435,7 @@ public class PlayerController : MonoBehaviour
         float ySpeed = Mathf.Max(rb.velocity.y, -maxFallSpeed);
 
         rb.velocity = new Vector2(xSpeed, ySpeed);
+        //SoundManager.Instance.PlayMoveSound();
     }
 
     private IEnumerator JumpRoutine()
@@ -457,7 +460,7 @@ public class PlayerController : MonoBehaviour
     private void Grab()
     {
         curState = PlayerState.Grab;
-
+        //SoundManager.Instance.PlayGrabSound();
         //그랩 시 플레이어의 속도를 빼서 위로 올라가는 현상 방지
         rb.velocity = Vector2.zero;
     }
@@ -533,7 +536,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = 0f; // 중력 제거
         }
-
+        //SoundManager.Instance.PlayDashSound();
         canDash = false;
     }
 
@@ -576,6 +579,18 @@ public class PlayerController : MonoBehaviour
         // @초 대기
         yield return new WaitForSeconds(0.3f);
 
+        /*switch (currentAttackCount)
+        {
+            case 1:
+                SoundManager.Instance.PlayAttack1Sound();
+                break;
+            case 2:
+                SoundManager.Instance.PlayAttack2Sound();
+                break; 
+            case 3:
+                SoundManager.Instance.PlayAttack3Sound();
+                break;
+        }*/
 
         if (currentAttackCount >= 3)
         {
@@ -626,6 +641,7 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         curState = PlayerState.Die;
+        //SoundManager.Instance.PlayDieSound();
         Debug.Log("쥬금");
     }
 

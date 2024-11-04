@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using TMPro;
 using UnityEngine;
 
 public class Collision : MonoBehaviour
@@ -8,7 +9,7 @@ public class Collision : MonoBehaviour
     [Header("Collision")]
 
     [SerializeField] float collisionRadius = 0.4f;
-    public Vector2 bottomOffset, rightOffset, leftOffset;
+    public Vector2 bottomOffset, rightOffset, leftOffset, topOffset;
     private Color debugColor = Color.red;
 
 
@@ -22,6 +23,7 @@ public class Collision : MonoBehaviour
     [SerializeField] public bool onRightWall;
     [SerializeField] public bool onLeftWall;
     [SerializeField] public bool onPlatform;
+    [SerializeField] public bool onCeiling;
     [SerializeField] public int wallSide;
 
     private void Update()
@@ -34,7 +36,7 @@ public class Collision : MonoBehaviour
         onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, wallLayer);
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, wallLayer);
 
-        
+        onCeiling = Physics2D.OverlapCircle((Vector2)transform.position + topOffset, collisionRadius, groundLayer);
 
         //오른쪽벽이나 왼쪽벽 둘 중 하나만 닿아도 벽에 닿은 것으로 판별
         onWall = onRightWall || onLeftWall;
@@ -47,11 +49,12 @@ public class Collision : MonoBehaviour
     {
         Gizmos.color = debugColor;
 
-        var positions = new Vector2[] { bottomOffset, rightOffset, leftOffset };
+        var positions = new Vector2[] { bottomOffset, rightOffset, leftOffset, topOffset };
 
         //충돌 범위 확인용 기즈모 표기
         Gizmos.DrawWireSphere((Vector2)transform.position + bottomOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
+        Gizmos.DrawWireSphere((Vector2)transform.position + topOffset, collisionRadius);
     }
 }
