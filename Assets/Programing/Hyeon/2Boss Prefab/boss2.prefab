@@ -519,7 +519,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 14
+  m_SortingOrder: 12
   m_Sprite: {fileID: -5972850182825702284, guid: d7fd8bbe79a2a004caf2b004f4bbf264, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1018,7 +1018,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 12
+  m_SortingOrder: 13
   m_Sprite: {fileID: 2828140484572759200, guid: d7fd8bbe79a2a004caf2b004f4bbf264, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1422,6 +1422,7 @@ MonoBehaviour:
   bossObject: {fileID: 0}
   player: {fileID: 0}
   bossRigid: {fileID: 0}
+  bossAnimator: {fileID: 0}
   swordAura: {fileID: 4965152600031193644, guid: b7a4e8fc0f5583e4d8e928ad8ec1c515, type: 3}
   bash: {fileID: 5675702017995866896, guid: 7deab8d919a4622409020b90995637b0, type: 3}
   footWarkPre01: {fileID: 7371584410195539576, guid: 74776428b12c4bf41a1498f5f968fecc, type: 3}
@@ -2453,7 +2454,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 13
+  m_SortingOrder: 14
   m_Sprite: {fileID: 1582031759212888232, guid: d7fd8bbe79a2a004caf2b004f4bbf264, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

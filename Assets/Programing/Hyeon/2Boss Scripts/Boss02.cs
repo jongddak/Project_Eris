@@ -15,6 +15,8 @@ public class Boss02 : MonoBehaviour
     [SerializeField] GameObject player;
     // 보스의 Rigidbody
     [SerializeField] Rigidbody2D bossRigid;
+    // 보스 애니메이션 
+    [SerializeField] Animator bossAnimator;
     // SwordAura 검기 프리펩
     [SerializeField] GameObject swordAura;
     // Bash 프리펩 생성
@@ -81,6 +83,8 @@ public class Boss02 : MonoBehaviour
                 Win();
                 break;
         }
+
+        BossHPSearch();
     }
 
     private void Idle()
@@ -88,15 +92,13 @@ public class Boss02 : MonoBehaviour
         skillStart = false;
 
         // 대기 애니메이션
-        // animator.Play("");
-        
+        bossAnimator.Play("boss2 idle");
         // 플레이어 위치를 바라보게        
         Mirrored();
 
         if (!skillStart)
         {
-            WaitSkill();
-            
+            WaitSkill();           
         }
     }
 
@@ -172,12 +174,13 @@ public class Boss02 : MonoBehaviour
         bosscount += 1;
         Debug.Log("베어가르기!");
         // 베는 애니메이션
-
+        bossAnimator.Play("boss2_attack2");
+        yield return new WaitForSeconds(0.4f);
         // 이펙트 프리펩 생성
         GameObject swordSopn01 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation);
         yield return new WaitForSeconds(0.4f);
         GameObject swordSopn02 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation * Quaternion.Euler(0, 0, 90));
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.2f);
     }
     private IEnumerator FootWork()
     {
@@ -188,7 +191,7 @@ public class Boss02 : MonoBehaviour
         Mirrored();
         yield return new WaitForSeconds(1f);
         // 검뽑는 애니메이션 실행
-
+        bossAnimator.Play("boss2_attack1");
         // 현재 보스 위치를 확인하고 플레이어의 위치에 따라 순간이동
         // 보스 의 위치가 bosswarp01.position.x 근처일때
         if (Mathf.Abs(transform.position.x - bosswarp01.position.x) <= 10f)
@@ -273,7 +276,7 @@ public class Boss02 : MonoBehaviour
         // 보스의 위치 고정
         bossRigid.velocity = Vector2.zero;
         bossRigid.bodyType = RigidbodyType2D.Kinematic;
-
+        bossAnimator.Play("boss2_attack3");
         // 보스가 뿌리는 검기 생성
         for (int i = 0; i < 5; i++)
         {
@@ -300,9 +303,9 @@ public class Boss02 : MonoBehaviour
     private void Die()
     {
         // hp 전부 소모 시 사망 애니메이션 송출 후 프리펩 소멸
-
+        
         // 사망 애니메이션 
-        //animator.Play("");
+        bossAnimator.Play("boss2 die");
 
         // 오브젝트 삭제 처리
         Destroy(gameObject, 4f);
@@ -312,7 +315,7 @@ public class Boss02 : MonoBehaviour
         // 플레이어의 HP가 0이되었거나 상태가 DIE가 되었을때
 
         // 승리 애니메이션
-        //animator.Play("boss1 2 win");
+        bossAnimator.Play("boss1 2 win");
     }
     // 좌우반전
     private void Mirrored()
@@ -358,6 +361,15 @@ public class Boss02 : MonoBehaviour
         else
         {
             type.direction = 0;
+        }
+    }
+
+    private void BossHPSearch()
+    {
+        if (bossNowHP <= 0)
+        {
+            bossNowHP = 0;
+            state = BossState.Die;
         }
     }
 }
