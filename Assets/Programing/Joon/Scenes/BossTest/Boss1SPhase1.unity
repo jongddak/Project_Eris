@@ -3304,6 +3304,14 @@ PrefabInstance:
       propertyPath: CameraController
       value: 
       objectReference: {fileID: 1363101040}
+    - target: {fileID: 1236969079770176308, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: attackParticle.Array.data[0]
+      value: 
+      objectReference: {fileID: 9057851664903266341, guid: 67f3626782c63ba49a5fd54589020e59, type: 3}
+    - target: {fileID: 1236969079770176308, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: attackParticle.Array.data[3]
+      value: 
+      objectReference: {fileID: 8213440686814326727, guid: ea20e99e4fe28824982664a0eaf4d964, type: 3}
     - target: {fileID: 1236969079770176317, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: Boss2_1
       value: 

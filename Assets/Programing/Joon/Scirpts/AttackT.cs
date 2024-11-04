@@ -9,13 +9,12 @@ public class AttackT : MonoBehaviour
     private void Awake()
     {
         // PlayerController 컴포넌트 참조
-        playerRPG = GetComponent<PlayerRPG>();
+        playerRPG = FindObjectOfType<PlayerRPG>();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Boss"))
+        if (other.CompareTag("Boss") && playerRPG != null)
         {
-            Debug.Log("때림");
             string bossType = other.gameObject.name;
             playerRPG.DealDamageToBoss(bossType, playerRPG.attackDamage);
         }

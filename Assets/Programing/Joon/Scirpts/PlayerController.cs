@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
     private float lastAttackTime;                              //마지막 공격 시간
     public float comboResetTime = 1.5f;                        //공격 콤보가 초기화 되는 시간
     [SerializeField] bool isAttacking = false;
+    //private PlayerRPG playerRPG;
 
     [Header("HoveringInfo")]
     //플레이어가 내려가는 힘 조절(작을 수록 천천히 떨어짐)
@@ -99,6 +100,7 @@ public class PlayerController : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         originalColliderSize = boxCollider.size;
         reducedColliderSize = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
+        //playerRPG = GetComponent<PlayerRPG>();
     }
 
     private void Update()
@@ -576,6 +578,12 @@ public class PlayerController : MonoBehaviour
             }
 
             GameObject attackEffect = Instantiate(attackParticle[currentAttackCount - 1], effectPosition, effectRotation);
+            /*AttackT attackT = attackEffect.GetComponent<AttackT>();
+
+            if (attackT != null)
+            {
+                attackT.playerRPG = playerRPG; // 생성된 이펙트의 AttackT에 playerRPG 전달
+            }*/
             Destroy(attackEffect, 0.3f); // 일정 시간이 지난 후 파괴
         }
 
