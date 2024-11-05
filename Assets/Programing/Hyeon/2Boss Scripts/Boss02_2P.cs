@@ -38,7 +38,10 @@ public class Boss02_2P : MonoBehaviour
     [SerializeField] Transform bosswarp02;
     // 맵에서 3 좌표
     [SerializeField] Transform bosswarp03;
-    
+
+    [SerializeField] AudioSource audioSource;
+
+    [SerializeField] AudioClip[] bosssound;
     // 보스 스탯
     // 보스 HP
     [SerializeField] float bossHP = 100;
@@ -78,7 +81,7 @@ public class Boss02_2P : MonoBehaviour
                 // 패턴 중에는 다른 동작을 하지 않도록 함
                 break;
             case BossState.Die:
-                StartCoroutine(Die());
+                Die();
                 break;
             case BossState.win:
                 Win();
@@ -119,25 +122,12 @@ public class Boss02_2P : MonoBehaviour
         }
         else if (playerDirection > attackRange)
         {
-            if (bossNowHP <= bossHP / 2)
-            {
-                bossPatternNum = Random.Range(2, 4);
-            }
-            else
-            {
-                bossPatternNum = 2;
-            }          
+            bossPatternNum = Random.Range(2, 4);
         }
+        // 근거리 공격 3스택이면 원거리 공격 진행
         if (bosscount == 3)
         {
-            if (bossNowHP <= bossHP / 2)
-            {
-                bossPatternNum = Random.Range(2, 4);
-            }
-            else
-            {
-                bossPatternNum = 2;
-            }
+            bossPatternNum = Random.Range(2, 4);
             bosscount = 0;
         }
 
@@ -180,7 +170,9 @@ public class Boss02_2P : MonoBehaviour
         yield return new WaitForSeconds(2f);
         // 이펙트 프리펩 생성
         GameObject swordSopn01 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation);
+        audioSource.PlayOneShot(bosssound[1]);
         yield return new WaitForSeconds(0.4f);
+        audioSource.PlayOneShot(bosssound[1]);
         GameObject swordSopn02 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation * Quaternion.Euler(0, 0, 90));
         yield return new WaitForSeconds(1.5f);
         bossAnimator.Play("boss2 idle");
@@ -206,6 +198,7 @@ public class Boss02_2P : MonoBehaviour
                 // 보스가 bosswarp01에 있고 플레이어가 1,2 사이에 있을 때 bosswarp02로 이동
                 Debug.Log("011");
                 transform.position = bosswarp02.position;
+                audioSource.PlayOneShot(bosssound[0]);
                 yield return new WaitForSeconds(0.7f);
                 Instantiate(footWarkPre01, (bosswarp01.position + bosswarp02.position) / 2, Quaternion.identity);
             }
@@ -214,6 +207,7 @@ public class Boss02_2P : MonoBehaviour
                 Debug.Log("012");
                 // 보스가 bosswarp01에 있고 플레이어가 2,3 사이에 있을 때 bosswarp03으로 이동
                 transform.position = bosswarp03.position;
+                audioSource.PlayOneShot(bosssound[0]);
                 yield return new WaitForSeconds(0.7f);
                 Instantiate(footWarkPre02, bosswarp02.position, Quaternion.identity);
             }
@@ -225,6 +219,7 @@ public class Boss02_2P : MonoBehaviour
                 Debug.Log("021");
                 // 보스가 bosswarp02에 있고 플레이어가 1,2 사이에 있을 때 bosswarp01로 이동
                 transform.position = bosswarp01.position;
+                audioSource.PlayOneShot(bosssound[0]);
                 yield return new WaitForSeconds(0.7f);
                 Instantiate(footWarkPre01, (bosswarp01.position + bosswarp02.position) / 2, Quaternion.identity);
             }
@@ -233,6 +228,7 @@ public class Boss02_2P : MonoBehaviour
                 Debug.Log("022");
                 // 보스가 bosswarp02에 있고 플레이어가 2,3 사이에 있을 때 bosswarp03으로 이동
                 transform.position = bosswarp03.position;
+                audioSource.PlayOneShot(bosssound[0]);
                 yield return new WaitForSeconds(0.7f);
                 Instantiate(footWarkPre01, (bosswarp02.position + bosswarp03.position) / 2, Quaternion.identity);
             }
@@ -244,6 +240,7 @@ public class Boss02_2P : MonoBehaviour
                 Debug.Log("031");
                 // 보스가 bosswarp03에 있고 플레이어가 2,3 사이에 있을 때 bosswarp02로 이동
                 transform.position = bosswarp02.position;
+                audioSource.PlayOneShot(bosssound[0]);
                 yield return new WaitForSeconds(0.7f);
                 Instantiate(footWarkPre01, (bosswarp02.position + bosswarp03.position) / 2, Quaternion.identity);
             }
@@ -252,6 +249,7 @@ public class Boss02_2P : MonoBehaviour
                 Debug.Log("032");
                 // 보스가 bosswarp03에 있고 플레이어가 1,2 사이에 있을 때 bosswarp01로 이동
                 transform.position = bosswarp01.position;
+                audioSource.PlayOneShot(bosssound[0]);
                 yield return new WaitForSeconds(0.7f);
                 Instantiate(footWarkPre02, bosswarp02.position, Quaternion.identity);
             }
@@ -268,6 +266,7 @@ public class Boss02_2P : MonoBehaviour
         // animator.Play("공중 점프 애니메이션");     
         bossAnimator.Play("boss1_attack3");
         yield return new WaitForSeconds(1f);
+        audioSource.PlayOneShot(bosssound[1]);
         bossRigid.bodyType = RigidbodyType2D.Dynamic;
         bossRigid.velocity = Vector2.zero;
         // 보스가 위로 올라감
@@ -287,6 +286,7 @@ public class Boss02_2P : MonoBehaviour
         {
             Mirrored();
             SwordAuraSpon();
+            audioSource.PlayOneShot(bosssound[2]);
             yield return new WaitForSeconds(0.4f);
         }
         bossAnimator.speed = 1f;
@@ -310,11 +310,11 @@ public class Boss02_2P : MonoBehaviour
     private IEnumerator Die()
     {
         // hp 전부 소모 시 사망 애니메이션 송출 후 프리펩 소멸
-        
+        DataManager.Instance.LoadGameData();
         // 사망 애니메이션 
         bossAnimator.Play("boss2 die");
         DataManager.Instance.data.isUnlock[0] = true;
-       
+        DataManager.Instance.SaveGameData();
         // 오브젝트 삭제 처리
         Destroy(gameObject, 4f);
         yield return new WaitForSeconds(4f);

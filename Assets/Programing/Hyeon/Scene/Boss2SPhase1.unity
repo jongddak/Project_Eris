@@ -179,6 +179,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 733618551774523331, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
+      propertyPath: bossHP
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 733618551774523331, guid: 89e18630fb765884a8b559621d4aa334, type: 3}
       propertyPath: bossObject
       value: 
       objectReference: {fileID: 215106774}
@@ -195,6 +199,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1617466405818288036, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3932490648116218011, guid: e55c88b0f5007334aab589ff895531fb, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1149,6 +1157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRangeCollider: {fileID: 3341882126985314822}
+  playerRPG: {fileID: 0}
 --- !u!58 &3341882126985314822
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2527,6 +2536,9 @@ MonoBehaviour:
   attackDamage: 0
   curHp: 0
   maxHp: 5
+  Boss2_1: {fileID: 0}
+  Boss2_2: {fileID: 0}
+  Boss3: {fileID: 0}
 --- !u!61 &3341882127887948854
 BoxCollider2D:
   m_ObjectHideFlags: 0
