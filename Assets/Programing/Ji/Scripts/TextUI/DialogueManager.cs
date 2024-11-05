@@ -18,12 +18,14 @@ using UnityEngine;
 /// </summary>
 public class DialogueManager : MonoBehaviour
 {
-
+    [Header ("Don't Change")]
     // DatabaseManager.cs의 GetDialogues() 함수를 사용하기 위한 선언
-    [SerializeField] DatabaseManager databaseManager;
+    DatabaseManager databaseManager;
     private Dialogue[] nowDialogue;
     [SerializeField] string unitId_Boss; // .csv파일의 보스의 unitId를 인스펙터창에서 입력
     [SerializeField] string unitId_Player; // .csv파일의 플레이어의 unitId를 인스펙터창에서 입력
+
+    ChangeController changeController;
 
     [Header("Status")]
     [SerializeField] float typingSpace; // 타이핑 출력 간격
@@ -51,6 +53,9 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
+        changeController = transform.GetChild(0).GetComponent<ChangeController>();
+        databaseManager = transform.GetChild(3).GetComponent<DatabaseManager>();
+
         uiBoss.SetActive(true); // 보스 캐릭터의 대화 시 출력 이미지
         uiPlayer.SetActive(true); // 플레이어 캐릭터의 대화 시 출력 이미지
         imgDialogue.SetActive(true); // 대화창 이미지
@@ -97,7 +102,8 @@ public class DialogueManager : MonoBehaviour
                     }
                     else // 이벤트가 끝났다면
                     {
-                        GameManager.Instance.LoadSceneByName("Boss1SPhase1");
+                        changeController.ChangeScene(nowDialogue[0].unitId, nowDialogue[0].eventName);
+                        //GameManager.Instance.LoadSceneByName("Boss1SPhase1");
                         //Debug.Log("씬전환"); // 추후 씬 전환하는 명령어로 변경하여 사용할 것
                     }
                 }
