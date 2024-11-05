@@ -322,7 +322,6 @@ public class Boss02_2P : MonoBehaviour
         bossAnimator.Play("boss2 die");
         DataManager.Instance.data.isUnlock[0] = true;
         DataManager.Instance.SaveGameData();
-        SceneManager.LoadScene("Boss1DEnd");
         // 오브젝트 삭제 처리
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("Boss1DEnd");
