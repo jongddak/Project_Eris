@@ -179,13 +179,7 @@ public class Boss3Controller : MonoBehaviour
     //    }
     //}
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 10) 
-        {
-            
-        }
-    }
+ 
 
 
     public void TakeDamage(float damage) // 업데이트나 이벤트로 처리하면 될듯
