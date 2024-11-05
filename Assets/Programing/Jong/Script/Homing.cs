@@ -9,7 +9,7 @@ public class Homing : MonoBehaviour
     [SerializeField] CapsuleCollider2D capsuleCollider;
     [SerializeField] GameObject main;
     [SerializeField] GameObject exEffect;
-
+    [SerializeField] float damage;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -41,6 +41,9 @@ public class Homing : MonoBehaviour
             main.SetActive(false);
             exEffect.SetActive(true);
             Destroy(gameObject, 0.4f);
+           
+            PlayerRPG player = collision.GetComponent<PlayerRPG>();
+            player.TakeDamage(damage);
         }
     }
 }

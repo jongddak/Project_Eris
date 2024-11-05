@@ -55,6 +55,10 @@ public class Boss1Phase1 : MonoBehaviour
     [SerializeField] GameObject LtacklePrefab;
     [SerializeField] GameObject slash;
 
+
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip[] audioClips;
+
     Coroutine curCoroutine;
     BossState state = BossState.Walk;
     [SerializeField] BossState curBossState; // 보스의 현재 상태 확인용 
@@ -137,11 +141,15 @@ public class Boss1Phase1 : MonoBehaviour
             Debug.Log("상태전환");
            
         }
+        animator.Play("Fly");
+        audioSource.clip = audioClips[8];
+        audioSource.Play();
+        audioSource.loop = true;
         while (state == BossState.Flying)
         {
             preState = curBossState;
             Mirrored();
-            animator.Play("Fly");
+           
             Vector2 newPosition = new Vector2(
             Mathf.MoveTowards(transform.position.x, player.transform.position.x, flybossSpeed * Time.deltaTime),
             10f
@@ -173,15 +181,21 @@ public class Boss1Phase1 : MonoBehaviour
         if (stateCount >= 3)
         {
             animator.Play("Jump");
+            audioSource.clip = audioClips[5];
+            audioSource.Play();
             yield return new WaitForSeconds(1.2f);
             stateCount = 0;
             state = BossState.Flying;
             Debug.Log("상태전환");
 
         }
+        audioSource.clip = audioClips[7];
+        audioSource.Play();
+        audioSource.loop = true;
+        animator.Play("Walk");
         while (state == BossState.Walk)
         {
-            animator.Play("Walk");
+           
             preState = curBossState;
             Mirrored();
             Vector2 newPosition = new Vector2(
@@ -212,6 +226,7 @@ public class Boss1Phase1 : MonoBehaviour
     //백스텝(쿨타임있음) , 전방으로 크게 휘두름, 돌진 , 하늘에서 화염구 발사 , 공중에서 돌진하면서 여러번 베기, 2페이즈 돌입
     IEnumerator Attack()
     {
+        audioSource.loop = false;
         WaitForSeconds time = new WaitForSeconds(1.5f);
 
         yield return new WaitForSeconds(1f);
@@ -270,6 +285,8 @@ public class Boss1Phase1 : MonoBehaviour
         isPatternOn = true;
         animator.Play("BackStep");
         Debug.Log("백스텝");
+        audioSource.clip = audioClips[9];
+        audioSource.Play();
         yield return new WaitForSeconds(0.25f);
         if (player.transform.position.x < transform.position.x) // 플레이어의 반대 방향으로 날아감 
         {
@@ -293,7 +310,10 @@ public class Boss1Phase1 : MonoBehaviour
     {
         isPatternOn = true;
         animator.Play("Atk1");
+        audioSource.clip = audioClips[0];
+        
         yield return new WaitForSeconds(0.9f);
+        audioSource.Play();
         slash.SetActive(true);
         Debug.Log("베기");
         yield return new WaitForSeconds(0.4f);
@@ -313,13 +333,15 @@ public class Boss1Phase1 : MonoBehaviour
         if (player.transform.position.x < transform.position.x) // 플레이어의 방향으로 날아감 
         {
 
-            
+            audioSource.clip = audioClips[1];
+            audioSource.Play();
             LtacklePrefab.SetActive(true);
             bossRigidbody.AddForce(Vector2.left * 150f, ForceMode2D.Impulse);
         }
         else
         {
-            
+            audioSource.clip = audioClips[1];
+            audioSource.Play();
             RtacklePrefab.SetActive(true);
             bossRigidbody.AddForce(Vector2.right * 150f, ForceMode2D.Impulse);
 
@@ -342,6 +364,8 @@ public class Boss1Phase1 : MonoBehaviour
         isPatternOn = true;
         animator.Play("Atk3");
         yield return new WaitForSeconds(1f);
+        audioSource.clip = audioClips[2];
+        audioSource.Play();
         Debug.Log("화염구");
         if (player.transform.position.x < transform.position.x)
         {
@@ -376,6 +400,8 @@ public class Boss1Phase1 : MonoBehaviour
         animator.Play("Atk4");
         Debug.Log("공중돌진베기");
         yield return new WaitForSeconds(0.3f);
+        audioSource.clip = audioClips[3];
+        audioSource.Play();
         if (player.transform.position.x < transform.position.x) // 플레이어의 방향으로 날아감 
         {
 
@@ -412,6 +438,8 @@ public class Boss1Phase1 : MonoBehaviour
     }
     IEnumerator Fork() 
     {
+
+        audioSource.loop = false;
         Vector2 pos = new Vector2(forkPoint.position.x , 0f);
         isPatternOn = true;
         yield return new WaitForSeconds(1f);
@@ -425,9 +453,10 @@ public class Boss1Phase1 : MonoBehaviour
         
 
         yield return new WaitForSeconds(0.5f);
-        
+       
         bossRigidbody.velocity = Vector2.zero;
-        
+        audioSource.clip = audioClips[6];
+        audioSource.Play();
         yield return new WaitForSeconds(1.5f);
         
         isPatternOn = false;
@@ -438,9 +467,13 @@ public class Boss1Phase1 : MonoBehaviour
 
     private void Die()  // 사망하면 2페이즈로 가게 
     {
-        // 사망 애니메이션 
+        audioSource.loop = false;
+        // 사망 애니메이션  , 씬 전환 넣기 
         animator.Play("Change");
+        audioSource.clip = audioClips[4];
+        audioSource.Play();
         Destroy(gameObject, 2f);
+        GameManager.Instance.LoadSceneByName("다음씬");
     }
 
     public void TakeDamage(float damage) // 업데이트나 이벤트로 처리하면 될듯
