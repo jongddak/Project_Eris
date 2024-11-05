@@ -11,7 +11,8 @@ public class PlayerRPG : MonoBehaviour
     [SerializeField] public float maxHp;
 
     [Header("BossSort")]
-    [SerializeField] Boss02_1P Boss1;
+    [SerializeField] Boss02_1P Boss1_1;
+    [SerializeField] Boss02_2P Boss1_2;
     [SerializeField] Boss1Phase1 Boss2_1;
     [SerializeField] BossPattern Boss2_2;
     [SerializeField] Boss3Controller Boss3;
@@ -26,7 +27,8 @@ public class PlayerRPG : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         coll = GetComponent<Collision>();
 
-        Boss1 = FindObjectOfType<Boss02_1P>();
+        Boss1_1 = FindObjectOfType<Boss02_1P>();
+        Boss1_2 = FindObjectOfType<Boss02_2P>();
         Boss2_1 = FindObjectOfType<Boss1Phase1>();
         Boss2_2 = FindObjectOfType<BossPattern>();
         Boss3 = FindObjectOfType<Boss3Controller>();
@@ -41,8 +43,11 @@ public class PlayerRPG : MonoBehaviour
     {
         switch (bossType)
         {
-            case "Boss1":
-                Boss1.TakeDamage(damage);
+            case "Boss1_1":
+                Boss1_1.TakeDamage(damage);
+                break;
+            case "Boss1_2":
+                Boss1_2.TakeDamage(damage);
                 break;
             case "Boss2_1":
                 Boss2_1.TakeDamage(damage);
