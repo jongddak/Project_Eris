@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour
         {
             LowJump();
         }*/
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             jumpCoroutine = StartCoroutine(JumpRoutine());
 
@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour
             LowJump();
         }*/
 
-        if (Input.GetKey(KeyCode.C))
+        if (Input.GetKey(KeyCode.Space))
         {
             jumpCoroutine = StartCoroutine(JumpRoutine());
             PlayerSoundController.StopRunSound();
@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour
             curState = PlayerState.Fall;  // 낙하 상태로 전환
         }
 
-        if (Input.GetKeyUp(KeyCode.C))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             if (jumpCoroutine != null)
             {
@@ -340,7 +340,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 벽잡기 상태에서 점프 입력 시 벽점프 실행
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(GrabJumpCoroutine());
         }
