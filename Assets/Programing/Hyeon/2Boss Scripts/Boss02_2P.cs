@@ -143,7 +143,7 @@ public class Boss02_2P : MonoBehaviour
     private IEnumerator ExecuteAttackPattern()
     {
         skillStart = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         // 공격 상태
 
         Mirrored();
@@ -173,14 +173,14 @@ public class Boss02_2P : MonoBehaviour
         Debug.Log("베어가르기!");
         // 베는 애니메이션
         bossAnimator.Play("boss1_attack2");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         // 이펙트 프리펩 생성
         GameObject swordSopn01 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation);
         audioSource.PlayOneShot(bosssound[1]);
         yield return new WaitForSeconds(0.4f);
         audioSource.PlayOneShot(bosssound[1]);
         GameObject swordSopn02 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation * Quaternion.Euler(0, 0, 90));
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         bossAnimator.Play("boss2 idle");
     }
     private IEnumerator FootWork()
@@ -190,9 +190,9 @@ public class Boss02_2P : MonoBehaviour
         // 1,2 중간과 2,3 중간에 들어갈 베기 프리펩(FootWorkEffect01), 1과 3사이에 들어갈 일반 베기보다 두배 긴 베기 프리펩(FootWorkEffect02)
         // 1,2,3 세 구간이 있음
         Mirrored();
-        bossAnimator.Play("boss1_attack1");
-        yield return new WaitForSeconds(1.5f);
         // 검뽑는 애니메이션 실행
+        bossAnimator.Play("boss1_attack1");
+        yield return new WaitForSeconds(1f);
         Mirrored();
         yield return new WaitForSeconds(0.5f);
         // 현재 보스 위치를 확인하고 플레이어의 위치에 따라 순간이동
@@ -261,17 +261,17 @@ public class Boss02_2P : MonoBehaviour
             }
         }
         // 검 넣는 애니메이션 실행
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         Debug.Log("끝");
     }
 
     private IEnumerator SkySwordAura()
     {
-        float bossJumpPower = 110f;
+        float bossJumpPower = 200f;
 
         // animator.Play("공중 점프 애니메이션");     
         bossAnimator.Play("boss1_attack3");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.2f);
         audioSource.PlayOneShot(bosssound[1]);
         bossRigid.bodyType = RigidbodyType2D.Dynamic;
         bossRigid.velocity = Vector2.zero;
@@ -286,7 +286,7 @@ public class Boss02_2P : MonoBehaviour
         bossRigid.velocity = Vector2.zero;
         bossRigid.bodyType = RigidbodyType2D.Kinematic;
         bossAnimator.speed = 0.5f;
-        yield return new WaitForSeconds(2.2f);
+        yield return new WaitForSeconds(2f);
         // 보스가 뿌리는 검기 생성
         for (int i = 0; i < 6; i++)
         {
@@ -300,7 +300,7 @@ public class Boss02_2P : MonoBehaviour
         bossRigid.gravityScale = 10;
         yield return new WaitForSeconds(0.7f);
         bossAnimator.Play("boss2 idle");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         bossRigid.gravityScale = 1;
     }
     public void TakeDamage(float damage)
