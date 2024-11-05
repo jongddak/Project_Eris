@@ -135,11 +135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3377985459186236470, guid: 19836c719cb79214eaeb2395c903621c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.66
+      value: 43.9
       objectReference: {fileID: 0}
     - target: {fileID: 3377985459186236470, guid: 19836c719cb79214eaeb2395c903621c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.48
+      value: -23.4
       objectReference: {fileID: 0}
     - target: {fileID: 3377985459186236470, guid: 19836c719cb79214eaeb2395c903621c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -172,6 +172,10 @@ PrefabInstance:
     - target: {fileID: 3377985459186236470, guid: 19836c719cb79214eaeb2395c903621c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165501913496749549, guid: 19836c719cb79214eaeb2395c903621c, type: 3}
+      propertyPath: bossHP
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4165501913496749549, guid: 19836c719cb79214eaeb2395c903621c, type: 3}
       propertyPath: bosswarp01
@@ -616,6 +620,14 @@ PrefabInstance:
       propertyPath: CameraController
       value: 
       objectReference: {fileID: 8512047672359884395}
+    - target: {fileID: 6232709163356067832, guid: 23dad03aa3c767c44b629b0f312b4071, type: 3}
+      propertyPath: maxHp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232709163356067832, guid: 23dad03aa3c767c44b629b0f312b4071, type: 3}
+      propertyPath: attackDamage
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23dad03aa3c767c44b629b0f312b4071, type: 3}
 --- !u!4 &915483584 stripped
