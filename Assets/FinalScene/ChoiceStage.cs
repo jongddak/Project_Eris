@@ -34,7 +34,7 @@ public class ChoiceStage : MonoBehaviour
                 case "Stage2":
                     if (Input.GetKeyDown(KeyCode.F))
                     {
-                        if (stage2)
+                        if (stage1)
                         {
                         GameManager.Instance.LoadSceneByName("Boss2DStart");
                         }
@@ -43,7 +43,7 @@ public class ChoiceStage : MonoBehaviour
                 case "Stage3":
                     if (Input.GetKeyDown(KeyCode.F))
                     {
-                        if (stage3)
+                        if (stage2)
                         {
                         GameManager.Instance.LoadSceneByName("Boss3DStart");
                         }
