@@ -44,7 +44,7 @@ public class Boss02_1P : MonoBehaviour
     [SerializeField] AudioClip[] bosssound;
     // 보스 스탯
     // 보스 HP
-    [SerializeField] float bossHP = 100;
+    [SerializeField] float bossHP;
     // 보스 현재 HP
     float bossNowHP;
     // 보스 근거리 공격
