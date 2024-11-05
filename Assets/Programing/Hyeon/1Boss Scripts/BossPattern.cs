@@ -237,7 +237,7 @@ public class BossPattern : MonoBehaviour
         audioSource.PlayOneShot(bossSound[4]);
         // 사망 애니메이션 
         animator.Play("boss1 2 die");
-        DataManager.Instance.data.isUnlock[2] = true;
+        DataManager.Instance.data.isUnlock[1] = true;
         DataManager.Instance.SaveGameData();
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("Boss2DEnd");
