@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerRPG : MonoBehaviour
@@ -8,6 +9,12 @@ public class PlayerRPG : MonoBehaviour
     [SerializeField] public float attackDamage;
     [SerializeField] public float curHp;
     [SerializeField] public float maxHp;
+
+    [Header("BossSort")]
+    [SerializeField] Boss02 Boss1;
+    [SerializeField] Boss1Phase1 Boss2_1;
+    [SerializeField] BossPattern Boss2_2;
+    [SerializeField] Boss3Controller Boss3;
 
     private PlayerController playerController;
     private Collision coll;
@@ -23,16 +30,32 @@ public class PlayerRPG : MonoBehaviour
     private void Update()
     {
         StampedeUpdate();
-        //테스트용
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(1f);
-        }
     }
 
-    public void Dealdamage(float damage)
+    public void DealDamageToBoss(string bossType, float damage)
     {
-
+        switch (bossType)
+        {
+            case "Boss1":
+                Boss1.TakeDamage(damage);
+                break;
+            case "Boss2_1":
+                Boss2_1.TakeDamage(damage);
+                break;
+            case "Boss2_2":
+                Boss2_2.TakeDamage(damage);
+                break;
+            case "Boss3_1":
+                Boss3.TakeDamage(damage);
+                break;
+            case "Boss3_2":
+                Boss3.TakeDamage(damage);
+                break;
+            default:
+                Debug.LogWarning("존재하지 않는 보스입니다.");
+                break;
+        }
+        Debug.Log($"{damage}의 피해를 입혔습니다.");
     }
 
     public void TakeDamage(float damage)
