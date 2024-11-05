@@ -16,7 +16,8 @@ public class Boss3Controller : MonoBehaviour
 
     public UnityEvent bulletShooting;
     public UnityEvent movePlatform;
-
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip[] audioClips;
 
     // 발사용 프리팹
     [SerializeField] GameObject laserPrefab;
@@ -28,7 +29,9 @@ public class Boss3Controller : MonoBehaviour
     [SerializeField] float bossHp;  // 보스 체력
     [SerializeField] float patternTerm; // 보스 패턴간 시간 
     [SerializeField] int patternCount = 0;
+    [SerializeField] bool phasech;
 
+    
     private int patternSelectNum;
 
     [SerializeField] float laserTerm = 0.7f; // 레이저 발사 간격
@@ -48,6 +51,7 @@ public class Boss3Controller : MonoBehaviour
         {
             Debug.Log("보스 사망");
             StopCoroutine("BossDo");
+            Die();
         }
     }
     IEnumerator BossDo() // 보스의 행동. 패턴 4개 중앙 총알발사 , 레이저발사 , 미사일 발사 , 발판 이동  
@@ -73,11 +77,18 @@ public class Boss3Controller : MonoBehaviour
 
                     case 0:
                         Debug.Log("중앙 총알");
+                        audioSource.clip = audioClips[2];
+                        audioSource.Play();
                         bulletShooting?.Invoke();
                         break;
                     case 1:
                         Debug.Log("발판 이동");
+                        audioSource.clip = audioClips[0];
+                        audioSource.Play();
                         movePlatform?.Invoke();
+                        yield return time;
+                        audioSource.clip = audioClips[1];
+                        audioSource.Play();
                         break;
                     case 2:
                         Debug.Log("미사일");
@@ -107,7 +118,8 @@ public class Boss3Controller : MonoBehaviour
             lineRender[rand].SetActive(true);
             yield return new WaitForSeconds(1f);
             lineRender[rand].SetActive(false);
-
+            audioSource.clip = audioClips[5];
+            audioSource.Play();
             GameObject obj = Instantiate(laserPrefab, shootingPoints[rand].position, shootingPoints[rand].rotation);
             Destroy(obj,20f);
             yield return new WaitForSeconds(laserTerm);
@@ -143,8 +155,11 @@ public class Boss3Controller : MonoBehaviour
         {
             lineRender[pickNum[i]].SetActive(false);
         }
+        audioSource.clip = audioClips[4];
+        audioSource.Play();
         for (int i = 0; i < pickNum.Count; i++) 
-        {
+        {   
+
             Instantiate(missilePrefab, shootingPoints[pickNum[i]].position, shootingPoints[pickNum[i]].rotation);
         }
     }
@@ -186,5 +201,18 @@ public class Boss3Controller : MonoBehaviour
     private void Die() 
     {
         // 보스 사망 
+
+        if (phasech == false)
+        {
+            //1페이즈 끝 
+            GameManager.Instance.LoadSceneByName("Boss3DPhase");
+        }
+        else if (phasech == false) // 2페이즈 끝 
+        {
+            DataManager.Instance.LoadGameData();
+            DataManager.Instance.data.isUnlock[2] = true;
+            DataManager.Instance.SaveGameData();
+            GameManager.Instance.LoadSceneByName("Boss2DEnd");
+        }
     }
 }

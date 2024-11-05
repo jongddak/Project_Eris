@@ -26,13 +26,16 @@ public class TestChara : MonoBehaviour
     private void Start()
     {
         DataManager.Instance.LoadGameData(); // 불러오기
-        Loading();
+        DataManager.Instance.data.isUnlock[0] = firstStage;
+        DataManager.Instance.data.isUnlock[1] = secondStage;
+        DataManager.Instance.data.isUnlock[2] = thridStage;
+        DataManager.Instance.SaveGameData();
     }
 
     private void OnApplicationQuit()
     {
-        Saving();
-        DataManager.Instance.SaveGameData(); // 저장하기 
+      //  Saving();
+      //  DataManager.Instance.SaveGameData(); // 저장하기 
     }
 
     public void Saving() // 씬에 있는 인스턴스로 데이터 전달 

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    [SerializeField] GameObject player;   
-    
+    [SerializeField] GameObject player;
+    [SerializeField] float damage;
+
     private void Start()
     {   
         player = GameObject.FindGameObjectWithTag("Player");
@@ -24,5 +25,17 @@ public class Laser : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector2.right * 30f * Time.deltaTime);
-    } 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            
+            PlayerRPG player = collision.GetComponent<PlayerRPG>();
+            player.TakeDamage(damage);
+
+
+        }
+    }
 }
