@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         originalColliderSize = boxCollider.size;
         reducedColliderSize = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
-        //uiDead.SetActive(false);
+        uiDead.SetActive(false);
 
         DataManager.Instance.LoadGameData();
         if (DataManager.Instance == null)  // 새로 시작
@@ -668,7 +668,7 @@ public class PlayerController : MonoBehaviour
         PlayerSoundController.PlayDieSound();
 
         await Utility.DelayAction(1f);
-        //uiDead.SetActive(true);
+        uiDead.SetActive(true);
         PlayerSoundController.PlayDefeatSound();
 
         await Utility.DelayAction(2.5f);
