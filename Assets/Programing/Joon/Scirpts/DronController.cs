@@ -27,7 +27,7 @@ public class DronController : MonoBehaviour
     private void Update()
     {
         // V 키 입력으로 발사 온오프
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             isFiring = !isFiring;
             if (isFiring)
