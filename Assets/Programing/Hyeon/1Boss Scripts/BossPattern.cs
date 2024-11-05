@@ -239,7 +239,7 @@ public class BossPattern : MonoBehaviour
         animator.Play("boss1 2 die");
         DataManager.Instance.data.isUnlock[1] = true;
         DataManager.Instance.SaveGameData();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("Boss2DEnd");
         
         // 스킬 언락

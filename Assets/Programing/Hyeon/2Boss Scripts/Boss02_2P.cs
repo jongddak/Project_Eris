@@ -324,7 +324,7 @@ public class Boss02_2P : MonoBehaviour
         DataManager.Instance.SaveGameData();
         SceneManager.LoadScene("Boss1DEnd");
         // 오브젝트 삭제 처리
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("Boss1DEnd");
         // 스킬 언락
         // 1보스 엔드 씬 불러오기       
