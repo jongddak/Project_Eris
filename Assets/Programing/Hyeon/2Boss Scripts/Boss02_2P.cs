@@ -320,7 +320,7 @@ public class Boss02_2P : MonoBehaviour
         DataManager.Instance.LoadGameData();
         // 사망 애니메이션 
         bossAnimator.Play("boss2 die");
-        DataManager.Instance.data.isUnlock[0] = true;
+        DataManager.Instance.data.isUnlock[1] = true;
         DataManager.Instance.SaveGameData();
         // 오브젝트 삭제 처리
         yield return new WaitForSeconds(1.5f);
