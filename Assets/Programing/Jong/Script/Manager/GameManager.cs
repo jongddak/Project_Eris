@@ -30,18 +30,18 @@ public class GameManager : MonoBehaviour
             Debug.Log("일시 정지");
             PauseGame();
         }
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    LoadSceneByName("ManagerTest2");
-        //}
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //    LoadSceneByName("ManagerTest3");
-        //}
-        //if (Input.GetKeyDown(KeyCode.Y))
-        //{
-        //    LoadSceneByName("ManagerTest");
-        //}
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            LoadSceneByName("ManagerTest2");
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            LoadSceneByName("ManagerTest3");
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            LoadSceneByName("ManagerTest");
+        }
 
     }
 

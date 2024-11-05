@@ -14,6 +14,9 @@ public class TestChara : MonoBehaviour
 
     [SerializeField] bool ondash;
     [SerializeField] bool onhover;
+
+
+
     [Range(0, 1)]
     [SerializeField] float BgmVol;
 
