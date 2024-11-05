@@ -5,12 +5,17 @@ using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
 
     //자연스러운 회전을 위해 플레이어의 기준점을 바꾼 게임오브젝트
     [SerializeField] private GameObject gameObjectRotationPoint;
+
+    //죽었을 때 띄울 UI 오브젝트
+    public GameObject uiDead;
 
     //플레이어가 가질 수 있는 상태
     public enum PlayerState { Idle, Run, Jump, Fall, Grab, GrabJump, 
@@ -45,7 +50,6 @@ public class PlayerController : MonoBehaviour
     private float dashTimeLeft;                 // 대시 남은 시간
     [SerializeField] bool canDash = true;       // 대시 가능 여부
     [SerializeField] bool isinvincible = false; // 대시 동안 무적 여부
-
 
     [Header("GrapInfo")]
     [SerializeField] float SlipSpeed = 1f;      // 벽을 붙잡고 있을 때 떨어지는 속도
@@ -100,7 +104,20 @@ public class PlayerController : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         originalColliderSize = boxCollider.size;
         reducedColliderSize = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
-        //playerRPG = GetComponent<PlayerRPG>();
+        uiDead.SetActive(false);
+
+        DataManager.Instance.LoadGameData();
+        if (DataManager.Instance == null)  // 새로 시작
+        {
+            Debug.Log("불러오지 않아도 됨");
+        }
+        else if (DataManager.Instance != null) // 이어하기 
+        {
+            canUseDashAttack = DataManager.Instance.data.isUnlock[0];
+            canUseHovering = DataManager.Instance.data.isUnlock[1];
+            Debug.Log(canUseDashAttack);
+            Debug.Log(canUseHovering);
+        }
     }
 
     private void Update()
@@ -153,7 +170,6 @@ public class PlayerController : MonoBehaviour
     private void IdleUpdate()
     {
         Move();
-
         //좌우 입력값이 있을 때
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
@@ -176,7 +192,6 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(Attack());        // 공격 코루틴 호출
         }
-
     }
 
     private void RunUpdate()
@@ -649,10 +664,15 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         curState = PlayerState.Die;
-        Debug.Log("쥬금");
         await Utility.DelayAction(1.5f);
         PlayerSoundController.PlayDieSound();
-        
+
+        await Utility.DelayAction(1f);
+        uiDead.SetActive(true);
+        PlayerSoundController.PlayDefeatSound();
+
+        await Utility.DelayAction(2.5f);
+        GameManager.Instance.LoadSceneByName("LobbyScene");
     }
 
     public void StopMovement()
@@ -749,6 +769,7 @@ public class PlayerController : MonoBehaviour
     {
         canMove = false;          // 입력 비활성화
         playerAnimator.speed = 0; // 모든 애니메이션 일시 정지
+        PlayerSoundController.StopRunSound();
 
         yield return new WaitForSeconds(duration); // 1초 대기
 
