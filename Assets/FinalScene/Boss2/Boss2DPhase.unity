@@ -138,10 +138,148 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &163809399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 163809401}
+  - component: {fileID: 163809400}
+  m_Layer: 0
+  m_Name: BGM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &163809400
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163809399}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4be93b30454d969448f520e0d354fc32, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &163809401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163809399}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &205289715 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8340434563700359784, guid: 5b35342f5d659ab4f9ad4a70c3b45ea1, type: 3}
   m_PrefabInstance: {fileID: 1943307584}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &636543557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6234049306970500387, guid: 31587780fbe65204b885ee88589cd884, type: 3}
+  m_PrefabInstance: {fileID: 1790729036}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &636543559 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6234049306970500386, guid: 31587780fbe65204b885ee88589cd884, type: 3}
+  m_PrefabInstance: {fileID: 1790729036}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1090953193
 GameObject:
@@ -243,6 +381,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1622532376 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 752291205594557060, guid: 31587780fbe65204b885ee88589cd884, type: 3}
+  m_PrefabInstance: {fileID: 1790729036}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1622532378 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 752291205594557063, guid: 31587780fbe65204b885ee88589cd884, type: 3}
+  m_PrefabInstance: {fileID: 1790729036}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1696787212
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,14 +431,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5218324860340400394, guid: 31587780fbe65204b885ee88589cd884, type: 3}
+      propertyPath: csvData
+      value: 
+      objectReference: {fileID: 4900000, guid: d4b99c930ab4ab744afbadb5644f544b, type: 3}
     - target: {fileID: 7283946171731606016, guid: 31587780fbe65204b885ee88589cd884, type: 3}
       propertyPath: m_Name
       value: DialogueManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7283946171731606016, guid: 31587780fbe65204b885ee88589cd884, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283946171731606017, guid: 31587780fbe65204b885ee88589cd884, type: 3}
+      propertyPath: uiBoss
+      value: 
+      objectReference: {fileID: 636543557}
+    - target: {fileID: 7283946171731606017, guid: 31587780fbe65204b885ee88589cd884, type: 3}
+      propertyPath: imgBoss
+      value: 
+      objectReference: {fileID: 636543559}
     - target: {fileID: 7283946171731606017, guid: 31587780fbe65204b885ee88589cd884, type: 3}
       propertyPath: textName
       value: 
       objectReference: {fileID: 1292734784}
+    - target: {fileID: 7283946171731606017, guid: 31587780fbe65204b885ee88589cd884, type: 3}
+      propertyPath: uiPlayer
+      value: 
+      objectReference: {fileID: 1622532376}
+    - target: {fileID: 7283946171731606017, guid: 31587780fbe65204b885ee88589cd884, type: 3}
+      propertyPath: imgPlayer
+      value: 
+      objectReference: {fileID: 1622532378}
     - target: {fileID: 7283946171731606017, guid: 31587780fbe65204b885ee88589cd884, type: 3}
       propertyPath: uiTextName
       value: 
