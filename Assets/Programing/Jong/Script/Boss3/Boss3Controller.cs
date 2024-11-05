@@ -212,7 +212,7 @@ public class Boss3Controller : MonoBehaviour
             DataManager.Instance.LoadGameData();
             DataManager.Instance.data.isUnlock[2] = true;
             DataManager.Instance.SaveGameData();
-            GameManager.Instance.LoadSceneByName("Boss2DEnd");
+            GameManager.Instance.LoadSceneByName("Boss3DEnd");
         }
     }
     IEnumerator Died()
@@ -229,7 +229,7 @@ public class Boss3Controller : MonoBehaviour
             DataManager.Instance.LoadGameData();
             DataManager.Instance.data.isUnlock[2] = true;
             DataManager.Instance.SaveGameData();
-            GameManager.Instance.LoadSceneByName("Boss2DEnd");
+            GameManager.Instance.LoadSceneByName("Boss3DEnd");
         }
     }
 }

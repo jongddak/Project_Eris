@@ -672,7 +672,7 @@ public class PlayerController : MonoBehaviour
         PlayerSoundController.PlayDefeatSound();
 
         await Utility.DelayAction(2.5f);
-        GameManager.Instance.LoadSceneByName("LobbyScene");
+        GameManager.Instance.LoadSceneByName("Lobby");
     }
 
     public void StopMovement()
