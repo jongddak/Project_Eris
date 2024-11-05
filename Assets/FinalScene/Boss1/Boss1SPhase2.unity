@@ -135,11 +135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3377985459186236470, guid: 84ed74086b2da4549bbac8be540bbee2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.66
+      value: 42.8
       objectReference: {fileID: 0}
     - target: {fileID: 3377985459186236470, guid: 84ed74086b2da4549bbac8be540bbee2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.48
+      value: -23.1
       objectReference: {fileID: 0}
     - target: {fileID: 3377985459186236470, guid: 84ed74086b2da4549bbac8be540bbee2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -852,6 +852,10 @@ PrefabInstance:
       propertyPath: CameraController
       value: 
       objectReference: {fileID: 4391477189856065471}
+    - target: {fileID: 6232709163356067832, guid: 23dad03aa3c767c44b629b0f312b4071, type: 3}
+      propertyPath: attackDamage
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23dad03aa3c767c44b629b0f312b4071, type: 3}
 --- !u!4 &4716514911760291419 stripped
