@@ -50,7 +50,7 @@ public class Homing : MonoBehaviour
             PlayerRPG player = collision.GetComponent<PlayerRPG>();
             player.TakeDamage(damage);
         }
-        else if (collision.gameObject.layer == 10) 
+        else if (collision.tag == "Test") 
         {
             capsuleCollider.enabled = false;
             main.SetActive(false);
