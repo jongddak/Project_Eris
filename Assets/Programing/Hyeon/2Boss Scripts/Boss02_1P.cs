@@ -38,7 +38,10 @@ public class Boss02_1P : MonoBehaviour
     [SerializeField] Transform bosswarp02;
     // 맵에서 3 좌표
     [SerializeField] Transform bosswarp03;
-    
+
+    [SerializeField] AudioSource audioSource;
+
+    [SerializeField] AudioClip[] bosssound;
     // 보스 스탯
     // 보스 HP
     [SerializeField] float bossHP = 100;
@@ -158,15 +161,28 @@ public class Boss02_1P : MonoBehaviour
         bosscount += 1;
         Debug.Log("베어가르기!");
         // 베는 애니메이션
+        
         bossAnimator.Play("boss1_attack2");
         yield return new WaitForSeconds(2f);
         // 이펙트 프리펩 생성
         GameObject swordSopn01 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation);
-        yield return new WaitForSeconds(0.4f);
+        audioSource.PlayOneShot(bosssound[1]);
+        yield return new WaitForSeconds(0.5f);
         GameObject swordSopn02 = Instantiate(bash, swordAuraPoint.position, swordAuraPoint.rotation * Quaternion.Euler(0, 0, 90));
         yield return new WaitForSeconds(1.5f);
         bossAnimator.Play("boss2 idle");
     }
+    /*
+    private IEnumerator BashSound()
+    {
+        yield return new WaitForSeconds(2f);
+        // 이펙트 프리펩 생성        
+        for (int i = 0; i < 5; i++)
+        {
+            audioSource.PlayOneShot(bosssound[1]);
+            yield return new WaitForSeconds(0.4f);
+        }
+    }*/
     private IEnumerator FootWork()
     {
         // 발도
@@ -188,7 +204,8 @@ public class Boss02_1P : MonoBehaviour
                 // 보스가 bosswarp01에 있고 플레이어가 1,2 사이에 있을 때 bosswarp02로 이동
                 Debug.Log("011");
                 transform.position = bosswarp02.position;
-                yield return new WaitForSeconds(0.7f);
+                audioSource.PlayOneShot(bosssound[0]);
+                yield return new WaitForSeconds(0.7f);               
                 Instantiate(footWarkPre01, (bosswarp01.position + bosswarp02.position) / 2, Quaternion.identity);
             }
             else if (player.transform.position.x > bosswarp02.position.x && player.transform.position.x < bosswarp03.position.x)
@@ -196,7 +213,8 @@ public class Boss02_1P : MonoBehaviour
                 Debug.Log("012");
                 // 보스가 bosswarp01에 있고 플레이어가 2,3 사이에 있을 때 bosswarp03으로 이동
                 transform.position = bosswarp03.position;
-                yield return new WaitForSeconds(0.7f);
+                audioSource.PlayOneShot(bosssound[0]);
+                yield return new WaitForSeconds(0.7f);               
                 Instantiate(footWarkPre02, bosswarp02.position, Quaternion.identity);
             }
         }
@@ -207,7 +225,8 @@ public class Boss02_1P : MonoBehaviour
                 Debug.Log("021");
                 // 보스가 bosswarp02에 있고 플레이어가 1,2 사이에 있을 때 bosswarp01로 이동
                 transform.position = bosswarp01.position;
-                yield return new WaitForSeconds(0.7f);
+                audioSource.PlayOneShot(bosssound[0]);
+                yield return new WaitForSeconds(0.7f);                
                 Instantiate(footWarkPre01, (bosswarp01.position + bosswarp02.position) / 2, Quaternion.identity);
             }
             else if (player.transform.position.x > bosswarp02.position.x && player.transform.position.x < bosswarp03.position.x)
@@ -215,7 +234,8 @@ public class Boss02_1P : MonoBehaviour
                 Debug.Log("022");
                 // 보스가 bosswarp02에 있고 플레이어가 2,3 사이에 있을 때 bosswarp03으로 이동
                 transform.position = bosswarp03.position;
-                yield return new WaitForSeconds(0.7f);
+                audioSource.PlayOneShot(bosssound[0]);
+                yield return new WaitForSeconds(0.7f);            
                 Instantiate(footWarkPre01, (bosswarp02.position + bosswarp03.position) / 2, Quaternion.identity);
             }
         }
@@ -226,7 +246,8 @@ public class Boss02_1P : MonoBehaviour
                 Debug.Log("031");
                 // 보스가 bosswarp03에 있고 플레이어가 2,3 사이에 있을 때 bosswarp02로 이동
                 transform.position = bosswarp02.position;
-                yield return new WaitForSeconds(0.7f);
+                audioSource.PlayOneShot(bosssound[0]);
+                yield return new WaitForSeconds(0.7f);                
                 Instantiate(footWarkPre01, (bosswarp02.position + bosswarp03.position) / 2, Quaternion.identity);
             }
             else if (player.transform.position.x > bosswarp01.position.x && player.transform.position.x < bosswarp02.position.x)
@@ -234,7 +255,8 @@ public class Boss02_1P : MonoBehaviour
                 Debug.Log("032");
                 // 보스가 bosswarp03에 있고 플레이어가 1,2 사이에 있을 때 bosswarp01로 이동
                 transform.position = bosswarp01.position;
-                yield return new WaitForSeconds(0.7f);
+                audioSource.PlayOneShot(bosssound[0]);
+                yield return new WaitForSeconds(0.7f);                
                 Instantiate(footWarkPre02, bosswarp02.position, Quaternion.identity);
             }
         }
