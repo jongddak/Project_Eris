@@ -141,6 +141,10 @@ PrefabInstance:
       propertyPath: patternTerm
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3069015896670345529, guid: b9768ec8db4e32a4aab2aee06203106b, type: 3}
+      propertyPath: m_Name
+      value: Boss3_1
+      objectReference: {fileID: 0}
     - target: {fileID: 6503398857514103669, guid: b9768ec8db4e32a4aab2aee06203106b, type: 3}
       propertyPath: m_Name
       value: Phase1

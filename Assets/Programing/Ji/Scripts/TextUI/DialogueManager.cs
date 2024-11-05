@@ -97,7 +97,8 @@ public class DialogueManager : MonoBehaviour
                     }
                     else // 이벤트가 끝났다면
                     {
-                        Debug.Log("씬전환"); // 추후 씬 전환하는 명령어로 변경하여 사용할 것
+                        GameManager.Instance.LoadSceneByName("Boss1SPhase1");
+                        //Debug.Log("씬전환"); // 추후 씬 전환하는 명령어로 변경하여 사용할 것
                     }
                 }
                 StopCoroutine(ShowTextTyping());
