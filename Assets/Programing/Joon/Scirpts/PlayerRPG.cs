@@ -7,6 +7,7 @@ public class PlayerRPG : MonoBehaviour
 {
     [Header("PlayerStat")]
     [SerializeField] public float attackDamage;
+    [SerializeField] public float dronDamage;
     [SerializeField] public float curHp;
     [SerializeField] public float maxHp;
 
