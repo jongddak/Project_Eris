@@ -11,6 +11,7 @@ public class PlayerSoundController : MonoBehaviour
     [SerializeField] AudioClip attack3Clip;
     [SerializeField] AudioClip dashClip;
     [SerializeField] AudioClip dieClip;
+    [SerializeField] AudioClip defeatClip;
 
     [SerializeField] AudioSource runAudioSource;
 
@@ -70,6 +71,11 @@ public class PlayerSoundController : MonoBehaviour
     public void PlayDieSound()
     {
         PlaySound(dieClip);
+    }
+
+    public void PlayDefeatSound()
+    {
+        PlaySound(defeatClip);
     }
 
 
