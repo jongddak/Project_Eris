@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 8449632465056156665}
   - component: {fileID: 3583189060788841514}
   - component: {fileID: 7729412643888696611}
-  m_Layer: 0
+  - component: {fileID: -8265489386416456987}
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,6 +178,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-8265489386416456987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3213985206281479030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f08da11ef1069c444ba37e7fc8cd643b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagetoPl: 1
 --- !u!1001 &3213985205271190001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -243,6 +257,10 @@ PrefabInstance:
     - target: {fileID: 5319944086385786390, guid: b01d8eb0f9bf117468f0fac35f121500, type: 3}
       propertyPath: m_Name
       value: BlueFireBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319944086385786390, guid: b01d8eb0f9bf117468f0fac35f121500, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5319944086385786390, guid: b01d8eb0f9bf117468f0fac35f121500, type: 3}
       propertyPath: m_IsActive
