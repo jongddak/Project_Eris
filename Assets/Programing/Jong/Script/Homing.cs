@@ -38,17 +38,26 @@ public class Homing : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player") 
-        {   
-            capsuleCollider.enabled = false;    
+        if (collision.tag == "Player")
+        {
+            capsuleCollider.enabled = false;
             main.SetActive(false);
             exEffect.SetActive(true);
             audioSource.clip = audioClips[0];
             audioSource.Play();
             Destroy(gameObject, 0.4f);
-           
+
             PlayerRPG player = collision.GetComponent<PlayerRPG>();
             player.TakeDamage(damage);
+        }
+        else if (collision.gameObject.layer == 10) 
+        {
+            capsuleCollider.enabled = false;
+            main.SetActive(false);
+            exEffect.SetActive(true);
+            audioSource.clip = audioClips[0];
+            audioSource.Play();
+            Destroy(gameObject, 0.4f);
         }
     }
 }
