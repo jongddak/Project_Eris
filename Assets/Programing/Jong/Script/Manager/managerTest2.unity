@@ -177,8 +177,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Square
       objectReference: {fileID: 0}
+    - target: {fileID: 2394714958292565006, guid: 72e1fcb5221f217418aec252728c9d88, type: 3}
+      propertyPath: m_Constraints
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72e1fcb5221f217418aec252728c9d88, type: 3}
+--- !u!1 &512023901 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2394714958292565002, guid: 72e1fcb5221f217418aec252728c9d88, type: 3}
+  m_PrefabInstance: {fileID: 512023900}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &512023902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512023901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d764820e7163e438f5ed7d7b043bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1085952665
 GameObject:
   m_ObjectHideFlags: 0

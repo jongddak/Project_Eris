@@ -13,6 +13,7 @@ public class Damage : MonoBehaviour
             PlayerRPG player = collision.GetComponent<PlayerRPG>();
             player.TakeDamage(damagetoPl);
             
+            
         }
     }
 }

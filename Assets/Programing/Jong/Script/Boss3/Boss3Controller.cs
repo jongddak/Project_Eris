@@ -15,6 +15,7 @@ public class Boss3Controller : MonoBehaviour
 
 
     public UnityEvent bulletShooting;
+    public UnityEvent movePlatform;
 
 
     // 발사용 프리팹
@@ -76,6 +77,7 @@ public class Boss3Controller : MonoBehaviour
                         break;
                     case 1:
                         Debug.Log("발판 이동");
+                        movePlatform?.Invoke();
                         break;
                     case 2:
                         Debug.Log("미사일");
