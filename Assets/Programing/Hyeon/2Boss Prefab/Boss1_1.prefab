@@ -1324,7 +1324,7 @@ GameObject:
   - component: {fileID: 4165501913496749549}
   - component: {fileID: 6102832660533862151}
   m_Layer: 3
-  m_Name: boss2
+  m_Name: Boss1_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1433,7 +1433,7 @@ MonoBehaviour:
   bosswarp01: {fileID: 0}
   bosswarp02: {fileID: 0}
   bosswarp03: {fileID: 0}
-  bossHP: 10
+  bossHP: 100
   attackRange: 20
   bossSpeed: 10
 --- !u!95 &6102832660533862151

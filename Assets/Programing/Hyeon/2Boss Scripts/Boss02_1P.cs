@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Boss02 : MonoBehaviour
+public class Boss02_1P : MonoBehaviour
 {
     enum BossState
     {
@@ -118,25 +119,11 @@ public class Boss02 : MonoBehaviour
         }
         else if (playerDirection > attackRange)
         {
-            if (bossNowHP <= bossHP / 2)
-            {
-                bossPatternNum = Random.Range(2, 4);
-            }
-            else
-            {
-                bossPatternNum = 2;
-            }          
+            bossPatternNum = 2;
         }
         if (bosscount == 3)
         {
-            if (bossNowHP <= bossHP / 2)
-            {
-                bossPatternNum = Random.Range(2, 4);
-            }
-            else
-            {
-                bossPatternNum = 2;
-            }
+            bossPatternNum = 2;
             bosscount = 0;
         }
 
@@ -159,10 +146,6 @@ public class Boss02 : MonoBehaviour
             case 2:
                 yield return StartCoroutine(FootWork());
                 Debug.Log("발도 패턴");
-                break;
-            case 3:
-                yield return StartCoroutine(SkySwordAura());
-                Debug.Log("공중 검기 날리기");
                 break;
         }
         skillStart = false;
@@ -315,6 +298,9 @@ public class Boss02 : MonoBehaviour
 
         // 오브젝트 삭제 처리
         Destroy(gameObject, 4f);
+        // 1보스 1페이즈 중간 대화 씬 불러오기
+        SceneManager.LoadScene("Boss1DPhase");
+        
     }
     private void Win()
     {
@@ -322,6 +308,9 @@ public class Boss02 : MonoBehaviour
 
         // 승리 애니메이션
         bossAnimator.Play("boss1 2 win");
+
+        // 로비 이동
+        //SceneManager.LoadScene("");
     }
     // 좌우반전
     private void Mirrored()

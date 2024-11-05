@@ -240,6 +240,7 @@ MonoBehaviour:
   slash: {fileID: 3509583253766115054, guid: d68316b093fcb3a4b9ac25b538430aaa, type: 3}
   attackRange: 60
   bossHP: 10
+  bossNowHP: 0
   bossSpeed: 6
 --- !u!95 &2378591719211341679
 Animator:
@@ -1801,7 +1802,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.701952}
+  m_Offset: {x: 0, y: -2.035307}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1812,7 +1813,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 28.599277}
+  m_Size: {x: 1, y: 33.82872}
   m_EdgeRadius: 0
 --- !u!1 &4831024216091285945
 GameObject:
@@ -2608,7 +2609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 483660025234811454}
   m_Layer: 3
-  m_Name: Boss1_2
+  m_Name: Boss2_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
