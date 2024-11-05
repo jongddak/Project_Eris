@@ -317,9 +317,6 @@ public class Boss02_1P : MonoBehaviour
         
         // 사망 애니메이션 
         bossAnimator.Play("boss2 die");
-
-        // 오브젝트 삭제 처리
-        Destroy(gameObject, 4f);
         // 1보스 1페이즈 중간 대화 씬 불러오기
         SceneManager.LoadScene("Boss1DPhase");
         

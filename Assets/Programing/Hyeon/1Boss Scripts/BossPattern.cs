@@ -238,11 +238,10 @@ public class BossPattern : MonoBehaviour
         // 사망 애니메이션 
         animator.Play("boss1 2 die");
         DataManager.Instance.data.isUnlock[1] = true;
-        DataManager.Instance.SaveGameData();       
-        // 오브젝트 삭제 처리
-        Destroy(gameObject, 2f);
+        DataManager.Instance.SaveGameData();
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("Boss2DEnd");
-        yield return new WaitForSeconds(4f);
+        
         // 스킬 언락
         // 2보스 사망 이야기 씬 이동 이동                  
     }
