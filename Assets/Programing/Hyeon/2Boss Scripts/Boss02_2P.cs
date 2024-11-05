@@ -310,11 +310,11 @@ public class Boss02_2P : MonoBehaviour
     private IEnumerator Die()
     {
         // hp 전부 소모 시 사망 애니메이션 송출 후 프리펩 소멸
-        
+        DataManager.Instance.LoadGameData();
         // 사망 애니메이션 
         bossAnimator.Play("boss2 die");
         DataManager.Instance.data.isUnlock[0] = true;
-       
+        DataManager.Instance.SaveGameData();
         // 오브젝트 삭제 처리
         Destroy(gameObject, 4f);
         yield return new WaitForSeconds(4f);

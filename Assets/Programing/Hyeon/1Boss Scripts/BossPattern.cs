@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -39,15 +40,22 @@ public class BossPattern : MonoBehaviour
     private bool skillStart = false;
     // 벽 충돌 판정
     private bool isWall = false;
+    // 사망 판정
+    private bool isDie = false;
+    // 달리기 판정
+    private bool isRun = false;
     // 스킬 이펙트 프리펩
 
+    [SerializeField] AudioSource audioSource;
+
+    [SerializeField] AudioClip[] bossSound;
 
     // 공격 사거리
     [SerializeField] float attackRange;
 
     // 보스 스탯
     // 보스 HP
-    public float bossHP = 200;
+    public float bossHP;
     public float bossNowHP;
     // 보스 스피드
     [SerializeField] float bossSpeed;
@@ -85,7 +93,10 @@ public class BossPattern : MonoBehaviour
                 // 패턴 중에는 다른 동작을 하지 않도록 함
                 break;
             case BossState.Die:
-                StartCoroutine(Die());
+                if (!isDie)
+                {
+                    StartCoroutine(Die());
+                }               
                 break;
             case BossState.win:
                 Win();
@@ -122,7 +133,15 @@ public class BossPattern : MonoBehaviour
     {
         // 달리기 애니메이션 재생
         animator.Play("boss1 2 walk");
-
+        // 
+        if(!isRun)
+        {
+            isRun = true;
+            audioSource.loop = true;
+            audioSource.clip = bossSound[5];
+            audioSource.Play();
+        }
+        
         Vector2 newPosition = new Vector2(
             Mathf.MoveTowards(transform.position.x, player.transform.position.x, bossSpeed * Time.deltaTime),
             transform.position.y
@@ -139,6 +158,9 @@ public class BossPattern : MonoBehaviour
         {
             if (skillStart == false)
             {
+                isRun = false;
+                audioSource.loop = false;
+                audioSource.Stop();
                 StartCoroutine(WaitSkill());
             }
         }                   
@@ -208,24 +230,27 @@ public class BossPattern : MonoBehaviour
         
     }
     private IEnumerator Die()
-    {
+    {       
+        isDie = true;
         // hp 전부 소모 시 사망 애니메이션 송출 후 프리펩 소멸
-
+        DataManager.Instance.LoadGameData();
+        audioSource.PlayOneShot(bossSound[4]);
         // 사망 애니메이션 
         animator.Play("boss1 2 die");
         DataManager.Instance.data.isUnlock[1] = true;
+        DataManager.Instance.SaveGameData();
         // 오브젝트 삭제 처리
         Destroy(gameObject, 4f);
         yield return new WaitForSeconds(4f);
         // 스킬 언락
         // 2보스 사망 이야기 씬 이동 이동 
-        SceneManager.LoadScene("Boss2DEnd");
+        SceneManager.LoadScene("Boss2DEnd");            
     }
 
     private void Win()
     {
         // 플레이어의 HP가 0이되었거나 상태가 DIE가 되었을때
-
+        audioSource.PlayOneShot(bossSound[6]);
         // 승리 애니메이션
         animator.Play("boss1 2 win");
     }
@@ -248,7 +273,6 @@ public class BossPattern : MonoBehaviour
         float currentDistance = 0f; // 현재 이동거리
         float tackleSpeed = 200f;  // 돌진 속도
 
-
         // while문으로 일정 거리를 돌진
         while (currentDistance < targetDistance && !isWall)
         {
@@ -260,7 +284,7 @@ public class BossPattern : MonoBehaviour
             yield return null;
         }
         bossRigid.velocity = Vector2.zero;
-
+        audioSource.PlayOneShot(bossSound[3]);
         yield return new WaitForSeconds(0.7f);
         // 돌진 collider 비활성화
         bossTacklePoint.SetActive(false);
@@ -274,10 +298,11 @@ public class BossPattern : MonoBehaviour
         
         // 점프하는 애니메이션
         animator.Play("boss1 2 JumpSlash");
+        audioSource.PlayOneShot(bossSound[2]);
         yield return new WaitForSeconds(0.5f);
         // 점프 동작 
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.7f);     
         bossRigid.gravityScale = 5;
         // 보스 팔쪽 콜라이더만 피격판정
         SlashEffect();
@@ -296,7 +321,9 @@ public class BossPattern : MonoBehaviour
         animator.Play("boss1 2 SponFireBall");
         FireBallFire();
         // 애니메이션 재생시간
-        yield return new WaitForSeconds(2.3f);
+        yield return new WaitForSeconds(1f);
+        audioSource.PlayOneShot(bossSound[0]);
+        yield return new WaitForSeconds(1.3f);
 
         // 화염구 프리펩 생성
         
@@ -317,13 +344,12 @@ public class BossPattern : MonoBehaviour
         bossRigid.AddForce(Vector2.up * bossJumpPower, ForceMode2D.Impulse);
         // 올라가고 차징하는 애니메이션
         animator.Play("boss1 2 FireBarrier");
+        audioSource.PlayOneShot(bossSound[1]);
         yield return new WaitForSeconds(0.7f);
         // 보스의 위치 고정
         bossRigid.velocity = Vector2.zero;
         bossRigid.bodyType = RigidbodyType2D.Kinematic;
-
-        // 애니메이션 및 올라가는 시간을 위한 대기시간
-             
+       
         // 보스의 주위에 화염 장벽 생성
         FireWallInstant();
 
