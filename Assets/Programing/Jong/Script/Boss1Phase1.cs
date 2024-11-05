@@ -326,12 +326,21 @@ public class Boss1Phase1 : MonoBehaviour
     }
     IEnumerator BodyTacle()
     {
+        bool dir = false;
+        if (player.transform.position.x < transform.position.x)
+        {
+            dir = true;
+        }
+        else
+        {
+            dir = false;
+        }
         isPatternOn = true;
         animator.Play("Atk2");
         RushCollider.SetActive(true);
         Debug.Log("돌진");
         yield return new WaitForSeconds(1f);
-        if (player.transform.position.x < transform.position.x) // 플레이어의 방향으로 날아감 
+        if (dir == true) // 플레이어의 방향으로 날아감 
         {
 
             audioSource.clip = audioClips[1];
@@ -360,6 +369,7 @@ public class Boss1Phase1 : MonoBehaviour
         isPatternOn = false;
         yield return new WaitForSeconds(0.3f);
     }
+
     IEnumerator FireBall()
     {
         isPatternOn = true;
