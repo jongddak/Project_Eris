@@ -20,7 +20,7 @@ public class PatternController : MonoBehaviour
     public BossState nowState; // 보스의 현재 상태  
 
     // 보스가 공격하는 패턴을 보스의 개별 스크립트에서 받아서 사용하도록 수정이 필요
-    public bool isAttackP; // 패턴 변경 공격 상태 여부
+    //public bool isAttackP; // 패턴 변경 공격 상태 여부
 
     GameObject[] lines; // 자식오브젝트들을 받아오는 배열 생성
 
@@ -73,6 +73,7 @@ public class PatternController : MonoBehaviour
     public void setNormalChoice()
     {
         int num = Random.Range(0, 4);
+        Debug.Log($"패턴변경 {num}");
         switch (num)
         {
             case 0:
@@ -88,7 +89,7 @@ public class PatternController : MonoBehaviour
                 lines[3].GetComponent<MoveLenPlatform>().isUpMove = !lines[3].GetComponent<MoveLenPlatform>().isUpMove;
                 break;
         }
-        isAttackP = false; // 공격 패턴의 종료를 선언
+        //isAttackP = false; // 공격 패턴의 종료를 선언
     }
 
     /// <summary>
@@ -136,7 +137,7 @@ public class PatternController : MonoBehaviour
                 lines[3].GetComponent<MoveLenPlatform>().isUpMove = !lines[3].GetComponent<MoveLenPlatform>().isUpMove;
                 break;
         }
-        isAttackP = false; // 공격패턴의 종료를 선언
+        //isAttackP = false; // 공격패턴의 종료를 선언
     }
 
 

@@ -8359,6 +8359,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -150
       objectReference: {fileID: 0}
+    - target: {fileID: 2250316612895951225, guid: 3f9e2ebcc0f7d604bb4121d32bae04c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2250316612895951226, guid: 3f9e2ebcc0f7d604bb4121d32bae04c5, type: 3}
       propertyPath: m_UsedByEffector
       value: 1
@@ -8470,10 +8474,10 @@ PlatformEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 512
-  m_RotationalOffset: 0
+  m_RotationalOffset: -90
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 0
+  m_SurfaceArc: 180
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -9181,6 +9185,10 @@ PrefabInstance:
       propertyPath: movePlatform.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6409776566092121964, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
+      propertyPath: m_Radius
+      value: 10.699306
+      objectReference: {fileID: 0}
     - target: {fileID: 7752921684086577990, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
       propertyPath: m_Name
       value: Boss3_1
@@ -9192,6 +9200,14 @@ PrefabInstance:
     - target: {fileID: 7752921684086577990, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
       propertyPath: m_TagString
       value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752921684086577991, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
+      propertyPath: m_SortingLayer
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752921684086577991, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1924457267
       objectReference: {fileID: 0}
     - target: {fileID: 7752921684086578008, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
       propertyPath: m_RootOrder
@@ -9340,6 +9356,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!50 &5088353292093911425
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994631975455187105}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!4 &994631975455187135 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7752921684086578008, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
