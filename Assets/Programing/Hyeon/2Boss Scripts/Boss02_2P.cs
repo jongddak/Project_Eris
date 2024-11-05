@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,6 +31,8 @@ public class Boss02_2P : MonoBehaviour
     [SerializeField] GameObject SwordSlashPre;
     // 패턴 시작 판정 bool
     private bool skillStart = false;
+    // 사망 판정
+    private bool isDie = false;
     // SwordAura 검기 생성 좌표
     [SerializeField] Transform swordAuraPoint;
     // 맵에서 1 좌표
@@ -81,7 +84,10 @@ public class Boss02_2P : MonoBehaviour
                 // 패턴 중에는 다른 동작을 하지 않도록 함
                 break;
             case BossState.Die:
-                Die();
+                if (!isDie)
+                {
+                    StartCoroutine(Die());
+                }
                 break;
             case BossState.win:
                 Win();
@@ -309,6 +315,7 @@ public class Boss02_2P : MonoBehaviour
     }
     private IEnumerator Die()
     {
+        isDie = true;
         // hp 전부 소모 시 사망 애니메이션 송출 후 프리펩 소멸
         DataManager.Instance.LoadGameData();
         // 사망 애니메이션 
@@ -322,6 +329,7 @@ public class Boss02_2P : MonoBehaviour
         // 1보스 엔드 씬 불러오기
         SceneManager.LoadScene("Boss1DEnd");
     }
+
     private void Win()
     {
         // 플레이어의 HP가 0이되었거나 상태가 DIE가 되었을때
