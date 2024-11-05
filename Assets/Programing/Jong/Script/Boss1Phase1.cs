@@ -77,9 +77,10 @@ public class Boss1Phase1 : MonoBehaviour
     {
         if (bossHP <= 0) 
         {
+            StopCoroutine(BossDo());
             state = BossState.Die; 
             curBossState = state;
-            Die();
+            StartCoroutine(Died());
               // 사망 
         }
     }
@@ -465,7 +466,7 @@ public class Boss1Phase1 : MonoBehaviour
     // 2페이즈?
 
 
-    private void Die()  // 사망하면 2페이즈로 가게 
+    IEnumerator Died() 
     {
         audioSource.loop = false;
         // 사망 애니메이션  , 씬 전환 넣기 
@@ -473,8 +474,19 @@ public class Boss1Phase1 : MonoBehaviour
         audioSource.clip = audioClips[4];
         audioSource.Play();
         Destroy(gameObject, 2f);
+        yield return new WaitForSeconds(2f);
         GameManager.Instance.LoadSceneByName("Boss2DPhase");
     }
+    //private void Die()  // 사망하면 2페이즈로 가게 
+    //{
+    //    audioSource.loop = false;
+    //    // 사망 애니메이션  , 씬 전환 넣기 
+    //    animator.Play("Change");
+    //    audioSource.clip = audioClips[4];
+    //    audioSource.Play();
+    //    Destroy(gameObject, 2f);
+    //    GameManager.Instance.LoadSceneByName("Boss2DPhase");
+    //}
 
     public void TakeDamage(float damage) // 업데이트나 이벤트로 처리하면 될듯
     {
@@ -484,7 +496,7 @@ public class Boss1Phase1 : MonoBehaviour
         if (bossHP <= 0)
         {
             state = BossState.Die;
-            Die();
+            StartCoroutine(Died());
         }
     }
 

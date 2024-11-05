@@ -51,7 +51,7 @@ public class Boss3Controller : MonoBehaviour
         {
             Debug.Log("보스 사망");
             StopCoroutine("BossDo");
-            Die();
+            StartCoroutine(Died());
         }
     }
     IEnumerator BossDo() // 보스의 행동. 패턴 4개 중앙 총알발사 , 레이저발사 , 미사일 발사 , 발판 이동  
@@ -195,7 +195,7 @@ public class Boss3Controller : MonoBehaviour
         // 보스의 체력이 0 이하가 되면 상태를 Die로 변경
         if (bossHp <= 0)
         {
-            Die();
+            StartCoroutine(Died());
         }
     }
     private void Die() 
@@ -209,6 +209,23 @@ public class Boss3Controller : MonoBehaviour
         }
         else if (phasech == false) // 2페이즈 끝 
         {
+            DataManager.Instance.LoadGameData();
+            DataManager.Instance.data.isUnlock[2] = true;
+            DataManager.Instance.SaveGameData();
+            GameManager.Instance.LoadSceneByName("Boss2DEnd");
+        }
+    }
+    IEnumerator Died()
+    {
+        if (phasech == false)
+        {
+            //1페이즈 끝 
+            yield return new WaitForSeconds(2f);
+            GameManager.Instance.LoadSceneByName("Boss3DPhase");
+        }
+        else if (phasech == false) // 2페이즈 끝 
+        {
+            yield return new WaitForSeconds(2f);
             DataManager.Instance.LoadGameData();
             DataManager.Instance.data.isUnlock[2] = true;
             DataManager.Instance.SaveGameData();
