@@ -473,7 +473,7 @@ public class Boss1Phase1 : MonoBehaviour
         animator.Play("Change");
         audioSource.clip = audioClips[4];
         audioSource.Play();
-        Destroy(gameObject, 2f);
+        
         yield return new WaitForSeconds(2f);
         GameManager.Instance.LoadSceneByName("Boss2DPhase");
     }
