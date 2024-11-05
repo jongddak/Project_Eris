@@ -473,7 +473,7 @@ public class Boss1Phase1 : MonoBehaviour
         audioSource.clip = audioClips[4];
         audioSource.Play();
         Destroy(gameObject, 2f);
-        GameManager.Instance.LoadSceneByName("다음씬");
+        GameManager.Instance.LoadSceneByName("Boss2DPhase");
     }
 
     public void TakeDamage(float damage) // 업데이트나 이벤트로 처리하면 될듯

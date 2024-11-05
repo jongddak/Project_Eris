@@ -10,6 +10,9 @@ public class Homing : MonoBehaviour
     [SerializeField] GameObject main;
     [SerializeField] GameObject exEffect;
     [SerializeField] float damage;
+
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip[] audioClips;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -40,6 +43,8 @@ public class Homing : MonoBehaviour
             capsuleCollider.enabled = false;    
             main.SetActive(false);
             exEffect.SetActive(true);
+            audioSource.clip = audioClips[0];
+            audioSource.Play();
             Destroy(gameObject, 0.4f);
            
             PlayerRPG player = collision.GetComponent<PlayerRPG>();
