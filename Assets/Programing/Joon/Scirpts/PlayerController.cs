@@ -508,14 +508,14 @@ public class PlayerController : MonoBehaviour
 
         if (coll.onLeftWall)
         {
-            rb.velocity = new Vector2(60f, 30f);
+            rb.velocity = new Vector2(65f, 60f);
             //붙잡은 벽이 왼쪽벽일 때 벽점프시 기본방향인 오른쪽을 보도록
             GFX.transform.localScale = new Vector3(1, 1, 1);
         }
 
         else if (coll.onRightWall)
         {
-            rb.velocity = new Vector2(-60f, 30f);
+            rb.velocity = new Vector2(-65f, 60f);
             //붙잡은 벽이 오른쪽벽일 때 벽점프시 반대방향인 왼쪽을 보도록
             GFX.transform.localScale = new Vector3(-1, 1, 1);
         }
