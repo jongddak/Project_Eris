@@ -103,7 +103,7 @@ MonoBehaviour:
   player: {fileID: 0}
   fireBallSpeed: 80
   fireBallCollider: {fileID: 0}
-  fireBallDamage: 1
+  fireBallDamage: 30
 --- !u!58 &6370675487758921577
 CircleCollider2D:
   m_ObjectHideFlags: 0
