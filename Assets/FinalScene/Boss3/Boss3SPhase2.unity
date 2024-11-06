@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &314835398
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8851,7 +8851,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4882745102464187663, guid: d324045c6c5a996428139ce89e847e70, type: 3}
       propertyPath: size
-      value: 50
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 4882745102464187663, guid: d324045c6c5a996428139ce89e847e70, type: 3}
       propertyPath: point
@@ -8911,7 +8911,7 @@ PrefabInstance:
       objectReference: {fileID: 7375292769611929536}
     - target: {fileID: 4882745103480442319, guid: d324045c6c5a996428139ce89e847e70, type: 3}
       propertyPath: sameNum
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4882745103480442319, guid: d324045c6c5a996428139ce89e847e70, type: 3}
       propertyPath: shootTimer
@@ -9433,7 +9433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517c0d1cd364e0b45a2ef7706e27bf77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nowState: 0
+  nowState: 1
   moveSpeed: 10
   pCiling: {fileID: 1366595690212735637}
   pGround: {fileID: 1366595690212735636}
@@ -9622,9 +9622,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6409776566092121962, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
+      propertyPath: phasech
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409776566092121962, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
+      propertyPath: missileQty
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409776566092121962, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1758891660396616855}
+    - target: {fileID: 6409776566092121962, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
+      propertyPath: patternTerm
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6409776566092121962, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
       propertyPath: dealTimePlatform
       value: 
@@ -9743,7 +9755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7752921684086577990, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
       propertyPath: m_Name
-      value: Boss3_1
+      value: Boss3_2
       objectReference: {fileID: 0}
     - target: {fileID: 7752921684086577990, guid: ad6472cc8e8c02043b75e8e0346022b0, type: 3}
       propertyPath: m_Layer
