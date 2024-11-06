@@ -16,6 +16,7 @@ public class Homing : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        Destroy(gameObject, 30f);
     }
 
 
