@@ -261,8 +261,7 @@ public class BossPattern : MonoBehaviour
 
         // 돌진 시작 위치
         Vector2 startPosition = transform.position;
-        // 돌진 collider 활성화
-        bossTacklePoint.SetActive(true);
+        
         // 애니메이션 재생
         animator.Play("boss1 2 BodyTackle");
         
@@ -271,6 +270,9 @@ public class BossPattern : MonoBehaviour
         float targetDistance = 80f; // 보스가 이동할 거리
         float currentDistance = 0f; // 현재 이동거리
         float tackleSpeed = 200f;  // 돌진 속도
+
+        // 돌진 collider 활성화
+        bossTacklePoint.SetActive(true);
 
         // while문으로 일정 거리를 돌진
         while (currentDistance < targetDistance && !isWall)
