@@ -13,6 +13,7 @@ public class ShowList : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(isClicked);
         if (!isClicked)
         {
             EndShow();

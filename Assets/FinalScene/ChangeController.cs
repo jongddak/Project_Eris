@@ -44,7 +44,7 @@ public class ChangeController : MonoBehaviour
                         GameManager.Instance.LoadSceneByName("Boss3SPhase2");
                         break;
                     case "Phase2":
-                        GameManager.Instance.LoadSceneByName("Lobby");
+                        GameManager.Instance.LoadSceneByName("BossClear");
                         break;
                 }
                 break;
