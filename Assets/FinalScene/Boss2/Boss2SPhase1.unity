@@ -477,7 +477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1564638832
 RectTransform:
   m_ObjectHideFlags: 0
@@ -905,9 +905,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 919756567}
     - target: {fileID: 3778316672386052004, guid: 96f0497698a7b2c4bba6276d4c631544, type: 3}
+      propertyPath: poisionDamage
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3778316672386052004, guid: 96f0497698a7b2c4bba6276d4c631544, type: 3}
       propertyPath: playerCollision
       value: 
       objectReference: {fileID: 919756565}
+    - target: {fileID: 3778316672386052004, guid: 96f0497698a7b2c4bba6276d4c631544, type: 3}
+      propertyPath: poisionDebuffTime
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 3778316672387732382, guid: 96f0497698a7b2c4bba6276d4c631544, type: 3}
       propertyPath: playerCollision
       value: 
