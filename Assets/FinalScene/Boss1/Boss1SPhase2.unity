@@ -577,11 +577,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3377985459186236470, guid: 56403cabe3461f0468ed7f8643e20d0a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.66
+      value: 45.9
       objectReference: {fileID: 0}
     - target: {fileID: 3377985459186236470, guid: 56403cabe3461f0468ed7f8643e20d0a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.48
+      value: -24.4
       objectReference: {fileID: 0}
     - target: {fileID: 3377985459186236470, guid: 56403cabe3461f0468ed7f8643e20d0a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -614,6 +614,10 @@ PrefabInstance:
     - target: {fileID: 3377985459186236470, guid: 56403cabe3461f0468ed7f8643e20d0a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4039909085971949759, guid: 56403cabe3461f0468ed7f8643e20d0a, type: 3}
+      propertyPath: bossHP
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4039909085971949759, guid: 56403cabe3461f0468ed7f8643e20d0a, type: 3}
       propertyPath: bosswarp01

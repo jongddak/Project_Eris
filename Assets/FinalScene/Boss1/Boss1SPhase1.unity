@@ -744,6 +744,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4165501913496749549, guid: 84cbe04542e7f0741b2f012dc519d668, type: 3}
+      propertyPath: bossHP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165501913496749549, guid: 84cbe04542e7f0741b2f012dc519d668, type: 3}
       propertyPath: bosswarp01
       value: 
       objectReference: {fileID: 1549382702}
