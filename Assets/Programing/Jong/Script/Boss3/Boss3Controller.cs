@@ -201,7 +201,7 @@ public class Boss3Controller : MonoBehaviour
             //1其捞令 场 
             GameManager.Instance.LoadSceneByName("Boss3DPhase");
         }
-        else if (phasech == false) // 2其捞令 场 
+        else if (phasech == true) // 2其捞令 场 
         {
             DataManager.Instance.LoadGameData();
             DataManager.Instance.data.isUnlock[2] = true;
@@ -214,12 +214,12 @@ public class Boss3Controller : MonoBehaviour
         if (phasech == false)
         {
             //1其捞令 场 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
             GameManager.Instance.LoadSceneByName("Boss3DPhase");
         }
-        else if (phasech == false) // 2其捞令 场 
+        else if (phasech == true) // 2其捞令 场 
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
             DataManager.Instance.LoadGameData();
             DataManager.Instance.data.isUnlock[2] = true;
             DataManager.Instance.SaveGameData();

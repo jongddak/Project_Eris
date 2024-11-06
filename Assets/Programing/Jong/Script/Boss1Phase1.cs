@@ -283,29 +283,51 @@ public class Boss1Phase1 : MonoBehaviour
     }
     IEnumerator BackStep()
     {
-        isPatternOn = true;
-        animator.Play("BackStep");
-        Debug.Log("백스텝");
-        audioSource.clip = audioClips[9];
-        audioSource.Play();
-        yield return new WaitForSeconds(0.25f);
-        if (player.transform.position.x < transform.position.x) // 플레이어의 반대 방향으로 날아감 
+        int x = Random.Range(0, 2);
+        Debug.Log(x);
+        if (x == 0)
         {
+            isPatternOn = true;
+            animator.Play("BackStep");
+            Debug.Log("백스텝");
+            audioSource.clip = audioClips[9];
+            audioSource.Play();
+            yield return new WaitForSeconds(0.25f);
+            if (player.transform.position.x < transform.position.x) // 플레이어의 반대 방향으로 날아감 
+            {
 
-            bossRigidbody.AddForce(Vector2.right * 50f, ForceMode2D.Impulse);
+                bossRigidbody.AddForce(Vector2.right * 50f, ForceMode2D.Impulse);
+            }
+            else
+            {
+
+                bossRigidbody.AddForce(Vector2.left * 50f, ForceMode2D.Impulse);
+            }
+
+
+            yield return new WaitForSeconds(0.25f);
+
+            bossRigidbody.velocity = Vector2.zero; // 너무 안밀리게 속도 없앰 
+            isPatternOn = false;
+            yield return new WaitForSeconds(0.3f);
         }
-        else
+        else if (x == 1) 
         {
+            isPatternOn = true;
+            animator.Play("Atk1");
+            audioSource.clip = audioClips[0];
 
-            bossRigidbody.AddForce(Vector2.left * 50f, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(0.9f);
+            audioSource.Play();
+            slash.SetActive(true);
+            Debug.Log("베기");
+            yield return new WaitForSeconds(0.4f);
+            slash.SetActive(false);
+            yield return new WaitForSeconds(1f);
+
+            isPatternOn = false;
         }
-
-
-        yield return new WaitForSeconds(0.25f);
-
-        bossRigidbody.velocity = Vector2.zero; // 너무 안밀리게 속도 없앰 
-        isPatternOn = false;
-        yield return new WaitForSeconds(0.3f);
+       
     }
     IEnumerator Slash()
     {
