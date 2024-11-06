@@ -488,6 +488,7 @@ public class PlayerController : MonoBehaviour
         PlayerSoundController.PlayLandingSound();
         //그랩 시 플레이어의 속도를 빼서 위로 올라가는 현상 방지
         rb.velocity = Vector2.zero;
+        canDash = true;
     }
 
     private void UnGrab()
